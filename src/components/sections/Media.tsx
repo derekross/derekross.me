@@ -284,10 +284,7 @@ export function Media() {
             <div className="text-center mt-8">
               <Button
                 size="lg"
-                onClick={() => {
-                  const element = document.querySelector("#contact");
-                  if (element) element.scrollIntoView({ behavior: "smooth" });
-                }}
+                onClick={() => window.location.href = '/contact'}
               >
                 Invite Derek on Your Show
               </Button>

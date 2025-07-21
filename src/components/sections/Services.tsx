@@ -562,20 +562,14 @@ export function Services() {
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button
                 size="lg"
-                onClick={() => {
-                  const element = document.querySelector("#contact");
-                  if (element) element.scrollIntoView({ behavior: "smooth" });
-                }}
+                onClick={() => window.location.href = '/contact'}
               >
                 Get in Touch
               </Button>
               <Button
                 variant="outline"
                 size="lg"
-                onClick={() => {
-                  const element = document.querySelector("#events");
-                  if (element) element.scrollIntoView({ behavior: "smooth" });
-                }}
+                onClick={() => window.location.href = '/events'}
               >
                 View Speaking Events
               </Button>

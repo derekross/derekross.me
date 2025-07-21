@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Menu } from "lucide-react";
@@ -10,40 +10,21 @@ import { ZapButton } from "@/components/ZapButton";
 
 export function Navigation() {
   const [isOpen, setIsOpen] = useState(false);
-  const location = useLocation();
   const navigate = useNavigate();
 
   const navItems = [
-    { href: "#about", label: "About", route: "/" },
-    { href: "#why-nostr", label: "Why Nostr", route: "/" },
-    { href: "#guides", label: "Guides", route: "/" },
-    { href: "#services", label: "Services", route: "/" },
-    { href: "#events", label: "Events", route: "/" },
-    { href: "#media", label: "Media", route: "/" },
-    { href: "#contact", label: "Contact", route: "/" },
+    { href: "/about", label: "About", route: "/about" },
+    { href: "/whynostr", label: "Why Nostr", route: "/whynostr" },
+    { href: "/guides", label: "Guides", route: "/guides" },
+    { href: "/services", label: "Services", route: "/services" },
+    { href: "/events", label: "Events", route: "/events" },
+    { href: "/media", label: "Media", route: "/media" },
+    { href: "/contact", label: "Contact", route: "/contact" },
   ];
 
   const handleNavigation = (item: typeof navItems[0]) => {
-    if (item.href.startsWith('#')) {
-      // Section navigation
-      if (location.pathname !== '/') {
-        navigate('/');
-        setTimeout(() => {
-          const element = document.querySelector(item.href);
-          if (element) {
-            element.scrollIntoView({ behavior: "smooth" });
-          }
-        }, 100);
-      } else {
-        const element = document.querySelector(item.href);
-        if (element) {
-          element.scrollIntoView({ behavior: "smooth" });
-        }
-      }
-    } else {
-      // Route navigation
-      navigate(item.href);
-    }
+    // Route navigation
+    navigate(item.href);
     setIsOpen(false);
   };
 

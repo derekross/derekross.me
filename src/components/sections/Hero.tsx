@@ -3,11 +3,8 @@ import { ArrowDown, ExternalLink } from "lucide-react";
 import { DEREK_CONTACTS } from "@/lib/derek";
 
 export function Hero() {
-  const scrollToAbout = () => {
-    const element = document.querySelector("#about");
-    if (element) {
-      element.scrollIntoView({ behavior: "smooth" });
-    }
+  const goToAbout = () => {
+    window.location.href = '/about';
   };
 
   return (
@@ -37,7 +34,7 @@ export function Hero() {
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-12">
             <Button
               size="lg"
-              onClick={scrollToAbout}
+              onClick={goToAbout}
               className="bg-purple-600 hover:bg-purple-700 text-white px-8 py-3 text-lg"
             >
               Learn More About Derek
@@ -76,7 +73,7 @@ export function Hero() {
       {/* Scroll Indicator */}
       <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
         <button
-          onClick={scrollToAbout}
+          onClick={goToAbout}
           className="text-white/70 hover:text-white transition-colors"
         >
           <ArrowDown className="h-6 w-6" />

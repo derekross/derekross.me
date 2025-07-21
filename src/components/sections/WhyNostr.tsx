@@ -42,8 +42,8 @@ export function WhyNostr() {
         <div className="text-center mb-16">
           <h2 className="text-4xl font-bold mb-4">Why Nostr?</h2>
           <p className="text-xl text-muted-foreground max-w-4xl mx-auto leading-relaxed">
-            Nostr stands for Notes and Other Stuff Transmitted by Relays. Like HTTP or Email, nostr is a protocol; 
-            an open standard in which anyone can build and everyone is free to participate. Nostr is designed with 
+            Nostr stands for Notes and Other Stuff Transmitted by Relays. Like HTTP or Email, nostr is a protocol;
+            an open standard in which anyone can build and everyone is free to participate. Nostr is designed with
             simplicity, empowering developers to build decentralized and censorship resistant tools for users across the globe.
           </p>
         </div>
@@ -70,12 +70,9 @@ export function WhyNostr() {
         </div>
 
         <div className="text-center">
-          <Button 
-            size="lg" 
-            onClick={() => {
-              const element = document.querySelector("#guides");
-              if (element) element.scrollIntoView({ behavior: "smooth" });
-            }}
+          <Button
+            size="lg"
+            onClick={() => window.location.href = '/guides'}
           >
             Explore Nostr Guides
           </Button>

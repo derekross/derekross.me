@@ -265,11 +265,7 @@ export function Events() {
                     </p>
                     <Button
                       variant="outline"
-                      onClick={() => {
-                        const element = document.querySelector("#contact");
-                        if (element)
-                          element.scrollIntoView({ behavior: "smooth" });
-                      }}
+                      onClick={() => window.location.href = '/contact'}
                     >
                       Invite Derek to Speak
                     </Button>
@@ -346,10 +342,7 @@ export function Events() {
             <div className="text-center mt-8">
               <Button
                 size="lg"
-                onClick={() => {
-                  const element = document.querySelector("#contact");
-                  if (element) element.scrollIntoView({ behavior: "smooth" });
-                }}
+                onClick={() => window.location.href = '/contact'}
               >
                 Book Derek for Your Event
               </Button>

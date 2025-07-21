@@ -14,12 +14,12 @@ const BackgroundPage = () => {
   return (
     <div className="min-h-screen bg-background">
       <Navigation />
-      
+
       <main className="container mx-auto px-4 py-8">
         <div className="max-w-4xl mx-auto">
           {/* Back button */}
-          <Button 
-            variant="ghost" 
+          <Button
+            variant="ghost"
             onClick={() => window.history.back()}
             className="mb-6"
           >
@@ -50,13 +50,13 @@ const BackgroundPage = () => {
                   </div>
                 </div>
                 <p className="text-base leading-relaxed mb-4">
-                  Derek Ross is a trailblazer in online community building, leading the way in the decentralized digital age. 
-                  Driven by a passion for creating meaningful virtual connections, Derek is a known figure in using nostr to 
+                  Derek Ross is a trailblazer in online community building, leading the way in the decentralized digital age.
+                  Driven by a passion for creating meaningful virtual connections, Derek is a known figure in using nostr to
                   bring people together worldwide and grow nostr adoption.
                 </p>
                 <p className="text-base leading-relaxed">
-                  Derek's expertise in online community dynamics and his commitment to fostering spaces where voices are heard 
-                  and relationships thrive make him a crucial player in today's digital world. In a time when connections are 
+                  Derek's expertise in online community dynamics and his commitment to fostering spaces where voices are heard
+                  and relationships thrive make him a crucial player in today's digital world. In a time when connections are
                   more important than ever, Derek is a leading force in guiding us towards a more connected and decentralized future.
                 </p>
               </CardContent>
@@ -75,12 +75,12 @@ const BackgroundPage = () => {
                   </div>
                 </div>
                 <p className="text-base leading-relaxed mb-4">
-                  With over 20 years in Information Technology, Derek has seen and shaped the evolution of online communities. 
-                  Outside of speaking engagements, Derek continues to work in Information Technology, where he excels in 
+                  With over 20 years in Information Technology, Derek has seen and shaped the evolution of online communities.
+                  Outside of speaking engagements, Derek continues to work in Information Technology, where he excels in
                   systems administration, network engineering, and various other IT roles.
                 </p>
                 <p className="text-base leading-relaxed">
-                  For the last decade, he has managed ERP student information systems, bringing his deep technical expertise 
+                  For the last decade, he has managed ERP student information systems, bringing his deep technical expertise
                   to educational technology infrastructure.
                 </p>
               </CardContent>
@@ -99,13 +99,13 @@ const BackgroundPage = () => {
                   </div>
                 </div>
                 <p className="text-base leading-relaxed mb-4">
-                  Derek first made his mark with Google+ by building a thriving Android user community with over 4 million 
-                  members and 2 million followers on his personal profile. This experience taught him the power of authentic 
+                  Derek first made his mark with Google+ by building a thriving Android user community with over 4 million
+                  members and 2 million followers on his personal profile. This experience taught him the power of authentic
                   community engagement and the importance of fostering genuine connections.
                 </p>
                 <p className="text-base leading-relaxed">
-                  He then transitioned into online journalism, covering smartphone news and providing in-depth reviews for 
-                  Phandroid, one of the oldest Android news sites. This role allowed him to combine his technical expertise 
+                  He then transitioned into online journalism, covering smartphone news and providing in-depth reviews for
+                  Phandroid, one of the oldest Android news sites. This role allowed him to combine his technical expertise
                   with his passion for communication and community building.
                 </p>
               </CardContent>
@@ -124,12 +124,12 @@ const BackgroundPage = () => {
                   </div>
                 </div>
                 <p className="text-base leading-relaxed mb-4">
-                  As a sought-after speaker, Derek has shared his expertise with diverse audiences, from entrepreneurs, 
-                  to small and medium sized business owners, to established corporations, and to every day average 
+                  As a sought-after speaker, Derek has shared his expertise with diverse audiences, from entrepreneurs,
+                  to small and medium sized business owners, to established corporations, and to every day average
                   individuals looking to find their home on the Internet.
                 </p>
                 <p className="text-base leading-relaxed">
-                  His talks delve into the art of creating vibrant online ecosystems, emphasizing the pivotal role of 
+                  His talks delve into the art of creating vibrant online ecosystems, emphasizing the pivotal role of
                   authenticity and engagement in building lasting digital communities.
                 </p>
               </CardContent>
@@ -161,30 +161,16 @@ const BackgroundPage = () => {
               Learn more about Derek's work and join the conversation about decentralized communication
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button 
+              <Button
                 size="lg"
-                onClick={() => {
-                  const element = document.querySelector("#contact");
-                  if (element) {
-                    window.location.href = "/#contact";
-                  } else {
-                    window.location.href = "/";
-                  }
-                }}
+                onClick={() => window.location.href = '/contact'}
               >
                 Get in Touch
               </Button>
-              <Button 
+              <Button
                 variant="outline"
                 size="lg"
-                onClick={() => {
-                  const element = document.querySelector("#services");
-                  if (element) {
-                    window.location.href = "/#services";
-                  } else {
-                    window.location.href = "/";
-                  }
-                }}
+                onClick={() => window.location.href = '/services'}
               >
                 View Services
               </Button>

@@ -40,9 +40,9 @@ export function NostrGuides() {
       url: "https://nostrapps.com"
     },
     {
-      title: "Nostr.how",
-      description: "A comprehensive resource site dedicated to helping users get started with nostr, offering guides on setting up clients and understanding key concepts.",
-      url: "https://nostr.how"
+      title: "Grow Nostr",
+      description: "A comprehensive resource site with getting started guides, strategies, resources, and events to grow nostr adoption and help expand the ecosystem.",
+      url: "https://grownostr.org"
     }
   ];
 
@@ -52,7 +52,7 @@ export function NostrGuides() {
         <div className="text-center mb-16">
           <h2 className="text-4xl font-bold mb-4">Nostr Guides</h2>
           <p className="text-xl text-muted-foreground max-w-4xl mx-auto leading-relaxed">
-            Nostr is still a bit technical, as the technical layers and user experiences are being actively developed and built. 
+            Nostr is still a bit technical, as the technical layers and user experiences are being actively developed and built.
             Navigate the nostr ecosystem, learn all about nostr, watch presentations, slideshows, and find extensive how-to guides.
           </p>
         </div>
@@ -83,10 +83,10 @@ export function NostrGuides() {
                         <p className="text-muted-foreground text-sm mb-2 leading-relaxed">
                           {guide.description}
                         </p>
-                        <Button 
-                          variant="ghost" 
+                        <Button
+                          variant="ghost"
                           size="sm"
-                          onClick={() => window.location.href = `/guide/${guide.id}`}
+                          onClick={() => window.location.href = `/guides/${guide.id}`}
                           className="p-0 h-auto text-primary hover:text-primary/80"
                         >
                           Read Guide
@@ -114,8 +114,8 @@ export function NostrGuides() {
                   <p className="text-muted-foreground text-sm mb-4 leading-relaxed">
                     {resource.description}
                   </p>
-                  <Button 
-                    variant="outline" 
+                  <Button
+                    variant="outline"
                     size="sm"
                     onClick={() => window.open(resource.url, '_blank')}
                   >
@@ -128,15 +128,15 @@ export function NostrGuides() {
         </div>
 
         <div className="text-center">
-          <img 
-            src="/nostrich_1.jpg" 
-            alt="Nostrich - Nostr Mascot" 
+          <img
+            src="/nostrich_1.jpg"
+            alt="Nostrich - Nostr Mascot"
             className="w-32 h-32 rounded-full mx-auto mb-6 object-cover"
           />
           <p className="text-muted-foreground mb-6">
             Ready to dive deeper into the nostr ecosystem?
           </p>
-          <Button 
+          <Button
             size="lg"
             onClick={() => window.open('https://njump.me/derekross@nostrplebs.com', '_blank')}
           >

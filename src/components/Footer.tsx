@@ -34,17 +34,17 @@ export function Footer() {
       title: "About",
       links: [
         { name: "Background", href: "/background" },
-        { name: "Speaking Events", href: "#events" },
-        { name: "Media Appearances", href: "#media" },
-        { name: "Contact", href: "#contact" }
+        { name: "Speaking Events", href: "/events" },
+        { name: "Media Appearances", href: "/media" },
+        { name: "Contact", href: "/contact" }
       ]
     },
     {
       title: "Nostr",
       links: [
-        { name: "Why Nostr", href: "#why-nostr" },
-        { name: "Nostr Guides", href: "#guides" },
-        { name: "Services", href: "#services" },
+        { name: "Why Nostr", href: "/whynostr" },
+        { name: "Nostr Guides", href: "/guides" },
+        { name: "Services", href: "/services" },
         { name: "NostrApps.com", href: "https://nostrapps.com", external: true }
       ]
     },

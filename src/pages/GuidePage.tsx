@@ -49,13 +49,13 @@ export default function GuidePage() {
   return (
     <div className="min-h-screen bg-background">
       <Navigation />
-      
+
       <main className="container mx-auto px-4 py-8">
         <div className="max-w-4xl mx-auto">
           {/* Back button */}
-          <Button 
-            variant="ghost" 
-            onClick={() => window.location.href = '/#guides'}
+          <Button
+            variant="ghost"
+            onClick={() => window.location.href = '/guides'}
             className="mb-6"
           >
             <ArrowLeft className="h-4 w-4 mr-2" />
@@ -79,7 +79,7 @@ export default function GuidePage() {
             </div>
 
             <h1 className="text-4xl font-bold mb-4 leading-tight">{guide.title}</h1>
-            
+
             <p className="text-xl text-muted-foreground mb-6 leading-relaxed">
               {guide.description}
             </p>
@@ -118,9 +118,9 @@ export default function GuidePage() {
                   <li className="ml-4">{children}</li>
                 ),
                 a: ({ href, children }) => (
-                  <a 
-                    href={href} 
-                    target="_blank" 
+                  <a
+                    href={href}
+                    target="_blank"
                     rel="noopener noreferrer"
                     className="text-primary hover:text-primary/80 underline"
                   >
@@ -165,10 +165,10 @@ export default function GuidePage() {
                             <p className="text-muted-foreground text-sm leading-relaxed mb-4">
                               {relatedGuide.description}
                             </p>
-                            <Button 
-                              variant="outline" 
+                            <Button
+                              variant="outline"
                               size="sm"
-                              onClick={() => window.location.href = `/guide/${relatedGuide.id}`}
+                              onClick={() => window.location.href = `/guides/${relatedGuide.id}`}
                             >
                               Read Guide
                             </Button>
@@ -184,9 +184,9 @@ export default function GuidePage() {
 
           {/* Call to action */}
           <section className="border-t pt-8 mt-8 text-center">
-            <img 
-              src="/nostrich_1.jpg" 
-              alt="Nostrich - Nostr Mascot" 
+            <img
+              src="/nostrich_1.jpg"
+              alt="Nostrich - Nostr Mascot"
               className="w-24 h-24 rounded-full mx-auto mb-4 object-cover"
             />
             <h3 className="text-xl font-semibold mb-2">Found this guide helpful?</h3>
@@ -194,14 +194,14 @@ export default function GuidePage() {
               Support Derek's work by following him on Nostr and sharing these guides with others.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button 
+              <Button
                 onClick={() => window.open('https://njump.me/derekross@nostrplebs.com', '_blank')}
               >
                 Follow Derek on Nostr
               </Button>
-              <Button 
+              <Button
                 variant="outline"
-                onClick={() => window.location.href = '/#guides'}
+                onClick={() => window.location.href = '/guides'}
               >
                 Browse All Guides
               </Button>
