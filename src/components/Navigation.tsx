@@ -2,10 +2,11 @@ import { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import { Menu, Zap } from "lucide-react";
+import { Menu } from "lucide-react";
 import { LoginArea } from "@/components/auth/LoginArea";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import { DEREK_CONTACTS } from "@/lib/derek";
+import { ZapButton } from "@/components/ZapButton";
 
 export function Navigation() {
   const [isOpen, setIsOpen] = useState(false);
@@ -75,23 +76,15 @@ export function Navigation() {
           <div className="flex items-center space-x-4">
             <ThemeToggle />
             <LoginArea className="max-w-40" />
-            
+
             {/* Zap Button */}
-            <Button
-              variant="outline"
+            <ZapButton
+              recipient={DEREK_CONTACTS.lightning}
               size="sm"
-              className="hidden sm:flex items-center space-x-2 bg-gradient-to-r from-yellow-400 to-orange-500 text-white border-none hover:from-yellow-500 hover:to-orange-600"
-              onClick={() => {
-                // This will trigger the nostr-zap functionality
-                const zapButton = document.createElement('button');
-                zapButton.setAttribute('data-npub', DEREK_CONTACTS.npub);
-                zapButton.setAttribute('data-relays', DEREK_CONTACTS.relays.join(','));
-                zapButton.click();
-              }}
+              className="hidden sm:flex items-center space-x-2"
             >
-              <Zap className="h-4 w-4" />
-              <span>Zap Derek</span>
-            </Button>
+              Zap Derek
+            </ZapButton>
 
             {/* Mobile Menu */}
             <Sheet open={isOpen} onOpenChange={setIsOpen}>
@@ -112,20 +105,13 @@ export function Navigation() {
                     </button>
                   ))}
                   <div className="pt-4 border-t">
-                    <Button
-                      variant="outline"
-                      className="w-full bg-gradient-to-r from-yellow-400 to-orange-500 text-white border-none hover:from-yellow-500 hover:to-orange-600"
-                      onClick={() => {
-                        const zapButton = document.createElement('button');
-                        zapButton.setAttribute('data-npub', DEREK_CONTACTS.npub);
-                        zapButton.setAttribute('data-relays', DEREK_CONTACTS.relays.join(','));
-                        zapButton.click();
-                        setIsOpen(false);
-                      }}
+                    <ZapButton
+                      recipient={DEREK_CONTACTS.lightning}
+                      className="w-full"
+                      onZap={() => setIsOpen(false)}
                     >
-                      <Zap className="h-4 w-4 mr-2" />
                       Zap Derek ⚡️
-                    </Button>
+                    </ZapButton>
                   </div>
                 </div>
               </SheetContent>

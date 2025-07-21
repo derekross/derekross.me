@@ -8,6 +8,7 @@ import BackgroundPage from "./pages/BackgroundPage";
 // import EventsPage from "./pages/EventsPage";
 import MediaPage from "./pages/MediaPage";
 import ArticlePage from "./pages/ArticlePage";
+
 import NotFound from "./pages/NotFound";
 
 export function AppRouter() {
@@ -22,6 +23,7 @@ export function AppRouter() {
         {/* <Route path="/events" element={<EventsPage />} /> */}
         <Route path="/media" element={<MediaPage />} />
         <Route path="/article/:nip19" element={<ArticlePage />} />
+
         {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
         <Route path="*" element={<NotFound />} />
       </Routes>

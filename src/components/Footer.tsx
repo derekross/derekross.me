@@ -1,8 +1,9 @@
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
-import { ExternalLink, Zap, Heart } from "lucide-react";
+import { ExternalLink, Heart } from "lucide-react";
 import { DEREK_CONTACTS } from "@/lib/derek";
 import { useDerekApplications } from "@/hooks/useDerekApplications";
+import { ZapButton } from "@/components/ZapButton";
 
 export function Footer() {
   const currentYear = new Date().getFullYear();
@@ -20,7 +21,7 @@ export function Footer() {
   ];
 
   // Use applications if available, otherwise fall back to static projects
-  const projectLinks = recentApplications.length > 0 
+  const projectLinks = recentApplications.length > 0
     ? recentApplications.map(app => ({
         name: app.displayName || app.name,
         href: app.web || '#',
@@ -77,14 +78,15 @@ export function Footer() {
           <div className="md:col-span-1">
             <h3 className="text-xl font-bold mb-4">Derek Ross</h3>
             <p className="text-muted-foreground text-sm leading-relaxed mb-4">
-              Technical evangelist for nostr, passionate about decentralization, 
+              Technical evangelist for nostr, passionate about decentralization,
               censorship resistance, and empowering users through open protocols.
             </p>
             <div className="flex space-x-2">
-              <Button 
-                size="sm" 
-                variant="outline"
+              <Button
+                size="sm"
+                variant="default"
                 onClick={() => window.open(`https://njump.me/${DEREK_CONTACTS.nostrAddress}`, '_blank')}
+                className="bg-primary text-primary-foreground hover:bg-primary/90"
               >
                 Follow on Nostr
                 <ExternalLink className="ml-2 h-3 w-3" />
@@ -122,7 +124,7 @@ export function Footer() {
             <span>•</span>
             <button
               onClick={() => window.open(`https://njump.me/${DEREK_CONTACTS.nostrAddress}`, '_blank')}
-              className="hover:text-foreground transition-colors flex items-center"
+              className="text-foreground hover:text-primary transition-colors flex items-center font-medium"
             >
               Follow Derek on Nostr
               <ExternalLink className="ml-1 h-3 w-3" />
@@ -131,20 +133,12 @@ export function Footer() {
 
           <div className="flex items-center space-x-4">
             {/* Zap Button */}
-            <Button
-              variant="outline"
+            <ZapButton
+              recipient={DEREK_CONTACTS.lightning}
               size="sm"
-              className="bg-gradient-to-r from-yellow-400 to-orange-500 text-white border-none hover:from-yellow-500 hover:to-orange-600"
-              onClick={() => {
-                const zapButton = document.createElement('button');
-                zapButton.setAttribute('data-npub', DEREK_CONTACTS.npub);
-                zapButton.setAttribute('data-relays', DEREK_CONTACTS.relays.join(','));
-                zapButton.click();
-              }}
             >
-              <Zap className="h-4 w-4 mr-1" />
               Zap Derek ⚡️
-            </Button>
+            </ZapButton>
 
             {/* MKStack Credit */}
             <div className="text-xs text-muted-foreground flex items-center">

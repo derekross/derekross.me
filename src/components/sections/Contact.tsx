@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Mail, Zap, ExternalLink, MessageCircle, MapPin, Clock } from "lucide-react";
 import { DEREK_CONTACTS } from "@/lib/derek";
+import { ZapButton } from "@/components/ZapButton";
 
 export function Contact() {
   const contactMethods = [
@@ -27,13 +28,7 @@ export function Contact() {
       title: "Lightning Address",
       value: DEREK_CONTACTS.lightning,
       description: "Send Bitcoin tips via Lightning Network",
-      action: () => {
-        // This will trigger the nostr-zap functionality
-        const zapButton = document.createElement('button');
-        zapButton.setAttribute('data-npub', DEREK_CONTACTS.npub);
-        zapButton.setAttribute('data-relays', DEREK_CONTACTS.relays.join(','));
-        zapButton.click();
-      },
+      action: null, // Will be handled by ZapButton
       color: "bg-yellow-500"
     }
   ];
@@ -67,7 +62,7 @@ export function Contact() {
         <div className="text-center mb-16">
           <h2 className="text-4xl font-bold mb-4">Get in Touch</h2>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-            For inquiries regarding nostr speaking engagements, consulting services, or media appearances, 
+            For inquiries regarding nostr speaking engagements, consulting services, or media appearances,
             please do not hesitate to contact Derek Ross. Your interest is greatly appreciated. Pura vida.
           </p>
         </div>
@@ -76,8 +71,10 @@ export function Contact() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
           {contactMethods.map((method, index) => {
             const IconComponent = method.icon;
+            const isLightning = method.title === "Lightning Address";
+
             return (
-              <Card key={index} className="hover:shadow-lg transition-shadow cursor-pointer" onClick={method.action as () => void}>
+              <Card key={index} className="hover:shadow-lg transition-shadow">
                 <CardContent className="p-6 text-center">
                   <div className={`w-16 h-16 ${method.color} rounded-full flex items-center justify-center mx-auto mb-4`}>
                     <IconComponent className="h-8 w-8 text-white" />
@@ -85,9 +82,25 @@ export function Contact() {
                   <h3 className="text-lg font-semibold mb-2">{method.title}</h3>
                   <p className="text-primary font-mono text-sm mb-2">{method.value}</p>
                   <p className="text-muted-foreground text-sm mb-4">{method.description}</p>
-                  <Button variant="outline" size="sm" className="w-full">
-                    Contact <ExternalLink className="ml-2 h-4 w-4" />
-                  </Button>
+
+                  {isLightning ? (
+                    <ZapButton
+                      recipient={DEREK_CONTACTS.lightning}
+                      size="sm"
+                      className="w-full"
+                    >
+                      Send Zap ⚡
+                    </ZapButton>
+                  ) : (
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      className="w-full"
+                      onClick={method.action as () => void}
+                    >
+                      Contact <ExternalLink className="ml-2 h-4 w-4" />
+                    </Button>
+                  )}
                 </CardContent>
               </Card>
             );
@@ -158,16 +171,16 @@ export function Contact() {
                   <div className="text-muted-foreground">Let's build the future together</div>
                 </div>
                 <div className="space-y-3">
-                  <Button 
-                    size="lg" 
+                  <Button
+                    size="lg"
                     className="w-full md:w-auto"
                     onClick={() => window.open(`https://njump.me/${DEREK_CONTACTS.nostrAddress}`, '_blank')}
                   >
                     Message on Nostr
                   </Button>
-                  <Button 
-                    variant="outline" 
-                    size="lg" 
+                  <Button
+                    variant="outline"
+                    size="lg"
                     className="w-full md:w-auto"
                     onClick={() => window.location.href = `mailto:${DEREK_CONTACTS.email}`}
                   >

@@ -1,7 +1,7 @@
 {
-  "name": "mkstack",
+  "name": "derekross",
   "private": true,
-  "version": "0.0.0",
+  "version": "0.2.0",
   "type": "module",
   "scripts": {
     "dev": "npm i && vite",
@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@fontsource-variable/inter": "^5.2.6",
+    "@getalby/sdk": "^5.1.1",
     "@hookform/resolvers": "^3.9.0",
     "@nostrify/nostrify": "npm:@jsr/nostrify__nostrify@^0.46.1",
     "@nostrify/react": "npm:@jsr/nostrify__react@^0.2.5",
@@ -44,6 +45,7 @@
     "@tanstack/react-query": "^5.56.2",
     "@unhead/addons": "^2.0.10",
     "@unhead/react": "^2.0.10",
+    "bolt11": "^1.4.1",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "cmdk": "^1.0.0",
