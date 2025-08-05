@@ -6,6 +6,7 @@ import { ExternalLink, Calendar, BookOpen, Clock } from "lucide-react";
 import { useDerekArticles } from "@/hooks/useDerekArticles";
 import { useAuthor } from "@/hooks/useAuthor";
 import { NoteContent } from "@/components/NoteContent";
+import { MarkdownPreview } from "@/components/MarkdownPreview";
 import { DEREK_CONTACTS } from "@/lib/derek";
 import { nip19 } from 'nostr-tools';
 import { useNavigate } from 'react-router-dom';
@@ -20,6 +21,7 @@ function ArticleCard({ event }: { event: NostrEvent }) {
 
   const title = event.tags.find(([name]) => name === 'title')?.[1] || 'Untitled Article';
   const summary = event.tags.find(([name]) => name === 'summary')?.[1];
+  const heroImage = event.tags.find(([name]) => name === 'image')?.[1];
   const publishedAt = event.tags.find(([name]) => name === 'published_at')?.[1];
   const displayDate = publishedAt ? new Date(parseInt(publishedAt) * 1000) : new Date(event.created_at * 1000);
 
@@ -50,6 +52,20 @@ function ArticleCard({ event }: { event: NostrEvent }) {
 
   return (
     <Card className="hover:shadow-lg transition-shadow h-full">
+      {/* Hero Image */}
+      {heroImage && (
+        <div className="aspect-video w-full overflow-hidden rounded-t-lg">
+          <img 
+            src={heroImage} 
+            alt={title}
+            className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+            onError={(e) => {
+              // Hide image container if it fails to load
+              e.currentTarget.parentElement!.style.display = 'none';
+            }}
+          />
+        </div>
+      )}
       <CardHeader className="pb-3">
         <div className="flex items-start justify-between mb-3">
           <div className="flex items-center space-x-3">
@@ -96,7 +112,11 @@ function ArticleCard({ event }: { event: NostrEvent }) {
       <CardContent className="pt-0">
         <div className="text-sm leading-relaxed mb-4">
           <div className="line-clamp-3">
-            <NoteContent event={event} className="text-sm" />
+            {event.kind === 30023 ? (
+              <MarkdownPreview event={event} className="text-sm" maxLength={300} />
+            ) : (
+              <NoteContent event={event} className="text-sm" />
+            )}
           </div>
         </div>
         <Button 

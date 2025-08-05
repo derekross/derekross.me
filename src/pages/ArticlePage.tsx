@@ -9,6 +9,7 @@ import { Button } from '@/components/ui/button';
 import { Calendar, Clock, ArrowLeft, ExternalLink } from 'lucide-react';
 import { useAuthor } from '@/hooks/useAuthor';
 import { NoteContent } from '@/components/NoteContent';
+import { MarkdownContent } from '@/components/MarkdownContent';
 import { Navigation } from '@/components/Navigation';
 import { Footer } from '@/components/Footer';
 import type { NostrEvent } from '@nostrify/nostrify';
@@ -19,6 +20,7 @@ function ArticlePageContent({ event }: { event: NostrEvent }) {
 
   const title = event.tags.find(([name]) => name === 'title')?.[1] || 'Untitled Article';
   const summary = event.tags.find(([name]) => name === 'summary')?.[1];
+  const heroImage = event.tags.find(([name]) => name === 'image')?.[1];
   const publishedAt = event.tags.find(([name]) => name === 'published_at')?.[1];
   const displayDate = publishedAt ? new Date(parseInt(publishedAt) * 1000) : new Date(event.created_at * 1000);
 
@@ -49,6 +51,21 @@ function ArticlePageContent({ event }: { event: NostrEvent }) {
             <ArrowLeft className="h-4 w-4 mr-2" />
             Back
           </Button>
+
+          {/* Hero Image */}
+          {heroImage && (
+            <div className="mb-8 -mx-4 sm:mx-0">
+              <img 
+                src={heroImage} 
+                alt={title}
+                className="w-full h-64 sm:h-80 lg:h-96 object-cover rounded-none sm:rounded-lg shadow-lg"
+                onError={(e) => {
+                  // Hide image if it fails to load
+                  e.currentTarget.style.display = 'none';
+                }}
+              />
+            </div>
+          )}
 
           <article>
             {/* Article header */}
@@ -106,10 +123,14 @@ function ArticlePageContent({ event }: { event: NostrEvent }) {
             </header>
 
             {/* Article content */}
-            <div className="prose prose-lg max-w-none">
-              <div className="text-base leading-relaxed">
-                <NoteContent event={event} className="text-base" />
-              </div>
+            <div className="text-base leading-relaxed">
+              {event.kind === 30023 ? (
+                <MarkdownContent event={event} className="text-base" />
+              ) : (
+                <div className="prose prose-lg max-w-none dark:prose-invert">
+                  <NoteContent event={event} className="text-base" />
+                </div>
+              )}
             </div>
           </article>
         </div>
