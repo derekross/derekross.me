@@ -35,6 +35,15 @@ const BackgroundPage = () => {
             </p>
           </header>
 
+          {/* Hero Image */}
+          <div className="mb-12">
+            <img
+              src="/derek-bitcoin-2025.jpg"
+              alt="Derek Ross"
+              className="w-full max-w-4xl mx-auto rounded-lg shadow-lg object-cover h-64 md:h-96"
+            />
+          </div>
+
           {/* Main Content */}
           <div className="space-y-8">
             {/* Introduction */}

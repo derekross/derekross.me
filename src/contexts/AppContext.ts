@@ -7,6 +7,8 @@ export interface AppConfig {
   theme: Theme;
   /** Selected relay URL */
   relayUrl: string;
+  /** Whether to read from all available relays */
+  useAllRelays: boolean;
 }
 
 export interface AppContextType {

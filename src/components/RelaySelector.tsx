@@ -1,4 +1,4 @@
-import { Check, ChevronsUpDown, Wifi, Plus } from "lucide-react";
+import { Check, ChevronsUpDown, Wifi, Plus, Network } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import {
@@ -81,13 +81,19 @@ export function RelaySelector(props: RelaySelectorProps) {
           className={cn("justify-between", className)}
         >
           <div className="flex items-center gap-2">
-            <Wifi className="h-4 w-4" />
+            {config.useAllRelays ? (
+              <Network className="h-4 w-4" />
+            ) : (
+              <Wifi className="h-4 w-4" />
+            )}
             <span className="truncate">
-              {selectedOption 
-                ? selectedOption.name 
-                : selectedRelay 
-                  ? selectedRelay.replace(/^wss?:\/\//, '')
-                  : "Select relay..."
+              {config.useAllRelays 
+                ? "All Relays" 
+                : selectedOption 
+                  ? selectedOption.name 
+                  : selectedRelay 
+                    ? selectedRelay.replace(/^wss?:\/\//, '')
+                    : "Select relay..."
               }
             </span>
           </div>
@@ -122,6 +128,33 @@ export function RelaySelector(props: RelaySelectorProps) {
                 </div>
               )}
             </CommandEmpty>
+            <CommandGroup>
+              <CommandItem
+                onSelect={() => {
+                  updateConfig((current) => ({ ...current, useAllRelays: !current.useAllRelays }));
+                  setOpen(false);
+                  setInputValue("");
+                }}
+                className="cursor-pointer"
+              >
+                {config.useAllRelays ? (
+                  <Wifi className="mr-2 h-4 w-4" />
+                ) : (
+                  <Network className="mr-2 h-4 w-4" />
+                )}
+                <div className="flex flex-col">
+                  <span className="font-medium">
+                    {config.useAllRelays ? "Use Single Relay" : "Use All Relays"}
+                  </span>
+                  <span className="text-xs text-muted-foreground">
+                    {config.useAllRelays 
+                      ? "Switch to single relay mode" 
+                      : "Read from all available relays"
+                    }
+                  </span>
+                </div>
+              </CommandItem>
+            </CommandGroup>
             <CommandGroup>
               {presetRelays
                 .filter((option) => 

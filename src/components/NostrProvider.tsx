@@ -19,12 +19,14 @@ const NostrProvider: React.FC<NostrProviderProps> = (props) => {
 
   // Use refs so the pool always has the latest data
   const relayUrl = useRef<string>(config.relayUrl);
+  const useAllRelays = useRef<boolean>(config.useAllRelays);
 
   // Update refs when config changes
   useEffect(() => {
     relayUrl.current = config.relayUrl;
+    useAllRelays.current = config.useAllRelays;
     queryClient.resetQueries();
-  }, [config.relayUrl, queryClient]);
+  }, [config.relayUrl, config.useAllRelays, queryClient]);
 
   // Initialize NPool only once
   if (!pool.current) {
@@ -33,7 +35,23 @@ const NostrProvider: React.FC<NostrProviderProps> = (props) => {
         return new NRelay1(url);
       },
       reqRouter(filters) {
-        return new Map([[relayUrl.current, filters]]);
+        if (useAllRelays.current && presetRelays) {
+          // When useAllRelays is enabled, read from all preset relays
+          const relayMap = new Map<string, typeof filters>();
+          
+          // Add all preset relays
+          for (const relay of presetRelays) {
+            relayMap.set(relay.url, filters);
+          }
+          
+          // Ensure the currently selected relay is also included
+          relayMap.set(relayUrl.current, filters);
+          
+          return relayMap;
+        } else {
+          // Single relay mode - only use the selected relay
+          return new Map([[relayUrl.current, filters]]);
+        }
       },
       eventRouter(_event: NostrEvent) {
         // Publish to the selected relay

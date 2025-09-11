@@ -19,8 +19,8 @@ export function About() {
             <CardContent className="p-8">
               <div className="flex items-center mb-6">
                 <img
-                  src="/derek_1.jpg"
-                  alt="Derek Ross at Nostrica"
+                  src="/derek-bitcoin-2025.jpg"
+                  alt="Derek Ross"
                   className="w-20 h-20 rounded-full object-cover mr-4"
                 />
                 <div>

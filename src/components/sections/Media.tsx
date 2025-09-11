@@ -184,7 +184,7 @@ export function Media() {
 
         <div className="mb-8">
           <img
-            src="/derek_4.jpg"
+            src="/derek-bitcoin-2025.jpg"
             alt="Derek Ross in Media"
             className="w-full max-w-4xl mx-auto rounded-lg shadow-lg object-cover h-64 md:h-96"
           />
