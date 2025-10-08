@@ -129,7 +129,7 @@ export function Events() {
     <Card className="hover:shadow-lg transition-shadow">
       <CardHeader className="pb-3">
         <div className="flex items-start justify-between">
-          <div className="flex-1">
+          <div className="flex-1 min-w-0">
             <CardTitle className="text-lg mb-2 flex items-center">
               {event.name || event.title}
               {event.url && (
@@ -140,9 +140,9 @@ export function Events() {
               )}
             </CardTitle>
             {event.location && (
-              <div className="flex items-center text-muted-foreground text-sm mb-1">
-                <MapPin className="h-4 w-4 mr-1" />
-                {event.location}
+              <div className="flex items-center text-muted-foreground text-sm mb-1 min-w-0">
+                <MapPin className="h-4 w-4 mr-1 flex-shrink-0" />
+                <span className="truncate">{event.location}</span>
               </div>
             )}
             <div className="flex items-center text-muted-foreground text-sm">
@@ -176,7 +176,7 @@ export function Events() {
       </CardHeader>
       {isNostrEvent && event.description && (
         <CardContent className="pt-0">
-          <p className="text-muted-foreground text-sm leading-relaxed">
+          <p className="text-muted-foreground text-sm leading-relaxed line-clamp-6">
             {event.description}
           </p>
         </CardContent>
