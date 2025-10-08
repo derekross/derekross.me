@@ -89,9 +89,31 @@ export function Events() {
       url: "https://nostrvallye.com/",
       type: "Conference",
     },
+    {
+      name: "The BTCHEL Conference 2025",
+      location: "Helsinki, Finland",
+      date: "August 15-16, 2025",
+      url: "https://btchel.com/",
+      type: "Conference",
+    },
   ];
 
-  const upcomingEvents: typeof pastEvents = [];
+  const upcomingEvents: typeof pastEvents = [
+    {
+      name: "NOSTRVILLE 3.0 - GM and PV [LIVE MUSIC]",
+      location: "Bitcoin Park, 1910 21st Ave S, Nashville, TN",
+      date: "October 25, 2025 · 2:00 PM - 7:00 PM CDT",
+      url: "https://bitcoinpark.com/",
+      type: "Meetup",
+    },
+    {
+      name: "Nostrshire (Bitfest 2025)",
+      location: "Pendulum Hotel, UK",
+      date: "November 21, 2025 · 10:00 AM - 5:00 PM",
+      url: "https://bitfest.uk/",
+      type: "Conference",
+    },
+  ];
 
   const getEventTypeColor = (type: string) => {
     switch (type.toLowerCase()) {
