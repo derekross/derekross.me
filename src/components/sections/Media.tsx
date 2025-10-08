@@ -1,7 +1,7 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { ExternalLink, Play, Calendar, Mic } from "lucide-react";
+import { ExternalLink, Play, Calendar, Mic, FileText } from "lucide-react";
 
 export function Media() {
   const mediaAppearances = [
@@ -20,6 +20,14 @@ export function Media() {
       url: "https://fountain.fm/episode/AhKabAawTTPpz3BKT5nc",
       type: "Fountain",
       platform: "Podcast",
+    },
+    {
+      show: "Max DeMarco Documentary",
+      title: "Social Media is Broken. Can We Fix It?",
+      date: "March 20, 2023",
+      url: "https://www.youtube.com/watch?v=aA-jiiepOrE",
+      type: "YouTube",
+      platform: "Documentary",
     },
     {
       show: "The Jack Starling Podcast",
@@ -76,6 +84,14 @@ export function Media() {
       url: "https://www.youtube.com/watch?v=5MCehlYXGO0",
       type: "YouTube",
       platform: "Video",
+    },
+    {
+      show: "Thank God for Nostr",
+      title: "Derek Ross",
+      date: "February 20, 2024",
+      url: "https://fountain.fm/episode/M4VmCJJkr1OQXEZfF8ez",
+      type: "Fountain",
+      platform: "Podcast",
     },
     {
       show: "Ben Wehrman Podcast",
@@ -183,6 +199,14 @@ export function Media() {
       platform: "Conference Talk",
     },
     {
+      show: "Bitcoin Magazine",
+      title: "Are You Even A Bitcoiner If You're Not On Nostr?",
+      date: "August 19, 2025",
+      url: "https://bitcoinmagazine.com/conference/a-bitcoiner-must-be-on-nostr",
+      type: "Bitcoin Magazine",
+      platform: "Article",
+    },
+    {
       show: "Imagine If",
       title: "Open Communities in the Age of Control - Matt Odell, Derek Ross, & Shawn Yeager",
       date: "September 20, 2025",
@@ -198,7 +222,10 @@ export function Media() {
         return <Mic className="h-4 w-4" />;
       case "video":
       case "conference talk":
+      case "documentary":
         return <Play className="h-4 w-4" />;
+      case "article":
+        return <FileText className="h-4 w-4" />;
       default:
         return <Play className="h-4 w-4" />;
     }
@@ -212,6 +239,10 @@ export function Media() {
         return "bg-red-500";
       case "conference talk":
         return "bg-blue-500";
+      case "article":
+        return "bg-orange-500";
+      case "documentary":
+        return "bg-purple-500";
       default:
         return "bg-gray-500";
     }
@@ -223,6 +254,8 @@ export function Media() {
         return "border-red-200 text-red-700 bg-red-50 dark:border-red-800 dark:text-red-300 dark:bg-red-950";
       case "fountain":
         return "border-green-200 text-green-700 bg-green-50 dark:border-green-800 dark:text-green-300 dark:bg-green-950";
+      case "bitcoin magazine":
+        return "border-orange-200 text-orange-700 bg-orange-50 dark:border-orange-800 dark:text-orange-300 dark:bg-orange-950";
       default:
         return "border-gray-200 text-gray-700 bg-gray-50 dark:border-gray-800 dark:text-gray-300 dark:bg-gray-950";
     }
@@ -314,8 +347,14 @@ export function Media() {
                         className="w-full"
                         onClick={() => window.open(media.url, "_blank")}
                       >
-                        <Play className="h-4 w-4 mr-2" />
-                        Watch/Listen
+                        {getPlatformIcon(media.platform)}
+                        <span className="ml-2">
+                          {media.platform.toLowerCase() === "article"
+                            ? "Read Article"
+                            : media.platform.toLowerCase() === "documentary"
+                            ? "Watch Documentary"
+                            : "Watch/Listen"}
+                        </span>
                         <ExternalLink className="h-4 w-4 ml-2" />
                       </Button>
                     </CardContent>
