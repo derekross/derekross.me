@@ -54,6 +54,14 @@ export function Media() {
       platform: "Podcast",
     },
     {
+      show: "Plebchain Radio",
+      title: "Holiday Special - Year-End Review with Vanessa, Marce & Derek Ross",
+      date: "December 23, 2023",
+      url: "https://fountain.fm/episode/MLJhfRIbsjgAQe3HqkEa",
+      type: "Fountain",
+      platform: "Podcast",
+    },
+    {
       show: "Nostr Report",
       title: "#MarceFiles #BH2023 with Derek Ross",
       date: "October 2, 2023",
@@ -76,6 +84,14 @@ export function Media() {
       url: "https://www.youtube.com/watch?v=_jrkUXDReqI",
       type: "YouTube",
       platform: "Video",
+    },
+    {
+      show: "Plebchain Radio",
+      title: "Kieran & Derek Ross - What the Heck is Nostr Nests?",
+      date: "March 16, 2024",
+      url: "https://fountain.fm/episode/4oVejgn5JSWfEODpq0QY",
+      type: "Fountain",
+      platform: "Podcast",
     },
     {
       show: "BTC Prague",
@@ -115,6 +131,62 @@ export function Media() {
       title: "BMS 157: NOSTR Interview with Derek Ross",
       date: "August 31, 2024",
       url: "https://www.youtube.com/watch?v=Qw00zFa-Boo",
+      type: "YouTube",
+      platform: "Video",
+    },
+    {
+      show: "Bitcoin Infinity Show",
+      title: "Nostr Deep Dive with Derek Ross - Bitcoin Infinity Show 126",
+      date: "September 18, 2024",
+      url: "https://www.youtube.com/watch?v=aFvog4Vg1zk",
+      type: "YouTube",
+      platform: "Video",
+    },
+    {
+      show: "Plebchain Radio",
+      title: "PlebConf Comes to Nostr Valley with Derek Ross & Seth",
+      date: "September 28, 2024",
+      url: "https://fountain.fm/episode/LusXezoIZGFKLaDg7jbI",
+      type: "Fountain",
+      platform: "Podcast",
+    },
+    {
+      show: "Bitcoin Builders Conference",
+      title: "Nostr for Builders",
+      date: "October 3, 2024",
+      url: "https://www.youtube.com/watch?v=heEZSr8QLew",
+      type: "YouTube",
+      platform: "Conference Talk",
+    },
+    {
+      show: "Your Bitcoin Story",
+      title: "Building a Decentralized Future On Nostr",
+      date: "October 10, 2024",
+      url: "https://www.youtube.com/watch?v=qN65bgJOah8",
+      type: "YouTube",
+      platform: "Video",
+    },
+    {
+      show: "Plebchain Radio",
+      title: "Cirque Du NosVegas with Tanja, Derek Ross & Open Mike",
+      date: "May 3, 2025",
+      url: "https://fountain.fm/episode/K3lBNLnPuyqZEEEjPT8K",
+      type: "Fountain",
+      platform: "Podcast",
+    },
+    {
+      show: "Bitcoin Conference 2025",
+      title: "Decentralizing Social Media: Bitcoin, Nostr & Freedom Tech | Martti Malmi & Derek Ross",
+      date: "May 28, 2025",
+      url: "https://www.youtube.com/watch?v=WYIbTxlVS0Q",
+      type: "YouTube",
+      platform: "Conference Talk",
+    },
+    {
+      show: "Imagine If",
+      title: "Open Communities in the Age of Control - Matt Odell, Derek Ross, & Shawn Yeager",
+      date: "September 20, 2025",
+      url: "https://www.youtube.com/watch?v=kbMfJtEHHLQ",
       type: "YouTube",
       platform: "Video",
     },
@@ -253,6 +325,46 @@ export function Media() {
             </div>
           ))}
         </div>
+
+        {/* Soapbox Sessions Podcast */}
+        <Card className="mt-12 bg-gradient-to-r from-purple-500/10 to-pink-500/10 border-purple-200 dark:border-purple-800">
+          <CardContent className="p-8">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-center">
+              <div className="md:col-span-1">
+                <img
+                  src="https://r2a.primal.net/uploads2/a/1d/c3/a1dc3a85d1b6762e05f671388319116c51866e441c66ea3391bc4f3e0f9e3d96.jpg"
+                  alt="Soapbox Sessions Podcast"
+                  className="w-full rounded-lg shadow-lg"
+                />
+              </div>
+              <div className="md:col-span-2 space-y-4">
+                <div>
+                  <Badge className="bg-purple-500 text-white mb-3">
+                    <Mic className="h-3 w-3 mr-1" />
+                    Derek's Podcast
+                  </Badge>
+                  <h3 className="text-3xl font-bold mb-3">Soapbox Sessions</h3>
+                  <p className="text-muted-foreground text-lg">
+                    Soapbox Sessions is your weekly dose of all things Nostr + AI.
+                    It's our Soapbox about what's new, what's cool, and what's coming.
+                    We want to make it easy to understand and keep up with everything
+                    going on in the decentralized world of Nostr and AI as we work to
+                    rebuild the Internet.
+                  </p>
+                </div>
+                <Button
+                  size="lg"
+                  className="bg-purple-500 hover:bg-purple-600"
+                  onClick={() => window.open('https://fountain.fm/show/aq7IaS6bdQ6kF6NWDzzc', '_blank')}
+                >
+                  <Play className="h-4 w-4 mr-2" />
+                  Listen on Fountain
+                  <ExternalLink className="h-4 w-4 ml-2" />
+                </Button>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
 
         {/* Featured Topics */}
         <Card className="mt-12 bg-gradient-to-r from-green-500/10 to-blue-500/10 border-green-200 dark:border-green-800">
