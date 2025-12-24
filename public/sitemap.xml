@@ -3,78 +3,120 @@
   <!-- Main Pages -->
   <url>
     <loc>https://derekross.me/</loc>
-    <lastmod>2025-07-01</lastmod>
+    <lastmod>2025-12-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
-  
+
   <url>
-    <loc>https://derekross.me/background</loc>
-    <lastmod>2025-07-01</lastmod>
+    <loc>https://derekross.me/about</loc>
+    <lastmod>2025-12-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
-  
+
+  <url>
+    <loc>https://derekross.me/whynostr</loc>
+    <lastmod>2025-12-23</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://derekross.me/guides</loc>
+    <lastmod>2025-12-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <url>
+    <loc>https://derekross.me/services</loc>
+    <lastmod>2025-12-23</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://derekross.me/events</loc>
+    <lastmod>2025-12-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
   <url>
     <loc>https://derekross.me/media</loc>
-    <lastmod>2025-07-01</lastmod>
+    <lastmod>2025-12-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
-  
+
+  <url>
+    <loc>https://derekross.me/contact</loc>
+    <lastmod>2025-12-23</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://derekross.me/background</loc>
+    <lastmod>2025-12-23</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
   <!-- Guide Pages -->
   <url>
-    <loc>https://derekross.me/guide/what-are-zaps</loc>
-    <lastmod>2025-07-01</lastmod>
+    <loc>https://derekross.me/guides/what-are-zaps</loc>
+    <lastmod>2025-12-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
-  
+
   <url>
-    <loc>https://derekross.me/guide/how-do-i-use-nostr</loc>
-    <lastmod>2025-07-01</lastmod>
+    <loc>https://derekross.me/guides/how-do-i-use-nostr</loc>
+    <lastmod>2025-12-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
-  
+
   <url>
-    <loc>https://derekross.me/guide/what-are-relays</loc>
-    <lastmod>2025-07-01</lastmod>
+    <loc>https://derekross.me/guides/what-are-relays</loc>
+    <lastmod>2025-12-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
-  
+
   <url>
-    <loc>https://derekross.me/guide/what-is-a-nostr-address</loc>
-    <lastmod>2025-07-01</lastmod>
+    <loc>https://derekross.me/guides/what-is-a-nostr-address</loc>
+    <lastmod>2025-12-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
-  
+
   <url>
-    <loc>https://derekross.me/guide/what-is-zapvertising</loc>
-    <lastmod>2025-07-01</lastmod>
+    <loc>https://derekross.me/guides/what-is-zapvertising</loc>
+    <lastmod>2025-12-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
-  
+
   <url>
-    <loc>https://derekross.me/guide/what-are-zapathons</loc>
-    <lastmod>2025-07-01</lastmod>
+    <loc>https://derekross.me/guides/what-are-zapathons</loc>
+    <lastmod>2025-12-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
-  
+
   <url>
-    <loc>https://derekross.me/guide/what-is-the-outbox-model</loc>
-    <lastmod>2025-07-01</lastmod>
+    <loc>https://derekross.me/guides/what-is-the-outbox-model</loc>
+    <lastmod>2025-12-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
-  
+
   <url>
-    <loc>https://derekross.me/guide/nostr-101</loc>
-    <lastmod>2025-07-01</lastmod>
+    <loc>https://derekross.me/guides/nostr-101</loc>
+    <lastmod>2025-12-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
