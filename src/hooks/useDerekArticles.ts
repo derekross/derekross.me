@@ -35,8 +35,14 @@ export function useDerekArticles() {
                  searchText.includes('bitcoin');
         });
 
-        // Sort by created_at (newest first)
-        return nostrArticles.sort((a, b) => b.created_at - a.created_at);
+        // Sort by published_at tag if available, otherwise created_at (newest first)
+        return nostrArticles.sort((a, b) => {
+          const aPublished = a.tags.find(([name]) => name === 'published_at')?.[1];
+          const bPublished = b.tags.find(([name]) => name === 'published_at')?.[1];
+          const aTime = aPublished ? parseInt(aPublished) : a.created_at;
+          const bTime = bPublished ? parseInt(bPublished) : b.created_at;
+          return bTime - aTime;
+        });
       } catch (error) {
         console.warn('Failed to fetch Derek articles:', error);
         return [];

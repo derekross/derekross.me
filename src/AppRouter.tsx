@@ -12,6 +12,7 @@ import MediaPage from "./pages/MediaPage";
 import ContactPage from "./pages/ContactPage";
 import BackgroundPage from "./pages/BackgroundPage";
 import ArticlePage from "./pages/ArticlePage";
+import BlogPage from "./pages/BlogPage";
 
 import NotFound from "./pages/NotFound";
 
@@ -30,6 +31,7 @@ export function AppRouter() {
         <Route path="/media" element={<MediaPage />} />
         <Route path="/contact" element={<ContactPage />} />
         <Route path="/background" element={<BackgroundPage />} />
+        <Route path="/blog" element={<BlogPage />} />
         <Route path="/article/:nip19" element={<ArticlePage />} />
 
         {/* Legacy redirect for old guide URLs */}
