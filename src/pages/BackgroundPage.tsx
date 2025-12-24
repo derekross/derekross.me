@@ -40,7 +40,7 @@ const BackgroundPage = () => {
             <img
               src="/derek-bitcoin-2025.jpg"
               alt="Derek Ross"
-              className="w-full max-w-4xl mx-auto rounded-lg shadow-lg object-cover h-64 md:h-96"
+              className="w-full max-w-4xl mx-auto rounded-lg shadow-lg object-cover object-[center_calc(25%+15px)] h-64 md:h-96"
             />
           </div>
 

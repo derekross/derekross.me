@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -75,22 +76,19 @@ export function NostrGuides() {
                     {category.guides.map((guide, guideIndex) => (
                       <div key={guideIndex} className="border-l-2 border-muted pl-4">
                         <div className="flex items-start justify-between mb-2">
-                          <h4 className="font-semibold text-sm">{guide.title}</h4>
-                          <Badge variant="secondary" className="text-xs">
+                          <Link
+                            to={`/guides/${guide.id}`}
+                            className="font-semibold text-sm hover:text-primary transition-colors"
+                          >
+                            {guide.title}
+                          </Link>
+                          <Badge variant="secondary" className="text-xs ml-2 shrink-0">
                             {guide.type}
                           </Badge>
                         </div>
-                        <p className="text-muted-foreground text-sm mb-2 leading-relaxed">
+                        <p className="text-muted-foreground text-sm leading-relaxed">
                           {guide.description}
                         </p>
-                        <Button
-                          variant="ghost"
-                          size="sm"
-                          onClick={() => window.location.href = `/guides/${guide.id}`}
-                          className="p-0 h-auto text-primary hover:text-primary/80"
-                        >
-                          Read Guide
-                        </Button>
                       </div>
                     ))}
                   </div>

@@ -139,11 +139,11 @@ export function PhotoGallery() {
           <h3 className="text-2xl font-bold text-center mb-8">Conference Highlights</h3>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
             {[
-              { src: '/derek_1.jpg', alt: 'Derek at Nostrica', caption: 'Nostrica Conference' },
-              { src: '/derek_2.jpg', alt: 'Derek Speaking', caption: 'Speaking Engagement' },
+              { src: '/derek_1.jpg', alt: 'Derek at Nostrica', caption: 'Nostrica Conference', position: 'object-top' },
+              { src: '/derek-workshop.jpg', alt: 'Derek Speaking', caption: 'Speaking Engagement' },
               { src: '/derek_3.jpg', alt: 'Derek at Conference', caption: 'Conference Presentation' },
-              { src: '/derek_4.jpg', alt: 'Derek in Media', caption: 'Media Interview' },
-              { src: '/derek_5.jpg', alt: 'Derek Ross', caption: 'Nostr Advocacy' }
+              { src: '/derek_2.jpg', alt: 'Derek in Media', caption: 'Media Interview' },
+              { src: '/derek_5.jpg', alt: 'Derek Ross', caption: 'Nostr Advocacy', position: 'object-top' }
             ].map((image, index) => (
               <Dialog key={index}>
                 <DialogTrigger asChild>
@@ -152,7 +152,7 @@ export function PhotoGallery() {
                       <img
                         src={image.src}
                         alt={image.alt}
-                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                        className={`w-full h-full object-cover group-hover:scale-105 transition-transform duration-300 ${image.position || ''}`}
                         loading="lazy"
                       />
                     </div>
