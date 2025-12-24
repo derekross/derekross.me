@@ -83,14 +83,14 @@ export function Contact() {
             const isLightning = method.title === "Lightning Address";
 
             return (
-              <Card key={index} className="hover:shadow-lg transition-shadow">
-                <CardContent className="p-6 text-center">
+              <Card key={index} className="hover:shadow-lg transition-shadow h-full">
+                <CardContent className="p-6 text-center h-full flex flex-col">
                   <div className={`w-16 h-16 ${method.color} rounded-full flex items-center justify-center mx-auto mb-4`}>
                     <IconComponent className="h-8 w-8 text-white" />
                   </div>
                   <h3 className="text-lg font-semibold mb-2">{method.title}</h3>
                   <p className="text-primary font-mono text-sm mb-2">{method.value}</p>
-                  <p className="text-muted-foreground text-sm mb-4">{method.description}</p>
+                  <p className="text-muted-foreground text-sm mb-4 flex-grow">{method.description}</p>
 
                   {isLightning ? (
                     <ZapButton
@@ -98,7 +98,7 @@ export function Contact() {
                       size="sm"
                       className="w-full"
                     >
-                      Send Zap ⚡
+                      Send Zap
                     </ZapButton>
                   ) : (
                     <Button
