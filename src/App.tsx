@@ -37,10 +37,12 @@ const defaultConfig: AppConfig = {
 };
 
 const presetRelays = [
-  { url: 'wss://nostr-relay.derekross.me', name: 'Derek Ross' },
-  { url: 'wss://relay.ditto.pub', name: 'Ditto' },
-  { url: 'wss://relay.damus.io', name: 'Damus' },
   { url: 'wss://relay.primal.net', name: 'Primal' },
+  { url: 'wss://nostr-relay.derekross.me', name: 'Derek Ross' },
+  { url: 'wss://nos.lol', name: 'nos.lol' },
+  { url: 'wss://relay.ditto.pub', name: 'Ditto' },
+  { url: 'wss://nostr.wine', name: 'nostr.wine' },
+  { url: 'wss://relay.damus.io', name: 'Damus' },
 ];
 
 export function App() {

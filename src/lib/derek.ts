@@ -9,9 +9,11 @@ export const DEREK_CONTACTS = {
   email: 'contact@derekross.me',
   lightning: 'pay@derekross.me',
   relays: [
-    'wss://relay.damus.io',
-    'wss://relay.snort.social', 
+    'wss://relay.primal.net',
+    'wss://nostr-relay.derekross.me',
+    'wss://nos.lol',
+    'wss://relay.ditto.pub',
     'wss://nostr.wine',
-    'wss://relay.nostr.band'
+    'wss://relay.damus.io'
   ]
 };

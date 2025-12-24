@@ -138,7 +138,6 @@ These are open relays that anyone can read from and write to. Examples include:
 - relay.damus.io
 - relay.snort.social
 - nostr.wine
-- relay.nostr.band
 
 ### Private Relays
 These relays restrict who can write to them, but may allow anyone to read. This is useful for:

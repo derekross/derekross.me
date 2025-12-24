@@ -96,24 +96,23 @@ export function Events() {
       url: "https://btchel.com/",
       type: "Conference",
     },
-  ];
-
-  const upcomingEvents: typeof pastEvents = [
     {
-      name: "NOSTRVILLE 3.0 - GM and PV [LIVE MUSIC]",
-      location: "Bitcoin Park, 1910 21st Ave S, Nashville, TN",
-      date: "October 25, 2025 · 2:00 PM - 7:00 PM CDT",
+      name: "Nostrville 3.0",
+      location: "Bitcoin Park, Nashville, TN",
+      date: "October 25, 2025",
       url: "https://bitcoinpark.com/",
       type: "Meetup",
     },
     {
       name: "Nostrshire (Bitfest 2025)",
       location: "Pendulum Hotel, UK",
-      date: "November 21, 2025 · 10:00 AM - 5:00 PM",
+      date: "November 21, 2025",
       url: "https://bitfest.uk/",
       type: "Conference",
     },
   ];
+
+  const upcomingEvents: typeof pastEvents = [];
 
   const getEventTypeColor = (type: string) => {
     switch (type.toLowerCase()) {

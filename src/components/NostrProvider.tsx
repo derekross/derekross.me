@@ -57,11 +57,11 @@ const NostrProvider: React.FC<NostrProviderProps> = (props) => {
         // Publish to the selected relay
         const allRelays = new Set<string>([relayUrl.current]);
 
-        // Also publish to the preset relays, capped to 5
+        // Also publish to the preset relays, capped to 6
         for (const { url } of (presetRelays ?? [])) {
           allRelays.add(url);
 
-          if (allRelays.size >= 5) {
+          if (allRelays.size >= 6) {
             break;
           }
         }

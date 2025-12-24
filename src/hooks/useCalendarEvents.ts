@@ -3,6 +3,8 @@ import { useQuery } from '@tanstack/react-query';
 import type { NostrEvent } from '@nostrify/nostrify';
 import { DEREK_PUBKEY_HEX } from '@/lib/derek';
 
+// NostrEvent type is used for the validate and parse functions below
+
 interface CalendarEvent {
   id: string;
   title: string;
@@ -120,110 +122,46 @@ export function useCalendarEvents() {
   const { nostr } = useNostr();
 
   return useQuery({
-    queryKey: ['calendar-events-with-rsvps', DEREK_PUBKEY_HEX],
+    queryKey: ['calendar-events', DEREK_PUBKEY_HEX],
     queryFn: async (c) => {
-      const signal = AbortSignal.any([c.signal, AbortSignal.timeout(10000)]);
-      
+      const signal = AbortSignal.any([c.signal, AbortSignal.timeout(5000)]);
+
       try {
-        // Step 1: Query for Derek's RSVPs (kind 31925)
-        const rsvpEvents = await nostr.query([
+        // Query for Derek's calendar events (date-based and time-based)
+        const events = await nostr.query([
           {
-            kinds: [31925], // Calendar event RSVPs
-            authors: [DEREK_PUBKEY_HEX],
-            limit: 100
-          }
-        ], { signal });
-
-        // Step 2: Extract event coordinates from RSVPs where Derek accepted
-        const acceptedRsvps = rsvpEvents.filter(rsvp => {
-          const status = rsvp.tags.find(([name]) => name === 'status')?.[1];
-          return status === 'accepted';
-        });
-
-        const eventCoordinates = new Set<string>();
-        const rsvpMap = new Map<string, 'accepted' | 'declined' | 'tentative'>();
-
-        acceptedRsvps.forEach(rsvp => {
-          const aTag = rsvp.tags.find(([name]) => name === 'a')?.[1];
-          const status = rsvp.tags.find(([name]) => name === 'status')?.[1] as 'accepted' | 'declined' | 'tentative';
-          if (aTag) {
-            eventCoordinates.add(aTag);
-            rsvpMap.set(aTag, status);
-          }
-        });
-
-        // Step 3: Query for Derek's own calendar events
-        const ownEvents = await nostr.query([
-          {
-            kinds: [31922, 31923], // Date-based and time-based calendar events
+            kinds: [31922, 31923],
             authors: [DEREK_PUBKEY_HEX],
             limit: 50
           }
         ], { signal });
 
-        // Step 4: Query for calendar events Derek RSVPed to
-        const rsvpedEventQueries = Array.from(eventCoordinates).map(coord => {
-          const [kind, pubkey, identifier] = coord.split(':');
-          return {
-            kinds: [parseInt(kind)],
-            authors: [pubkey],
-            '#d': [identifier],
-            limit: 1
-          };
-        });
-
-        let rsvpedEvents: NostrEvent[] = [];
-        if (rsvpedEventQueries.length > 0) {
-          // Query in batches to avoid overwhelming relays
-          const batchSize = 10;
-          const allBatchEvents: NostrEvent[] = [];
-          for (let i = 0; i < rsvpedEventQueries.length; i += batchSize) {
-            const batch = rsvpedEventQueries.slice(i, i + batchSize);
-            const batchEvents = await nostr.query(batch, { signal });
-            allBatchEvents.push(...batchEvents);
-          }
-          rsvpedEvents = allBatchEvents;
-        }
-
-        // Step 5: Combine and process all events
-        const allEvents = [...ownEvents, ...rsvpedEvents];
-        const validEvents = allEvents.filter(validateCalendarEvent);
-        
-        // Remove duplicates (in case Derek both created and RSVPed to the same event)
-        const uniqueEvents = validEvents.filter((event, index, arr) => 
-          arr.findIndex(e => e.id === event.id) === index
-        );
-
-        // Parse events with RSVP status
-        const calendarEvents = uniqueEvents.map(event => {
-          const dTag = event.tags.find(([name]) => name === 'd')?.[1];
-          const coord = `${event.kind}:${event.pubkey}:${dTag}`;
-          const rsvpStatus = rsvpMap.get(coord);
-          return parseCalendarEvent(event, rsvpStatus);
-        });
+        // Validate and parse events
+        const validEvents = events.filter(validateCalendarEvent);
+        const calendarEvents = validEvents.map(event => parseCalendarEvent(event));
 
         // Sort by date (future events first, then past events)
         calendarEvents.sort((a, b) => {
           const dateA = new Date(a.date);
           const dateB = new Date(b.date);
-          
+
           // If one is past and one is future, future comes first
           if (a.isPast !== b.isPast) {
             return a.isPast ? 1 : -1;
           }
-          
+
           // If both are future, sort by date ascending (soonest first)
           if (!a.isPast && !b.isPast) {
             return dateA.getTime() - dateB.getTime();
           }
-          
+
           // If both are past, sort by date descending (most recent first)
           return dateB.getTime() - dateA.getTime();
         });
 
         return calendarEvents;
       } catch (error) {
-        console.warn('Failed to fetch calendar events and RSVPs:', error);
+        console.warn('Failed to fetch calendar events:', error);
         return [];
       }
     },
