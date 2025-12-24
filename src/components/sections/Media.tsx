@@ -214,6 +214,22 @@ export function Media() {
       type: "YouTube",
       platform: "Video",
     },
+    {
+      show: "Nostr Valley 2.0",
+      title: "Shakespeare: AI-Powered App Creation on Nostr",
+      date: "October 20, 2025",
+      url: "https://www.youtube.com/watch?v=W7ZtV7kxkx4",
+      type: "YouTube",
+      platform: "Conference Talk",
+    },
+    {
+      show: "All In Bitcoin With CK",
+      title: "021 The Internet Just Split In Two: Which Side Are You On?",
+      date: "November 26, 2025",
+      url: "https://www.youtube.com/watch?v=9rGjQfU7rNU",
+      type: "YouTube",
+      platform: "Video",
+    },
   ];
 
   const getPlatformIcon = (platform: string) => {
