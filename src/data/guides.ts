@@ -6,9 +6,75 @@ export interface Guide {
   category: 'general' | 'zaps' | 'relays' | 'advanced';
   content: string;
   lastUpdated?: string;
+  slides?: {
+    images: string[];
+    downloadUrl: string;
+  };
 }
 
 export const guides: Guide[] = [
+  {
+    id: 'ai-smb-shakespeare',
+    title: 'AI for Small to Medium Businesses',
+    description: 'A comprehensive presentation on leveraging AI for small to medium businesses, with a focus on vibe coding and building with Shakespeare - our AI tool for web development.',
+    type: 'Slidedeck',
+    category: 'advanced',
+    lastUpdated: 'January 2026',
+    slides: {
+      images: [
+        '/slides/ai-smb-shakespeare/slide-01.jpg',
+        '/slides/ai-smb-shakespeare/slide-02.jpg',
+        '/slides/ai-smb-shakespeare/slide-03.jpg',
+        '/slides/ai-smb-shakespeare/slide-04.jpg',
+        '/slides/ai-smb-shakespeare/slide-05.jpg',
+        '/slides/ai-smb-shakespeare/slide-06.jpg',
+        '/slides/ai-smb-shakespeare/slide-07.jpg',
+        '/slides/ai-smb-shakespeare/slide-08.jpg',
+        '/slides/ai-smb-shakespeare/slide-09.jpg',
+        '/slides/ai-smb-shakespeare/slide-10.jpg',
+        '/slides/ai-smb-shakespeare/slide-11.jpg',
+        '/slides/ai-smb-shakespeare/slide-12.jpg',
+        '/slides/ai-smb-shakespeare/slide-13.jpg',
+        '/slides/ai-smb-shakespeare/slide-14.jpg',
+        '/slides/ai-smb-shakespeare/slide-15.jpg',
+        '/slides/ai-smb-shakespeare/slide-16.jpg',
+        '/slides/ai-smb-shakespeare/slide-17.jpg',
+        '/slides/ai-smb-shakespeare/slide-18.jpg',
+        '/slides/ai-smb-shakespeare/slide-19.jpg',
+      ],
+      downloadUrl: '/slides/ai-smb-shakespeare/AI-for-SMB-with-Shakespeare.pdf',
+    },
+    content: `
+This presentation explores how small and medium businesses can leverage AI to transform their operations, with a special focus on vibe coding and Shakespeare - an AI-powered web development tool.
+
+## Key Topics Covered
+
+### AI for Business
+- Understanding how AI can benefit SMBs
+- Practical applications of AI in everyday business operations
+- Cost-effective AI solutions for smaller organizations
+
+### Vibe Coding
+- What is vibe coding and how it changes development
+- Natural language to code translation
+- Making development accessible to non-programmers
+
+### Shakespeare Platform
+- Introduction to Shakespeare as an AI development tool
+- Building web applications with AI assistance
+- Deploying to decentralized infrastructure
+- Integration with Nostr protocol
+
+## Who Should View This
+
+- Small business owners looking to leverage AI
+- Entrepreneurs interested in modern development approaches
+- Developers curious about AI-assisted coding
+- Anyone interested in the future of web development
+
+Browse through the slides below or download the full PDF presentation.
+    `
+  },
   {
     id: 'what-are-zaps',
     title: 'What are Zaps?',

@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react';
 import { useParams, Navigate } from 'react-router-dom';
 import { useSeoMeta } from '@unhead/react';
 import { Navigation } from '@/components/Navigation';
@@ -5,9 +6,17 @@ import { Footer } from '@/components/Footer';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent } from '@/components/ui/card';
-import { ArrowLeft, BookOpen, Zap, Radio, Cog, Clock, Calendar } from 'lucide-react';
+import { ArrowLeft, BookOpen, Zap, Radio, Cog, Clock, Calendar, Download } from 'lucide-react';
 import { getGuideById, getGuidesByCategory } from '@/data/guides';
 import ReactMarkdown from 'react-markdown';
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+  type CarouselApi,
+} from '@/components/ui/carousel';
 
 const categoryIcons = {
   general: BookOpen,
@@ -33,6 +42,21 @@ const categoryNames = {
 export default function GuidePage() {
   const { guideId } = useParams<{ guideId: string }>();
   const guide = guideId ? getGuideById(guideId) : undefined;
+  const [carouselApi, setCarouselApi] = useState<CarouselApi>();
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const [slideCount, setSlideCount] = useState(0);
+
+  // Update slide count and current slide when carousel changes
+  useEffect(() => {
+    if (!carouselApi) return;
+
+    setSlideCount(carouselApi.scrollSnapList().length);
+    setCurrentSlide(carouselApi.selectedScrollSnap() + 1);
+
+    carouselApi.on('select', () => {
+      setCurrentSlide(carouselApi.selectedScrollSnap() + 1);
+    });
+  }, [carouselApi]);
 
   useSeoMeta({
     title: guide ? `${guide.title} - Derek Ross` : 'Guide Not Found - Derek Ross',
@@ -97,6 +121,83 @@ export default function GuidePage() {
               )}
             </div>
           </header>
+
+          {/* Slideshow section for presentations */}
+          {guide.slides && (
+            <section className="mb-12">
+              {/* Download button */}
+              <div className="flex justify-end mb-4">
+                <Button asChild>
+                  <a href={guide.slides.downloadUrl} download>
+                    <Download className="h-4 w-4 mr-2" />
+                    Download PDF
+                  </a>
+                </Button>
+              </div>
+
+              {/* Carousel */}
+              <div className="relative px-12">
+                <Carousel
+                  setApi={setCarouselApi}
+                  className="w-full"
+                  opts={{
+                    align: 'start',
+                    loop: true,
+                    skipSnaps: false,
+                    duration: 20,
+                  }}
+                >
+                  <CarouselContent className="-ml-2 md:-ml-4">
+                    {guide.slides.images.map((image, index) => (
+                      <CarouselItem key={index} className="pl-2 md:pl-4">
+                        <Card className="overflow-hidden">
+                          <CardContent className="p-0">
+                            <img
+                              src={image}
+                              alt={`Slide ${index + 1}`}
+                              className="w-full h-auto object-contain"
+                              loading={index === 0 ? 'eager' : 'lazy'}
+                              decoding="async"
+                            />
+                          </CardContent>
+                        </Card>
+                      </CarouselItem>
+                    ))}
+                  </CarouselContent>
+                  <CarouselPrevious className="left-0" />
+                  <CarouselNext className="right-0" />
+                </Carousel>
+              </div>
+
+              {/* Slide counter */}
+              <div className="text-center mt-4 text-sm text-muted-foreground">
+                Slide {currentSlide} of {slideCount || guide.slides.images.length}
+              </div>
+
+              {/* Thumbnail grid */}
+              <div className="mt-6 grid grid-cols-5 sm:grid-cols-7 md:grid-cols-10 gap-2">
+                {guide.slides.images.map((image, index) => (
+                  <button
+                    key={index}
+                    onClick={() => carouselApi?.scrollTo(index)}
+                    className={`aspect-[16/9] overflow-hidden rounded border-2 transition-all ${
+                      currentSlide === index + 1
+                        ? 'border-primary ring-2 ring-primary/20'
+                        : 'border-transparent hover:border-muted-foreground/50'
+                    }`}
+                  >
+                    <img
+                      src={image}
+                      alt={`Thumbnail ${index + 1}`}
+                      className="w-full h-full object-cover"
+                      loading="lazy"
+                      decoding="async"
+                    />
+                  </button>
+                ))}
+              </div>
+            </section>
+          )}
 
           {/* Guide content */}
           <article className="prose prose-lg max-w-none mb-12 leading-relaxed">

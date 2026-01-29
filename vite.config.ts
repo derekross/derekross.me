@@ -28,6 +28,7 @@ export default defineConfig(() => ({
         "/background",
 
         // Guide pages
+        "/guides/ai-smb-shakespeare",
         "/guides/what-are-zaps",
         "/guides/how-do-i-use-nostr",
         "/guides/what-are-relays",
