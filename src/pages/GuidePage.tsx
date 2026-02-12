@@ -151,7 +151,6 @@ export default function GuidePage() {
                     align: 'start',
                     loop: true,
                     skipSnaps: false,
-                    duration: 20,
                   }}
                 >
                   <CarouselContent className="-ml-2 md:-ml-4">
