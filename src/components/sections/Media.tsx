@@ -2,8 +2,10 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { ExternalLink, Play, Calendar, Mic, FileText } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 export function Media() {
+  const navigate = useNavigate();
   const mediaAppearances = [
     {
       show: "Have Fun Stacking Sats",
@@ -295,11 +297,11 @@ export function Media() {
         <div className="text-center mb-16">
           <h2 className="text-4xl font-bold mb-4">Media & Podcasts</h2>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-            Browse Derek's media library featuring him discussing nostr,
+            Browse Derek's media library featuring him discussing AI, nostr,
             Bitcoin, and related topics. These include interviews and
-            discussions covering nostr education, adoption, building
-            communities, and the protocol's impact on the future of social
-            communication.
+            discussions covering AI, vibe coding, nostr education, adoption,
+            building communities, and the protocol's impact on the future of
+            social communication.
           </p>
         </div>
 
@@ -451,7 +453,7 @@ export function Media() {
             <div className="text-center mt-8">
               <Button
                 size="lg"
-                onClick={() => window.location.href = '/contact'}
+                onClick={() => navigate('/contact')}
               >
                 Invite Derek on Your Show
               </Button>

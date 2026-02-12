@@ -2,6 +2,8 @@ import { useNostr } from '@nostrify/react';
 import { useQuery } from '@tanstack/react-query';
 import type { NostrEvent } from '@nostrify/nostrify';
 import { DEREK_PUBKEY_HEX } from '@/lib/derek';
+import { filterDeletedEvents } from '@/lib/dedup';
+import { useDerekDeletions } from './useDerekDeletions';
 
 interface NostrRepository {
   id: string;
@@ -63,30 +65,29 @@ function parseRepositoryEvent(event: NostrEvent): NostrRepository {
 
 export function useDerekRepositories() {
   const { nostr } = useNostr();
+  const { data: deletions } = useDerekDeletions();
+
+  const deletionCount = deletions?.length ?? 0;
 
   return useQuery({
-    queryKey: ['derek-repositories', DEREK_PUBKEY_HEX],
+    queryKey: ['derek-repositories', DEREK_PUBKEY_HEX, deletionCount],
     queryFn: async (c) => {
       const signal = AbortSignal.any([c.signal, AbortSignal.timeout(5000)]);
-      
-      try {
-        // Query for Derek's Git repositories (kind 30617)
-        const events = await nostr.query([
-          {
-            kinds: [30617], // Git Repository Announcement
-            authors: [DEREK_PUBKEY_HEX],
-            limit: 20
-          }
-        ], { signal });
 
-        // Parse and return repositories
-        return events.map(parseRepositoryEvent);
-      } catch (error) {
-        console.warn('Failed to fetch Derek repositories:', error);
-        return [];
-      }
+      const events = await nostr.query([
+        {
+          kinds: [30617],
+          authors: [DEREK_PUBKEY_HEX],
+          limit: 20,
+        },
+      ], { signal });
+
+      // Filter out deleted events (NIP-09)
+      const live = filterDeletedEvents(events, deletions ?? []);
+
+      return live.map(parseRepositoryEvent);
     },
-    staleTime: 10 * 60 * 1000, // 10 minutes
-    gcTime: 60 * 60 * 1000, // 1 hour
+    staleTime: 10 * 60 * 1000,
+    gcTime: 60 * 60 * 1000,
   });
 }

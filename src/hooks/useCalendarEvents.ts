@@ -2,6 +2,8 @@ import { useNostr } from '@nostrify/react';
 import { useQuery } from '@tanstack/react-query';
 import type { NostrEvent } from '@nostrify/nostrify';
 import { DEREK_PUBKEY_HEX } from '@/lib/derek';
+import { filterDeletedEvents } from '@/lib/dedup';
+import { useDerekDeletions } from './useDerekDeletions';
 
 // NostrEvent type is used for the validate and parse functions below
 
@@ -120,52 +122,49 @@ function parseCalendarEvent(event: NostrEvent, rsvpStatus?: 'accepted' | 'declin
 
 export function useCalendarEvents() {
   const { nostr } = useNostr();
+  const { data: deletions } = useDerekDeletions();
+
+  const deletionCount = deletions?.length ?? 0;
 
   return useQuery({
-    queryKey: ['calendar-events', DEREK_PUBKEY_HEX],
+    queryKey: ['calendar-events', DEREK_PUBKEY_HEX, deletionCount],
     queryFn: async (c) => {
       const signal = AbortSignal.any([c.signal, AbortSignal.timeout(5000)]);
 
-      try {
-        // Query for Derek's calendar events (date-based and time-based)
-        const events = await nostr.query([
-          {
-            kinds: [31922, 31923],
-            authors: [DEREK_PUBKEY_HEX],
-            limit: 50
-          }
-        ], { signal });
+      const events = await nostr.query([
+        {
+          kinds: [31922, 31923],
+          authors: [DEREK_PUBKEY_HEX],
+          limit: 50,
+        },
+      ], { signal });
 
-        // Validate and parse events
-        const validEvents = events.filter(validateCalendarEvent);
-        const calendarEvents = validEvents.map(event => parseCalendarEvent(event));
+      // Filter out deleted events (NIP-09)
+      const live = filterDeletedEvents(events, deletions ?? []);
 
-        // Sort by date (future events first, then past events)
-        calendarEvents.sort((a, b) => {
-          const dateA = new Date(a.date);
-          const dateB = new Date(b.date);
+      // Validate and parse events
+      const validEvents = live.filter(validateCalendarEvent);
+      const calendarEvents = validEvents.map((event) => parseCalendarEvent(event));
 
-          // If one is past and one is future, future comes first
-          if (a.isPast !== b.isPast) {
-            return a.isPast ? 1 : -1;
-          }
+      // Sort by date (future events first, then past events)
+      calendarEvents.sort((a, b) => {
+        const dateA = new Date(a.date);
+        const dateB = new Date(b.date);
 
-          // If both are future, sort by date ascending (soonest first)
-          if (!a.isPast && !b.isPast) {
-            return dateA.getTime() - dateB.getTime();
-          }
+        if (a.isPast !== b.isPast) {
+          return a.isPast ? 1 : -1;
+        }
 
-          // If both are past, sort by date descending (most recent first)
-          return dateB.getTime() - dateA.getTime();
-        });
+        if (!a.isPast && !b.isPast) {
+          return dateA.getTime() - dateB.getTime();
+        }
 
-        return calendarEvents;
-      } catch (error) {
-        console.warn('Failed to fetch calendar events:', error);
-        return [];
-      }
+        return dateB.getTime() - dateA.getTime();
+      });
+
+      return calendarEvents;
     },
-    staleTime: 5 * 60 * 1000, // 5 minutes
-    gcTime: 30 * 60 * 1000, // 30 minutes
+    staleTime: 5 * 60 * 1000,
+    gcTime: 30 * 60 * 1000,
   });
 }

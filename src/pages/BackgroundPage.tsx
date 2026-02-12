@@ -3,12 +3,15 @@ import { Navigation } from '@/components/Navigation';
 import { Footer } from '@/components/Footer';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
-import { ArrowLeft, Users, Smartphone, Briefcase, Heart, Presentation } from 'lucide-react';
+import { ArrowLeft, Users, Smartphone, Briefcase, Heart, Presentation, Rocket } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 
 const BackgroundPage = () => {
+  const navigate = useNavigate();
+
   useSeoMeta({
     title: 'Background - Derek Ross',
-    description: 'Learn about Derek Ross\'s background in technology, community building, and his journey to becoming a leading advocate for the Nostr protocol.',
+    description: 'Learn about Derek Ross\'s background in technology, his role in Developer Relations at Soapbox, and his journey from community building to becoming a leading advocate for Nostr and AI.',
   });
 
   return (
@@ -20,7 +23,7 @@ const BackgroundPage = () => {
           {/* Back button */}
           <Button
             variant="ghost"
-            onClick={() => window.history.back()}
+            onClick={() => navigate(-1)}
             className="mb-6"
           >
             <ArrowLeft className="h-4 w-4 mr-2" />
@@ -31,7 +34,7 @@ const BackgroundPage = () => {
           <header className="text-center mb-12">
             <h1 className="text-4xl font-bold mb-4">Derek's Background</h1>
             <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
-              A journey through technology, community building, and the pursuit of decentralized communication
+              A journey through technology, community building, AI, and the pursuit of decentralized communication
             </p>
           </header>
 
@@ -46,12 +49,40 @@ const BackgroundPage = () => {
 
           {/* Main Content */}
           <div className="space-y-8">
-            {/* Introduction */}
+            {/* Current Role - Soapbox */}
             <Card>
               <CardContent className="p-8">
                 <div className="flex items-start gap-4 mb-6">
                   <div className="w-12 h-12 bg-purple-500/10 rounded-lg flex items-center justify-center">
-                    <Users className="h-6 w-6 text-purple-600" />
+                    <Rocket className="h-6 w-6 text-purple-600" />
+                  </div>
+                  <div>
+                    <h2 className="text-2xl font-bold mb-2">Developer Relations at Soapbox</h2>
+                    <p className="text-muted-foreground">Building the future of decentralized social media</p>
+                  </div>
+                </div>
+                <p className="text-base leading-relaxed mb-4">
+                  Derek currently works in Developer Relations at{" "}
+                  <a href="https://soapbox.pub" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline font-medium">Soapbox</a>
+                  , a technology company building free and open-source software for decentralized social media. At Soapbox, Derek evangelizes the Nostr protocol and its ecosystem of tools, with a focus on{" "}
+                  <a href="https://shakespeare.diy" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline font-medium">Shakespeare</a>
+                  {" "}&mdash; an AI-powered app builder that lets anyone create and deploy web applications through natural conversation, entirely on decentralized infrastructure.
+                </p>
+                <p className="text-base leading-relaxed mb-4">
+                  Known as "The Nostr Evangelist" and jokingly called "The Nostr CEO," no one loves the open source protocol of Nostr more than Derek. He is passionate about building the Nostr ecosystem through education, evangelism, and creating useful applications. His work at Soapbox combines his deep technical expertise with his talent for community building and developer advocacy.
+                </p>
+                <p className="text-base leading-relaxed">
+                  Derek is known for vibe coding, NostrNests, YakBak, Zappix, Plektos, ZapTrax, and Zaplytics &mdash; and can speak on topics ranging from Nostr 101 to AI and vibe coding to how Shakespeare makes creating Nostr apps easier than ever.
+                </p>
+              </CardContent>
+            </Card>
+
+            {/* Community Building */}
+            <Card>
+              <CardContent className="p-8">
+                <div className="flex items-start gap-4 mb-6">
+                  <div className="w-12 h-12 bg-green-500/10 rounded-lg flex items-center justify-center">
+                    <Users className="h-6 w-6 text-green-600" />
                   </div>
                   <div>
                     <h2 className="text-2xl font-bold mb-2">Community Building Pioneer</h2>
@@ -85,12 +116,14 @@ const BackgroundPage = () => {
                 </div>
                 <p className="text-base leading-relaxed mb-4">
                   With over 20 years in Information Technology, Derek has seen and shaped the evolution of online communities.
-                  Outside of speaking engagements, Derek continues to work in Information Technology, where he excels in
-                  systems administration, network engineering, and various other IT roles.
+                  His career spans systems administration, network engineering, and various IT roles, including a decade managing
+                  ERP student information systems in educational technology infrastructure.
                 </p>
                 <p className="text-base leading-relaxed">
-                  For the last decade, he has managed ERP student information systems, bringing his deep technical expertise
-                  to educational technology infrastructure.
+                  Derek's deep technical background and passion for community building led him to his current role in Developer
+                  Relations at{" "}
+                  <a href="https://soapbox.pub" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">Soapbox</a>
+                  , where he combines his expertise in technology with his talent for education and advocacy to advance the Nostr ecosystem and AI-powered development tools.
                 </p>
               </CardContent>
             </Card>
@@ -172,14 +205,14 @@ const BackgroundPage = () => {
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button
                 size="lg"
-                onClick={() => window.location.href = '/contact'}
+                onClick={() => navigate('/contact')}
               >
                 Get in Touch
               </Button>
               <Button
                 variant="outline"
                 size="lg"
-                onClick={() => window.location.href = '/services'}
+                onClick={() => navigate('/services')}
               >
                 View Services
               </Button>

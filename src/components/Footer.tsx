@@ -4,8 +4,10 @@ import { ExternalLink, Heart } from "lucide-react";
 import { DEREK_CONTACTS } from "@/lib/derek";
 import { useDerekApplications } from "@/hooks/useDerekApplications";
 import { ZapButton } from "@/components/ZapButton";
+import { useNavigate } from "react-router-dom";
 
 export function Footer() {
+  const navigate = useNavigate();
   const currentYear = new Date().getFullYear();
   const { data: applications } = useDerekApplications();
 
@@ -43,7 +45,7 @@ export function Footer() {
       title: "Nostr",
       links: [
         { name: "Why Nostr", href: "/whynostr" },
-        { name: "Nostr Guides", href: "/guides" },
+        { name: "Guides", href: "/guides" },
         { name: "Services", href: "/services" },
         { name: "NostrApps.com", href: "https://nostrapps.com", external: true }
       ]
@@ -56,10 +58,9 @@ export function Footer() {
 
   const handleLinkClick = (href: string, external?: boolean) => {
     if (external) {
-      window.open(href, '_blank');
+      window.open(href, '_blank', 'noopener,noreferrer');
     } else if (href.startsWith('/')) {
-      // Route navigation
-      window.location.href = href;
+      navigate(href);
     } else {
       // Section navigation
       const element = document.querySelector(href);
@@ -78,8 +79,9 @@ export function Footer() {
           <div className="md:col-span-1">
             <h3 className="text-xl font-bold mb-4">Derek Ross</h3>
             <p className="text-muted-foreground text-sm leading-relaxed mb-4">
-              Technical evangelist for nostr, passionate about decentralization,
-              censorship resistance, and empowering users through open protocols.
+              Developer Relations at{" "}
+              <a href="https://soapbox.pub" target="_blank" rel="noopener noreferrer" className="hover:text-foreground transition-colors underline">Soapbox</a>
+              . Passionate about AI, decentralization, censorship resistance, and empowering users through open protocols.
             </p>
             <div className="flex space-x-2">
               <Button

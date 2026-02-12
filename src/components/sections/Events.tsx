@@ -5,8 +5,10 @@ import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Calendar, MapPin, ExternalLink, Clock } from "lucide-react";
 import { useCalendarEvents } from "@/hooks/useCalendarEvents";
+import { useNavigate } from "react-router-dom";
 
 export function Events() {
+  const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState("upcoming");
   const { data: nostrEvents, isLoading } = useCalendarEvents();
 
@@ -211,9 +213,9 @@ export function Events() {
         <div className="text-center mb-16">
           <h2 className="text-4xl font-bold mb-4">Speaking Events</h2>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-            Derek has spoken at numerous international Bitcoin and nostr
-            conferences, sharing his expertise on decentralization, censorship
-            resistance, and empowering users to choose their own algorithms.
+            Derek has spoken at numerous international conferences, from Bitcoin
+            and Nostr events to chamber of commerce workshops, sharing his expertise
+            on AI, vibe coding, decentralization, and censorship resistance.
           </p>
         </div>
 
@@ -286,7 +288,7 @@ export function Events() {
                     </p>
                     <Button
                       variant="outline"
-                      onClick={() => window.location.href = '/contact'}
+                      onClick={() => navigate('/contact')}
                     >
                       Invite Derek to Speak
                     </Button>
@@ -363,7 +365,7 @@ export function Events() {
             <div className="text-center mt-8">
               <Button
                 size="lg"
-                onClick={() => window.location.href = '/contact'}
+                onClick={() => navigate('/contact')}
               >
                 Book Derek for Your Event
               </Button>

@@ -5,8 +5,8 @@ import { Footer } from "@/components/Footer";
 
 const GuidesPage = () => {
   useSeoMeta({
-    title: 'Nostr Guides - Learn About Decentralized Social Media',
-    description: 'Comprehensive guides to help you understand and use Nostr. Learn about zaps, relays, addresses, and more in our detailed tutorials.',
+    title: 'Guides & Presentations - AI, Nostr & Technology',
+    description: 'Explore presentations on AI and technology, navigate the Nostr ecosystem, and find extensive how-to guides. From AI fundamentals to decentralized social media.',
   });
 
   return (

@@ -6,7 +6,7 @@ import { Footer } from "@/components/Footer";
 const ContactPage = () => {
   useSeoMeta({
     title: 'Contact Derek Ross - Get in Touch',
-    description: 'Contact Derek Ross for speaking engagements, consulting opportunities, or questions about Nostr and decentralized technology.',
+    description: 'Contact Derek Ross for speaking engagements, AI workshops, consulting opportunities, or questions about Nostr, Shakespeare, and decentralized technology.',
   });
 
   return (

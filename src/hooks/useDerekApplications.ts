@@ -2,6 +2,8 @@ import { useNostr } from '@nostrify/react';
 import { useQuery } from '@tanstack/react-query';
 import type { NostrEvent } from '@nostrify/nostrify';
 import { DEREK_PUBKEY_HEX } from '@/lib/derek';
+import { filterDeletedEvents } from '@/lib/dedup';
+import { useDerekDeletions } from './useDerekDeletions';
 
 interface NostrApplication {
   id: string;
@@ -70,30 +72,29 @@ function parseApplicationEvent(event: NostrEvent): NostrApplication {
 
 export function useDerekApplications() {
   const { nostr } = useNostr();
+  const { data: deletions } = useDerekDeletions();
+
+  const deletionCount = deletions?.length ?? 0;
 
   return useQuery({
-    queryKey: ['derek-applications', DEREK_PUBKEY_HEX],
+    queryKey: ['derek-applications', DEREK_PUBKEY_HEX, deletionCount],
     queryFn: async (c) => {
       const signal = AbortSignal.any([c.signal, AbortSignal.timeout(5000)]);
-      
-      try {
-        // Query for Derek's Nostr applications (kind 31990)
-        const events = await nostr.query([
-          {
-            kinds: [31990], // Nostr Software Application
-            authors: [DEREK_PUBKEY_HEX],
-            limit: 20
-          }
-        ], { signal });
 
-        // Parse and return applications
-        return events.map(parseApplicationEvent);
-      } catch (error) {
-        console.warn('Failed to fetch Derek applications:', error);
-        return [];
-      }
+      const events = await nostr.query([
+        {
+          kinds: [31990],
+          authors: [DEREK_PUBKEY_HEX],
+          limit: 20,
+        },
+      ], { signal });
+
+      // Filter out deleted events (NIP-09)
+      const live = filterDeletedEvents(events, deletions ?? []);
+
+      return live.map(parseApplicationEvent);
     },
-    staleTime: 10 * 60 * 1000, // 10 minutes
-    gcTime: 60 * 60 * 1000, // 1 hour
+    staleTime: 10 * 60 * 1000,
+    gcTime: 60 * 60 * 1000,
   });
 }

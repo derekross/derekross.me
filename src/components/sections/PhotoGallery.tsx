@@ -3,7 +3,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Skeleton } from "@/components/ui/skeleton";
-import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogTrigger, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { Camera, ExternalLink, Calendar } from "lucide-react";
 import { useNostrPhotos } from "@/hooks/useNostrPhotos";
 import { DEREK_CONTACTS } from "@/lib/derek";
@@ -78,6 +78,8 @@ export function PhotoGallery() {
                     </Card>
                   </DialogTrigger>
                   <DialogContent className="max-w-4xl w-full p-0">
+                    <DialogTitle className="sr-only">{photo.alt || photo.caption || 'Photo'}</DialogTitle>
+                    <DialogDescription className="sr-only">Photo from Nostr posted on {formatDate(photo.created_at)}</DialogDescription>
                     <div className="relative">
                       <img
                         src={photo.url}
@@ -88,7 +90,7 @@ export function PhotoGallery() {
                         <Button
                           variant="secondary"
                           size="sm"
-                          onClick={() => window.open(`https://njump.me/${photo.event.id}`, '_blank')}
+                          onClick={() => window.open(`https://njump.me/${photo.event.id}`, '_blank', 'noopener,noreferrer')}
                         >
                           <ExternalLink className="h-4 w-4 mr-2" />
                           View on Nostr
@@ -164,6 +166,8 @@ export function PhotoGallery() {
                   </Card>
                 </DialogTrigger>
                 <DialogContent className="max-w-4xl w-full p-0">
+                  <DialogTitle className="sr-only">{image.caption}</DialogTitle>
+                  <DialogDescription className="sr-only">{image.alt}</DialogDescription>
                   <div className="relative">
                     <img
                       src={image.src}

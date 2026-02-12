@@ -1,10 +1,12 @@
 import { Button } from "@/components/ui/button";
 import { ArrowDown, ExternalLink } from "lucide-react";
 import { DEREK_CONTACTS } from "@/lib/derek";
+import { useNavigate } from "react-router-dom";
 
 export function Hero() {
+  const navigate = useNavigate();
   const goToAbout = () => {
-    window.location.href = '/about';
+    navigate('/about');
   };
 
   return (
@@ -26,9 +28,10 @@ export function Hero() {
             Derek Ross
           </h1>
           <p className="text-xl md:text-2xl mb-8 text-gray-200 max-w-3xl mx-auto leading-relaxed">
-            Technical evangelist for <span className="text-purple-400 font-semibold">nostr</span>, a decentralized and censorship-resistant social communication protocol.
-            Leveraging passion for technology and technical expertise to advocate for nostr's potential to address social media and societal challenges,
-            striving to make a positive impact on the world.
+            Developer Relations at <a href="https://soapbox.pub" target="_blank" rel="noopener noreferrer" className="text-purple-400 font-semibold hover:text-purple-300 transition-colors">Soapbox</a>, building the future of decentralized social media with{" "}
+            <a href="https://shakespeare.diy" target="_blank" rel="noopener noreferrer" className="text-purple-400 font-semibold hover:text-purple-300 transition-colors">Shakespeare</a> and{" "}
+            <span className="text-purple-400 font-semibold">nostr</span>.
+            Passionate about AI, vibe coding, and empowering communities through open protocols and decentralized technology.
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-12">
@@ -59,8 +62,8 @@ export function Hero() {
               <div className="text-sm text-gray-300">Years in Tech</div>
             </div>
             <div className="text-center">
-              <div className="text-3xl font-bold text-purple-400">Countless</div>
-              <div className="text-sm text-gray-300">Speaking Events</div>
+              <div className="text-3xl font-bold text-purple-400">DevRel</div>
+              <div className="text-sm text-gray-300">at Soapbox</div>
             </div>
             <div className="text-center">
               <div className="text-3xl font-bold text-purple-400">∞</div>
@@ -74,6 +77,7 @@ export function Hero() {
       <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
         <button
           onClick={goToAbout}
+          aria-label="Scroll down"
           className="text-white/70 hover:text-white transition-colors"
         >
           <ArrowDown className="h-6 w-6" />

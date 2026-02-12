@@ -2,14 +2,20 @@ import { Link } from "react-router-dom";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { ExternalLink, BookOpen, Zap, Radio, Cog } from "lucide-react";
+import { ExternalLink, BookOpen, Zap, Radio, BrainCircuit } from "lucide-react";
 import { guides } from "@/data/guides";
 
 export function NostrGuides() {
   // Group guides by category
   const guideCategories = [
     {
-      title: "General Guides",
+      title: "AI & Technology",
+      icon: BrainCircuit,
+      color: "bg-purple-500",
+      guides: guides.filter(g => g.category === 'ai')
+    },
+    {
+      title: "Nostr Basics",
       icon: BookOpen,
       color: "bg-blue-500",
       guides: guides.filter(g => g.category === 'general')
@@ -26,12 +32,6 @@ export function NostrGuides() {
       color: "bg-green-500",
       guides: guides.filter(g => g.category === 'relays')
     },
-    {
-      title: "Advanced Topics",
-      icon: Cog,
-      color: "bg-purple-500",
-      guides: guides.filter(g => g.category === 'advanced')
-    }
   ].filter(category => category.guides.length > 0); // Only show categories that have guides
 
   const externalResources = [
@@ -51,10 +51,10 @@ export function NostrGuides() {
     <section id="guides" className="py-20 bg-muted/30">
       <div className="container mx-auto px-4">
         <div className="text-center mb-16">
-          <h2 className="text-4xl font-bold mb-4">Nostr Guides</h2>
+          <h2 className="text-4xl font-bold mb-4">Guides & Presentations</h2>
           <p className="text-xl text-muted-foreground max-w-4xl mx-auto leading-relaxed">
-            Nostr is still a bit technical, as the technical layers and user experiences are being actively developed and built.
-            Navigate the nostr ecosystem, learn all about nostr, watch presentations, slideshows, and find extensive how-to guides.
+            Explore presentations on AI and technology, navigate the Nostr ecosystem, and find extensive how-to guides.
+            From AI fundamentals to decentralized social media, these resources will help you understand the technologies shaping our future.
           </p>
         </div>
 

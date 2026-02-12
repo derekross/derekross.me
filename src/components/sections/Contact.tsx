@@ -71,7 +71,7 @@ export function Contact() {
         <div className="text-center mb-16">
           <h2 className="text-4xl font-bold mb-4">Get in Touch</h2>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-            For inquiries regarding nostr speaking engagements, consulting services, or media appearances,
+            For inquiries regarding speaking engagements, AI workshops, consulting services, or media appearances,
             please do not hesitate to contact Derek Ross. Your interest is greatly appreciated. Pura vida.
           </p>
         </div>

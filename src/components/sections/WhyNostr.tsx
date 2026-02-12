@@ -1,8 +1,10 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Code, Lock, Cog, Monitor, Link, Gem } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 export function WhyNostr() {
+  const navigate = useNavigate();
   const features = [
     {
       icon: Code,
@@ -72,7 +74,7 @@ export function WhyNostr() {
         <div className="text-center">
           <Button
             size="lg"
-            onClick={() => window.location.href = '/guides'}
+            onClick={() => navigate('/guides')}
           >
             Explore Nostr Guides
           </Button>

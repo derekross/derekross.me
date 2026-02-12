@@ -15,8 +15,8 @@ import { Footer } from "@/components/Footer";
 
 const Index = () => {
   useSeoMeta({
-    title: 'Derek Ross - Nostr Evangelist & Technology Advocate',
-    description: 'Derek Ross is a technical evangelist for Nostr, a decentralized and censorship-resistant social communication protocol. Passionate about connecting people through open and innovative technology.',
+    title: 'Derek Ross - Developer Relations at Soapbox | Nostr & AI Advocate',
+    description: 'Derek Ross is Developer Relations at Soapbox, building the future of decentralized social media with Shakespeare and Nostr. Passionate about AI, vibe coding, and empowering communities through open protocols.',
   });
 
   return (

@@ -98,8 +98,8 @@ describe('NoteContent', () => {
     
     expect(nostrHashtag).toBeInTheDocument();
     expect(bitcoinHashtag).toBeInTheDocument();
-    expect(nostrHashtag).toHaveAttribute('href', '/t/nostr');
-    expect(bitcoinHashtag).toHaveAttribute('href', '/t/bitcoin');
+    expect(nostrHashtag).toHaveAttribute('href', 'https://njump.me/t/nostr');
+    expect(bitcoinHashtag).toHaveAttribute('href', 'https://njump.me/t/bitcoin');
   });
 
   it('generates deterministic names for users without metadata and styles them differently', () => {
@@ -124,9 +124,9 @@ describe('NoteContent', () => {
     const mention = screen.getByRole('link');
     expect(mention).toBeInTheDocument();
     
-    // Should have muted styling for generated names (gray instead of blue)
-    expect(mention).toHaveClass('text-gray-500');
-    expect(mention).not.toHaveClass('text-blue-500');
+    // Should have muted styling for generated names (theme tokens)
+    expect(mention).toHaveClass('text-muted-foreground');
+    expect(mention).not.toHaveClass('text-primary');
     
     // The text should start with @ and contain a generated name (not a truncated npub)
     const linkText = mention.textContent;

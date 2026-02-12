@@ -6,7 +6,7 @@ import { Media } from "@/components/sections/Media";
 const MediaPage = () => {
   useSeoMeta({
     title: 'Media & Podcasts - Derek Ross',
-    description: 'Derek Ross media appearances, podcast interviews, and video content discussing Nostr, Bitcoin, and decentralized technologies.',
+    description: 'Derek Ross media appearances, podcast interviews, and video content discussing AI, Nostr, Bitcoin, vibe coding, and decentralized technologies.',
   });
 
   return (

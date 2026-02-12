@@ -18,8 +18,10 @@ import {
 } from "lucide-react";
 import { useDerekApplications } from "@/hooks/useDerekApplications";
 import { useDerekRepositories } from "@/hooks/useDerekRepositories";
+import { useNavigate } from "react-router-dom";
 
 export function Services() {
+  const navigate = useNavigate();
   const { data: applications, isLoading: appsLoading } = useDerekApplications();
   const { data: repositories, isLoading: reposLoading } =
     useDerekRepositories();
@@ -74,7 +76,7 @@ export function Services() {
       icon: Presentation,
       title: "Speaking Engagements",
       description:
-        "Derek speaks at international Bitcoin and nostr conferences, sharing expertise on decentralization, censorship resistance, and nostr education.",
+        "Derek speaks at international conferences on AI, vibe coding, decentralization, and nostr education, including Bitcoin conferences, chamber of commerce events, and technology workshops.",
       features: [
         "Conference Presentations",
         "Workshop Facilitation",
@@ -102,7 +104,7 @@ export function Services() {
       icon: BookOpen,
       title: "Nostr Education & Training",
       description:
-        "Comprehensive education on nostr protocol, helping users understand decentralized social communication and take control of their digital identity.",
+        "Comprehensive education on AI tools, vibe coding, and the nostr protocol, helping users understand decentralized social communication and take control of their digital identity.",
       features: [
         "Protocol Fundamentals",
         "Client Setup Guidance",
@@ -116,7 +118,7 @@ export function Services() {
       icon: Code,
       title: "Nostr Development Consulting",
       description:
-        "Technical consulting for nostr application development, protocol implementation, and ecosystem integration.",
+        "Technical consulting for AI-powered development with Shakespeare, nostr application development, protocol implementation, and ecosystem integration.",
       features: [
         "Protocol Implementation",
         "Client Development",
@@ -414,9 +416,11 @@ export function Services() {
         <div className="text-center mb-16">
           <h2 className="text-4xl font-bold mb-4">Services & Expertise</h2>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-            Derek offers a range of services to help individuals, organizations,
-            and developers understand, implement, and benefit from the nostr
-            protocol and decentralized technologies.
+            As Developer Relations at{" "}
+            <a href="https://soapbox.pub" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">Soapbox</a>
+            , Derek offers a range of services to help individuals, organizations,
+            and developers understand, implement, and benefit from AI, the nostr
+            protocol, and decentralized technologies.
           </p>
         </div>
 
@@ -556,20 +560,20 @@ export function Services() {
             <h3 className="text-2xl font-bold mb-4">Ready to Work Together?</h3>
             <p className="text-muted-foreground mb-6 max-w-2xl mx-auto">
               Whether you need a speaker for your conference, want to learn
-              about nostr, or need technical consulting, Derek is here to help
-              you navigate the decentralized future.
+              about AI and nostr, or need technical consulting on decentralized
+              technologies, Derek is here to help you navigate the future.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button
                 size="lg"
-                onClick={() => window.location.href = '/contact'}
+                onClick={() => navigate('/contact')}
               >
                 Get in Touch
               </Button>
               <Button
                 variant="outline"
                 size="lg"
-                onClick={() => window.location.href = '/events'}
+                onClick={() => navigate('/events')}
               >
                 View Speaking Events
               </Button>

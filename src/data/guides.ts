@@ -3,7 +3,7 @@ export interface Guide {
   title: string;
   description: string;
   type: 'Guide' | 'Slidedeck';
-  category: 'general' | 'zaps' | 'relays' | 'advanced';
+  category: 'ai' | 'general' | 'zaps' | 'relays';
   content: string;
   lastUpdated?: string;
   slides?: {
@@ -18,7 +18,7 @@ export const guides: Guide[] = [
     title: 'AI for Small to Medium Businesses',
     description: 'A comprehensive presentation on leveraging AI for small to medium businesses, with a focus on vibe coding and building with Shakespeare - our AI tool for web development.',
     type: 'Slidedeck',
-    category: 'advanced',
+    category: 'ai',
     lastUpdated: 'January 2026',
     slides: {
       images: [
@@ -73,6 +73,95 @@ This presentation explores how small and medium businesses can leverage AI to tr
 - Anyone interested in the future of web development
 
 Browse through the slides below or download the full PDF presentation.
+    `
+  },
+  {
+    id: 'hccc-ai-demystified',
+    title: 'AI Demystified: Understanding LLMs and Their Impact',
+    description: 'A beginner-friendly introduction to artificial intelligence and Large Language Models (LLMs), covering AI fundamentals, real-world applications, the regulatory landscape, and best practices for working with AI tools. Presented at the Huntingdon County Chamber of Commerce.',
+    type: 'Slidedeck',
+    category: 'ai',
+    lastUpdated: 'February 2026',
+    slides: {
+      images: [
+        '/slides/hccc-ai-demystified/slide-01.jpg',
+        '/slides/hccc-ai-demystified/slide-02.jpg',
+        '/slides/hccc-ai-demystified/slide-03.jpg',
+        '/slides/hccc-ai-demystified/slide-04.jpg',
+        '/slides/hccc-ai-demystified/slide-05.jpg',
+        '/slides/hccc-ai-demystified/slide-06.jpg',
+        '/slides/hccc-ai-demystified/slide-07.jpg',
+        '/slides/hccc-ai-demystified/slide-08.jpg',
+        '/slides/hccc-ai-demystified/slide-09.jpg',
+        '/slides/hccc-ai-demystified/slide-10.jpg',
+        '/slides/hccc-ai-demystified/slide-11.jpg',
+        '/slides/hccc-ai-demystified/slide-12.jpg',
+        '/slides/hccc-ai-demystified/slide-13.jpg',
+        '/slides/hccc-ai-demystified/slide-14.jpg',
+        '/slides/hccc-ai-demystified/slide-15.jpg',
+        '/slides/hccc-ai-demystified/slide-16.jpg',
+        '/slides/hccc-ai-demystified/slide-17.jpg',
+        '/slides/hccc-ai-demystified/slide-18.jpg',
+        '/slides/hccc-ai-demystified/slide-19.jpg',
+        '/slides/hccc-ai-demystified/slide-20.jpg',
+        '/slides/hccc-ai-demystified/slide-21.jpg',
+        '/slides/hccc-ai-demystified/slide-22.jpg',
+        '/slides/hccc-ai-demystified/slide-23.jpg',
+        '/slides/hccc-ai-demystified/slide-24.jpg',
+        '/slides/hccc-ai-demystified/slide-25.jpg',
+        '/slides/hccc-ai-demystified/slide-26.jpg',
+        '/slides/hccc-ai-demystified/slide-27.jpg',
+        '/slides/hccc-ai-demystified/slide-28.jpg',
+        '/slides/hccc-ai-demystified/slide-29.jpg',
+        '/slides/hccc-ai-demystified/slide-30.jpg',
+        '/slides/hccc-ai-demystified/slide-31.jpg',
+        '/slides/hccc-ai-demystified/slide-32.jpg',
+        '/slides/hccc-ai-demystified/slide-33.jpg',
+        '/slides/hccc-ai-demystified/slide-34.jpg',
+      ],
+      downloadUrl: '/slides/hccc-ai-demystified/HCCC-Session-1-AI-Demystified.pdf',
+    },
+    content: `
+This presentation provides an engaging introduction to artificial intelligence and Large Language Models, designed for anyone curious about the technology reshaping our world. Presented at the Huntingdon County Chamber of Commerce as Session 1 of a multi-part AI workshop series.
+
+## What You'll Learn
+
+### AI & LLM Fundamentals
+- What artificial intelligence and large language models are
+- How LLMs actually work — sophisticated pattern matching, not thinking
+- A brief history of AI from the 1950s to the ChatGPT era
+- Strengths and limitations of current AI systems
+
+### The AI Landscape Today
+- Overview of major AI chat assistants: ChatGPT, Claude, Gemini, and Meta AI
+- AI image generation, audio, and video tools
+- Specialized tools like NotebookLM, Perplexity, and Canva AI
+- How AI is being used across industries right now
+- The rise of vibe coding — from meme to movement
+
+### AI in the Workplace
+- Practical applications: drafting, research, customer service, marketing, data analysis, and legal review
+- Tools you can start using today with free tiers
+
+### Navigating AI Responsibly
+- The evolving regulatory landscape (EU AI Act, US approach)
+- Ethics, misinformation, and deepfakes
+- How to spot AI-generated content
+
+### Working Effectively with AI
+- Prompting 101: the difference between bad and good prompts
+- Key techniques: specificity, role assignment, step-by-step breakdown, iteration
+- The Producer Mindset — you provide vision and judgment, AI provides execution
+- Evaluating AI output: when to trust and when to verify
+
+## Who Should View This
+
+- Anyone curious about AI who wants a clear, jargon-free introduction
+- Business professionals looking to understand AI's impact on their industry
+- Chamber of Commerce members exploring AI opportunities
+- People who want practical tips for using AI tools effectively
+
+No technical background required. Browse through the slides below or download the full PDF presentation.
     `
   },
   {

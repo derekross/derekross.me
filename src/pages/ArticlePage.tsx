@@ -1,8 +1,8 @@
-import { useParams, Navigate } from 'react-router-dom';
+import { useParams, Navigate, useNavigate } from 'react-router-dom';
 import { useNostr } from '@nostrify/react';
 import { useQuery } from '@tanstack/react-query';
 import { nip19 } from 'nostr-tools';
-// import { Card, CardContent, CardHeader } from '@/components/ui/card';
+
 import { Badge } from '@/components/ui/badge';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Button } from '@/components/ui/button';
@@ -15,6 +15,7 @@ import { Footer } from '@/components/Footer';
 import type { NostrEvent } from '@nostrify/nostrify';
 
 function ArticlePageContent({ event }: { event: NostrEvent }) {
+  const navigate = useNavigate();
   const author = useAuthor(event.pubkey);
   const metadata = author.data?.metadata;
 
@@ -45,7 +46,7 @@ function ArticlePageContent({ event }: { event: NostrEvent }) {
           {/* Back button */}
           <Button 
             variant="ghost" 
-            onClick={() => window.history.back()}
+            onClick={() => navigate(-1)}
             className="mb-6"
           >
             <ArrowLeft className="h-4 w-4 mr-2" />
@@ -60,8 +61,7 @@ function ArticlePageContent({ event }: { event: NostrEvent }) {
                 alt={title}
                 className="w-full h-64 sm:h-80 lg:h-96 object-cover rounded-none sm:rounded-lg shadow-lg"
                 onError={(e) => {
-                  // Hide image if it fails to load
-                  e.currentTarget.style.display = 'none';
+                  e.currentTarget.parentElement?.style.setProperty('display', 'none');
                 }}
               />
             </div>
@@ -189,6 +189,7 @@ function ArticlePageSkeleton() {
 export default function ArticlePage() {
   const { nip19: nip19Param } = useParams<{ nip19: string }>();
   const { nostr } = useNostr();
+  const navigate = useNavigate();
 
   const { data: event, isLoading, error } = useQuery({
     queryKey: ['article', nip19Param],
@@ -259,7 +260,7 @@ export default function ArticlePage() {
             <p className="text-muted-foreground mb-6">
               The article you're looking for could not be found or loaded.
             </p>
-            <Button onClick={() => window.history.back()}>
+            <Button onClick={() => navigate('/blog')}>
               <ArrowLeft className="h-4 w-4 mr-2" />
               Go Back
             </Button>

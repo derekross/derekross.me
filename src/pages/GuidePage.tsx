@@ -1,12 +1,12 @@
 import { useState, useEffect } from 'react';
-import { useParams, Navigate } from 'react-router-dom';
+import { useParams, Navigate, useNavigate } from 'react-router-dom';
 import { useSeoMeta } from '@unhead/react';
 import { Navigation } from '@/components/Navigation';
 import { Footer } from '@/components/Footer';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent } from '@/components/ui/card';
-import { ArrowLeft, BookOpen, Zap, Radio, Cog, Clock, Calendar, Download } from 'lucide-react';
+import { ArrowLeft, BookOpen, Zap, Radio, BrainCircuit, Clock, Calendar, Download } from 'lucide-react';
 import { getGuideById, getGuidesByCategory } from '@/data/guides';
 import ReactMarkdown from 'react-markdown';
 import {
@@ -19,27 +19,28 @@ import {
 } from '@/components/ui/carousel';
 
 const categoryIcons = {
+  ai: BrainCircuit,
   general: BookOpen,
   zaps: Zap,
   relays: Radio,
-  advanced: Cog,
 };
 
 const categoryColors = {
+  ai: 'bg-purple-500',
   general: 'bg-blue-500',
   zaps: 'bg-yellow-500',
   relays: 'bg-green-500',
-  advanced: 'bg-purple-500',
 };
 
 const categoryNames = {
-  general: 'General Guides',
+  ai: 'AI & Technology',
+  general: 'Nostr Basics',
   zaps: 'Zaps & Lightning',
   relays: 'Relays & Infrastructure',
-  advanced: 'Advanced Topics',
 };
 
 export default function GuidePage() {
+  const navigate = useNavigate();
   const { guideId } = useParams<{ guideId: string }>();
   const guide = guideId ? getGuideById(guideId) : undefined;
   const [carouselApi, setCarouselApi] = useState<CarouselApi>();
@@ -53,9 +54,15 @@ export default function GuidePage() {
     setSlideCount(carouselApi.scrollSnapList().length);
     setCurrentSlide(carouselApi.selectedScrollSnap() + 1);
 
-    carouselApi.on('select', () => {
+    const onSelect = () => {
       setCurrentSlide(carouselApi.selectedScrollSnap() + 1);
-    });
+    };
+
+    carouselApi.on('select', onSelect);
+
+    return () => {
+      carouselApi.off('select', onSelect);
+    };
   }, [carouselApi]);
 
   useSeoMeta({
@@ -79,7 +86,7 @@ export default function GuidePage() {
           {/* Back button */}
           <Button
             variant="ghost"
-            onClick={() => window.location.href = '/guides'}
+            onClick={() => navigate('/guides')}
             className="mb-6"
           >
             <ArrowLeft className="h-4 w-4 mr-2" />
@@ -269,7 +276,7 @@ export default function GuidePage() {
                             <Button
                               variant="outline"
                               size="sm"
-                              onClick={() => window.location.href = `/guides/${relatedGuide.id}`}
+                              onClick={() => navigate(`/guides/${relatedGuide.id}`)}
                             >
                               Read Guide
                             </Button>
@@ -302,7 +309,7 @@ export default function GuidePage() {
               </Button>
               <Button
                 variant="outline"
-                onClick={() => window.location.href = '/guides'}
+            onClick={() => navigate('/guides')}
               >
                 Browse All Guides
               </Button>
