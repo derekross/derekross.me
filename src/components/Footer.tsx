@@ -121,8 +121,22 @@ export function Footer() {
 
         {/* Bottom Footer */}
         <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
-          <div className="flex items-center space-x-4 text-sm text-muted-foreground">
+          <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-sm text-muted-foreground">
             <span>&copy; {currentYear} Derek Ross. All rights reserved.</span>
+            <span>•</span>
+            <button
+              onClick={() => navigate('/privacy')}
+              className="hover:text-foreground transition-colors"
+            >
+              Privacy Policy
+            </button>
+            <span>•</span>
+            <button
+              onClick={() => navigate('/terms')}
+              className="hover:text-foreground transition-colors"
+            >
+              Terms of Service
+            </button>
             <span>•</span>
             <button
               onClick={() => window.open(`https://njump.me/${DEREK_CONTACTS.nostrAddress}`, '_blank')}
