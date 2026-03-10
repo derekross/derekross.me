@@ -17,6 +17,8 @@ const ContactPage = lazy(() => import("./pages/ContactPage"));
 const BackgroundPage = lazy(() => import("./pages/BackgroundPage"));
 const ArticlePage = lazy(() => import("./pages/ArticlePage"));
 const BlogPage = lazy(() => import("./pages/BlogPage"));
+const PrivacyPage = lazy(() => import("./pages/PrivacyPage"));
+const TermsPage = lazy(() => import("./pages/TermsPage"));
 const NotFound = lazy(() => import("./pages/NotFound"));
 
 export function AppRouter() {
@@ -39,6 +41,9 @@ export function AppRouter() {
 
         {/* Legacy redirect for old guide URLs */}
         <Route path="/guide/:guideId" element={<GuidePage />} />
+
+        <Route path="/privacy" element={<PrivacyPage />} />
+        <Route path="/terms" element={<TermsPage />} />
 
         {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
         <Route path="*" element={<NotFound />} />
