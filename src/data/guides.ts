@@ -3,7 +3,7 @@ export interface Guide {
   title: string;
   description: string;
   type: 'Guide' | 'Slidedeck';
-  category: 'ai' | 'general' | 'zaps' | 'relays';
+  category: 'ai' | 'general' | 'zaps' | 'relays' | 'apps';
   content: string;
   lastUpdated?: string;
   slides?: {
@@ -815,6 +815,73 @@ Nostr represents a fundamental shift from platform-based to protocol-based socia
 This is just the beginning. As more developers build on Nostr and more users join the network, we'll see innovations that aren't possible with traditional social media platforms.
 
 Welcome to the future of decentralized social communication!
+    `
+  },
+  {
+    id: 'ditto-make-internet-weird-again',
+    title: 'Make Internet Weird Again',
+    description: 'A NosVegas 2026 talk on how Ditto — the Soapbox-built Nostr social app — is bringing back the playful, customizable, weird internet of the MySpace/GeoCities era. Covers profile themes, the carnival of Ditto features (Vines, Treasures, Magic Decks, Virtual Pets, and more), and why it\'s all just Nostr underneath.',
+    type: 'Slidedeck',
+    category: 'apps',
+    lastUpdated: 'May 2026',
+    slides: {
+      images: [
+        '/slides/ditto-make-internet-weird-again/slide-01.jpg',
+        '/slides/ditto-make-internet-weird-again/slide-02.jpg',
+        '/slides/ditto-make-internet-weird-again/slide-03.jpg',
+        '/slides/ditto-make-internet-weird-again/slide-04.jpg',
+        '/slides/ditto-make-internet-weird-again/slide-05.jpg',
+        '/slides/ditto-make-internet-weird-again/slide-06.jpg',
+        '/slides/ditto-make-internet-weird-again/slide-07.jpg',
+        '/slides/ditto-make-internet-weird-again/slide-08.jpg',
+        '/slides/ditto-make-internet-weird-again/slide-09.jpg',
+        '/slides/ditto-make-internet-weird-again/slide-10.jpg',
+        '/slides/ditto-make-internet-weird-again/slide-11.jpg',
+        '/slides/ditto-make-internet-weird-again/slide-12.jpg',
+      ],
+      downloadUrl: '/slides/ditto-make-internet-weird-again/Ditto-Make-Internet-Weird-Again.pdf',
+    },
+    content: `
+A NosVegas 2026 presentation about Ditto, a Nostr-native social app from Soapbox that's bringing back the fun, weirdness, and personality of the early internet.
+
+## Key Topics Covered
+
+### The Problem with Modern Social Media
+- Hostile, draining, and algorithmic
+- Doomscrolling, rage bait, and engagement farming
+- Every app is the same app wearing a different logo
+
+### Bringing Back the Internet Playground
+- The MySpace / GeoCities / AIM / forum era of self-expression
+- When your profile was a canvas and going online was an adventure
+
+### Your Profile Is a Planet
+- 9+ built-in themes (Kawaii, Grunge, Gamer, Midnight, and more)
+- 19 customizable properties, custom fonts and backgrounds
+- Themes shareable as Nostr events — anyone can use your theme with one click
+
+### Not Just Posts — A Carnival
+- Vines (short-form video), Treasures (real-world geocaching), Magic Decks (MTG)
+- Color Moments, Virtual Pets, Music, Polls, Emoji Packs
+- Follow Packs, Voice Messages, Books, Podcasts
+
+### The Ditto Onboarding Bet
+- Skip the decentralization lecture — lead with fun
+- Send a Quake III link or a geocache, not a relay explainer
+- The decentralization story comes *after* someone is already having fun
+
+### It's All Nostr
+- Your theme, your game, your geocache, your music — all Nostr events
+- No email, no phone number, just a Nostr key
+
+## Who Should View This
+
+- Nostr developers and designers thinking about UX
+- Anyone curious about decentralized social media
+- People nostalgic for the early-internet era
+- Those interested in how to actually onboard new users
+
+Browse through the slides below or download the full PDF presentation.
     `
   }
 ];

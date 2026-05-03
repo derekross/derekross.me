@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { ExternalLink, BookOpen, Zap, Radio, BrainCircuit } from "lucide-react";
+import { ExternalLink, BookOpen, Zap, Radio, BrainCircuit, Orbit } from "lucide-react";
 import { guides } from "@/data/guides";
 
 export function NostrGuides() {
@@ -31,6 +31,12 @@ export function NostrGuides() {
       icon: Radio,
       color: "bg-green-500",
       guides: guides.filter(g => g.category === 'relays')
+    },
+    {
+      title: "Nostr Apps & Ecosystem",
+      icon: Orbit,
+      color: "bg-indigo-500",
+      guides: guides.filter(g => g.category === 'apps')
     },
   ].filter(category => category.guides.length > 0); // Only show categories that have guides
 
