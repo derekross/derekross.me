@@ -6,7 +6,7 @@ import { Footer } from '@/components/Footer';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent } from '@/components/ui/card';
-import { ArrowLeft, BookOpen, Zap, Radio, BrainCircuit, Clock, Calendar, Download } from 'lucide-react';
+import { ArrowLeft, BookOpen, Zap, Radio, BrainCircuit, Orbit, Clock, Calendar, Download } from 'lucide-react';
 import { getGuideById, getGuidesByCategory } from '@/data/guides';
 import ReactMarkdown from 'react-markdown';
 import {
@@ -23,6 +23,7 @@ const categoryIcons = {
   general: BookOpen,
   zaps: Zap,
   relays: Radio,
+  apps: Orbit,
 };
 
 const categoryColors = {
@@ -30,6 +31,7 @@ const categoryColors = {
   general: 'bg-blue-500',
   zaps: 'bg-yellow-500',
   relays: 'bg-green-500',
+  apps: 'bg-indigo-500',
 };
 
 const categoryNames = {
@@ -37,6 +39,7 @@ const categoryNames = {
   general: 'Nostr Basics',
   zaps: 'Zaps & Lightning',
   relays: 'Relays & Infrastructure',
+  apps: 'Nostr Apps & Ecosystem',
 };
 
 export default function GuidePage() {
