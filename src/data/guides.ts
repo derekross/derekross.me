@@ -883,6 +883,132 @@ A NosVegas 2026 presentation about Ditto, a Nostr-native social app from Soapbox
 
 Browse through the slides below or download the full PDF presentation.
     `
+  },
+  {
+    id: 'bitchat-wlc-workshop',
+    title: 'Decentralized, Censorship-Resistant Communication',
+    description: 'A World Liberty Congress training on Bitchat — the peer-to-peer Bluetooth-mesh messaging app that keeps people connected during internet shutdowns and platform bans. Covers how Bitchat works, real-world deployments from Indonesia to Uganda, live demos, and an honest take on when Bitchat is — and isn\'t — the right tool.',
+    type: 'Slidedeck',
+    category: 'apps',
+    lastUpdated: 'May 2026',
+    slides: {
+      images: [
+        '/slides/bitchat-wlc-workshop/slide-01.jpg',
+        '/slides/bitchat-wlc-workshop/slide-02.jpg',
+        '/slides/bitchat-wlc-workshop/slide-03.jpg',
+        '/slides/bitchat-wlc-workshop/slide-04.jpg',
+        '/slides/bitchat-wlc-workshop/slide-05.jpg',
+        '/slides/bitchat-wlc-workshop/slide-06.jpg',
+        '/slides/bitchat-wlc-workshop/slide-07.jpg',
+        '/slides/bitchat-wlc-workshop/slide-08.jpg',
+        '/slides/bitchat-wlc-workshop/slide-09.jpg',
+        '/slides/bitchat-wlc-workshop/slide-10.jpg',
+        '/slides/bitchat-wlc-workshop/slide-11.jpg',
+        '/slides/bitchat-wlc-workshop/slide-12.jpg',
+        '/slides/bitchat-wlc-workshop/slide-13.jpg',
+        '/slides/bitchat-wlc-workshop/slide-14.jpg',
+        '/slides/bitchat-wlc-workshop/slide-15.jpg',
+        '/slides/bitchat-wlc-workshop/slide-16.jpg',
+        '/slides/bitchat-wlc-workshop/slide-17.jpg',
+        '/slides/bitchat-wlc-workshop/slide-18.jpg',
+        '/slides/bitchat-wlc-workshop/slide-19.jpg',
+        '/slides/bitchat-wlc-workshop/slide-20.jpg',
+      ],
+      downloadUrl: '/slides/bitchat-wlc-workshop/Bitchat-WLC-Workshop.pdf',
+    },
+    content: `
+A workshop presented to the World Liberty Congress on using Bitchat for decentralized, censorship-resistant communication when the internet goes down and platforms get banned. Built around three goals: understanding what Bitchat is, judgment about when to use it, and field readiness before the next crisis hits.
+
+## Download Bitchat
+
+Install Bitchat **before** a crisis — not during one. App stores can be blocked or pressured into removing apps once a shutdown starts.
+
+- **Android (Google Play)**: [play.google.com/store/apps/details?id=com.bitchat.droid](https://play.google.com/store/apps/details?id=com.bitchat.droid&hl=en_US)
+- **iOS (App Store)**: [apps.apple.com/us/app/bitchat-mesh](https://apps.apple.com/us/app/bitchat-mesh/id6748219622)
+- **Android APK from GitHub**: [github.com/permissionlesstech/bitchat-android](https://github.com/permissionlesstech/bitchat-android)
+- **Android via Zapstore**: [zapstore.dev/apps/com.bitchat.droid](https://zapstore.dev/apps/com.bitchat.droid)
+
+## What This Workshop Covers
+
+### Why This Matters Now
+- Recent real-world shutdowns: Indonesia, Nepal, Madagascar, Uganda, Iran, China
+- Bitchat hit 1.7 million downloads in days during Uganda's pre-election internet blackout
+- Several of these are countries where the WLC is active or expanding
+
+### What Bitchat Is
+- A peer-to-peer messaging app over Bluetooth mesh — no internet, no servers, no phone numbers, no accounts
+- Two transports, one app: Bluetooth mesh offline, Nostr over Tor when online
+- Open source, end-to-end encrypted, built by Jack Dorsey and contributors
+
+### What Bitchat Is NOT
+- Not a Signal replacement for high-stakes 1:1 comms
+- Not a silver bullet — metadata still leaks
+- Not global by default — Bluetooth range is short
+
+### How It Works
+- Each phone is both a sender and a relay — messages hop device to device, up to 7 hops
+- ~30m per direct hop, ~300m claimed multi-hop range, 8 direct neighbors per phone
+- Cryptographic keys generated on-device, Noise XX + AES-256-GCM, triple-tap panic wipe
+
+### Where It's Working (Real Deployments)
+- **Indonesia (Aug 2025)**: ~11,000 downloads during nationwide protests
+- **Nepal (Sept 2025)**: +1,400% in days after the government banned 26 platforms
+- **Madagascar (Sept 2025)**: 70,000 downloads in one week during Gen Z protests
+- **Uganda (Jan 2026)**: 1.7M+ downloads, #1 app during the election internet shutdown
+- **Iran & China (Jan–Apr 2026)**: Concurrent surge in Iran; Apple removed Bitchat from China App Store
+
+### Live Demo
+1. **Install & First Launch** — Open Google Play, install, grant permissions, land in #mesh
+2. **Peer Discovery, DMs & Channels** — Discover via Bluetooth, send encrypted DMs, lock channels with passwords, list and block peers
+3. **Geohash + Panic Wipe** — Location-scoped chats over Tor, triple-tap to wipe identity instantly
+
+### When Bitchat IS the Right Tool
+- Election-day shutdowns (Uganda model)
+- Dense protests or rallies where neighbors are reachable
+- Internet blackouts during unrest
+- Disaster or infrastructure failure
+- Festival or event coordination in congested cells
+
+### When Bitchat Is the WRONG Tool
+- Cross-border coordination (use Signal or Agora)
+- Whistleblowing to media (use SecureDrop or Signal with disappearing messages)
+- Long-term secure comms (Signal's protocol is more mature)
+- High-value targets under active surveillance
+- Unverified identities — MITM impersonation is possible without in-person QR verification
+
+### Pre-Shutdown Checklist
+- Install Bitchat **now**, not when the shutdown starts
+- Verify downloads from official Play Store, App Store, or signed APKs (GitHub Releases / Zapstore)
+- Pre-add your team as favorites for offline sync
+- Verify identities in person via QR codes
+- Practice triple-tap panic wipe until it's muscle memory
+- Distribute channel names + passwords physically, not by text
+- Charge phones and disable battery optimization
+
+### Known Risks
+- Metadata leaks even when content is encrypted
+- MITM via weak identity authentication
+- Static session keys — limited forward secrecy
+- Fake APKs and phishing during blackouts
+- App stores can comply with state takedowns
+
+## Who Should View This
+
+- World Liberty Congress members and allied human-rights organizations
+- Activists in countries at risk of internet shutdowns or platform bans
+- Journalists and field workers operating in censored environments
+- Anyone building digital-security stacks for crisis preparedness
+- Developers and freedom-tech advocates working on mesh networking
+
+## Key Takeaways
+
+- **Install BEFORE a crisis** — downloads spike during blackouts only because seeds were planted earlier
+- **Verify identities in person** with QR codes
+- **Triple-tap = panic wipe**
+- **Bitchat is one layer in a stack** — not a silver bullet. Pair it with Signal, Tor, and good operational habits
+
+Browse through the slides below or download the full PDF presentation.
+    `
   }
 ];
 
