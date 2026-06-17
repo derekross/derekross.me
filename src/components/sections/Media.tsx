@@ -3,6 +3,12 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { ExternalLink, Play, Calendar, Mic, FileText } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import { GradientText } from "@/components/GradientText";
+import { Reveal } from "@/components/Reveal";
+import { AuroraBackground } from "@/components/AuroraBackground";
+
+const glassCard =
+  "border-border/50 bg-card/60 backdrop-blur-xl transition-all duration-300 hover:-translate-y-1 hover:border-primary/30 hover:shadow-xl hover:shadow-primary/10";
 
 export function Media() {
   const navigate = useNavigate();
@@ -232,6 +238,38 @@ export function Media() {
       type: "YouTube",
       platform: "Video",
     },
+    {
+      show: "Bitcoin 2026",
+      title: "Vibe Coding on Bitcoin",
+      date: "April 27, 2026",
+      url: "https://www.youtube.com/watch?v=zf-XIy7dyyY",
+      type: "YouTube",
+      platform: "Conference Talk",
+    },
+    {
+      show: "Bitcoin 2026",
+      title: "Protocol vs Platform: Nostr's Utility Beyond Social Media",
+      date: "April 27, 2026",
+      url: "https://www.youtube.com/watch?v=wrlE0DMoTSc",
+      type: "YouTube",
+      platform: "Conference Talk",
+    },
+    {
+      show: "Bitcoin 2026",
+      title: "AI + Bitcoin + Nostr = Freedom Tech Stack",
+      date: "April 27, 2026",
+      url: "https://www.youtube.com/watch?v=YS5dCrLWRgM",
+      type: "YouTube",
+      platform: "Conference Talk",
+    },
+    {
+      show: "THE Bitcoin Podcast with Walker",
+      title: "This AI Agent Experiment Is About to Change Bitcoin Forever",
+      date: "March 3, 2026",
+      url: "https://www.youtube.com/watch?v=MAiLPJhzW3c",
+      type: "YouTube",
+      platform: "Video",
+    },
   ];
 
   const getPlatformIcon = (platform: string) => {
@@ -292,91 +330,104 @@ export function Media() {
     .sort((a, b) => b - a);
 
   return (
-    <section id="media" className="py-20 bg-background">
+    <section id="media" className="relative overflow-hidden py-24">
+      <AuroraBackground subtle />
       <div className="container mx-auto px-4">
-        <div className="text-center mb-16">
-          <h2 className="text-4xl font-bold mb-4">Media & Podcasts</h2>
-          <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-            Browse Derek's media library featuring him discussing AI, nostr,
-            Bitcoin, and related topics. These include interviews and
-            discussions covering AI, vibe coding, nostr education, adoption,
-            building communities, and the protocol's impact on the future of
-            social communication.
+        <Reveal className="mx-auto mb-12 max-w-3xl text-center">
+          <p className="mb-3 text-sm font-semibold uppercase tracking-widest text-primary">
+            In the Media
           </p>
-        </div>
+          <h2 className="font-display text-4xl font-extrabold tracking-tight md:text-5xl">
+            Podcasts, Talks & <GradientText>Press</GradientText>
+          </h2>
+          <p className="mt-5 text-lg text-muted-foreground">
+            A growing library of interviews, keynotes, and deep dives where Derek
+            unpacks AI, vibe coding, Nostr, Bitcoin, and the rebuild of the open
+            internet — one conversation at a time.
+          </p>
+        </Reveal>
 
-        <div className="mb-8">
-          <img
-            src="/derek-bitcoin-2025.jpg"
-            alt="Derek Ross in Media"
-            className="w-full max-w-4xl mx-auto rounded-lg shadow-lg object-cover object-[center_calc(25%+15px)] h-64 md:h-96"
-          />
-        </div>
+        <Reveal delay={80} className="mb-16">
+          <div className="mx-auto max-w-4xl overflow-hidden rounded-2xl border border-border/50 bg-gradient-brand p-[2px] shadow-xl shadow-primary/20">
+            <img
+              src="/derek-bitcoin-2025.jpg"
+              alt="Derek Ross in Media"
+              className="h-64 w-full rounded-2xl object-cover object-[center_calc(25%+15px)] md:h-96"
+              loading="lazy"
+            />
+          </div>
+        </Reveal>
 
         {/* Media by Year */}
-        <div className="space-y-12">
-          {years.map((year) => (
+        <div className="space-y-14">
+          {years.map((year, yearIndex) => (
             <div key={year}>
-              <h3 className="text-2xl font-bold mb-6 flex items-center">
-                <Calendar className="h-6 w-6 mr-2 text-primary" />
-                {year}
-              </h3>
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+              <Reveal>
+                <div className="mb-6 flex items-center gap-4">
+                  <h3 className="flex items-center font-display text-2xl font-extrabold tracking-tight">
+                    <Calendar className="mr-2 h-6 w-6 text-primary" />
+                    <GradientText>{year}</GradientText>
+                  </h3>
+                  <div className="h-px flex-1 bg-gradient-brand opacity-40" />
+                </div>
+              </Reveal>
+              <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
                 {groupedByYear[year].map((media, index) => (
-                  <Card
-                    key={index}
-                    className="hover:shadow-lg transition-shadow"
-                  >
-                    <CardHeader className="pb-3">
-                      <div className="flex items-start justify-between mb-2">
-                        <div className="flex-1">
-                          <div className="flex items-center mb-2">
-                            <Badge
-                              variant="outline"
-                              className={`mr-2 ${getTypeColor(media.type)}`}
-                            >
-                              {media.type}
-                            </Badge>
-                            <Badge
-                              className={`${getPlatformColor(
-                                media.platform
-                              )} text-white`}
-                            >
-                              {getPlatformIcon(media.platform)}
-                              <span className="ml-1">{media.platform}</span>
-                            </Badge>
+                  <Reveal key={index} delay={(yearIndex === 0 ? index : 0) * 50}>
+                    <Card className={`h-full ${glassCard}`}>
+                      <CardHeader className="pb-3">
+                        <div className="mb-2 flex items-start justify-between">
+                          <div className="flex-1">
+                            <div className="mb-2 flex flex-wrap items-center gap-2">
+                              <Badge
+                                variant="outline"
+                                className={getTypeColor(media.type)}
+                              >
+                                {media.type}
+                              </Badge>
+                              <Badge
+                                className={`${getPlatformColor(
+                                  media.platform
+                                )} text-white`}
+                              >
+                                {getPlatformIcon(media.platform)}
+                                <span className="ml-1">{media.platform}</span>
+                              </Badge>
+                            </div>
+                            <CardTitle className="font-display text-lg font-bold leading-tight">
+                              {media.title}
+                            </CardTitle>
                           </div>
-                          <CardTitle className="text-lg leading-tight">
-                            {media.title}
-                          </CardTitle>
                         </div>
-                      </div>
-                      <div className="text-sm text-muted-foreground">
-                        <div className="font-medium">{media.show}</div>
-                        <div className="flex items-center mt-1">
-                          <Calendar className="h-3 w-3 mr-1" />
-                          {media.date}
+                        <div className="text-sm text-muted-foreground">
+                          <div className="font-medium text-foreground/80">
+                            {media.show}
+                          </div>
+                          <div className="mt-1 flex items-center">
+                            <Calendar className="mr-1 h-3 w-3 text-primary" />
+                            {media.date}
+                          </div>
                         </div>
-                      </div>
-                    </CardHeader>
-                    <CardContent className="pt-0">
-                      <Button
-                        variant="outline"
-                        className="w-full"
-                        onClick={() => window.open(media.url, "_blank")}
-                      >
-                        {getPlatformIcon(media.platform)}
-                        <span className="ml-2">
-                          {media.platform.toLowerCase() === "article"
-                            ? "Read Article"
-                            : media.platform.toLowerCase() === "documentary"
-                            ? "Watch Documentary"
-                            : "Watch/Listen"}
-                        </span>
-                        <ExternalLink className="h-4 w-4 ml-2" />
-                      </Button>
-                    </CardContent>
-                  </Card>
+                      </CardHeader>
+                      <CardContent className="pt-0">
+                        <Button
+                          variant="glass"
+                          className="w-full"
+                          onClick={() => window.open(media.url, "_blank")}
+                        >
+                          {getPlatformIcon(media.platform)}
+                          <span className="ml-2">
+                            {media.platform.toLowerCase() === "article"
+                              ? "Read Article"
+                              : media.platform.toLowerCase() === "documentary"
+                              ? "Watch Documentary"
+                              : "Watch/Listen"}
+                          </span>
+                          <ExternalLink className="ml-2 h-4 w-4" />
+                        </Button>
+                      </CardContent>
+                    </Card>
+                  </Reveal>
                 ))}
               </div>
             </div>
@@ -384,82 +435,102 @@ export function Media() {
         </div>
 
         {/* Soapbox Sessions Podcast */}
-        <Card className="mt-12 bg-gradient-to-r from-purple-500/10 to-pink-500/10 border-purple-200 dark:border-purple-800">
-          <CardContent className="p-8">
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-center">
-              <div className="md:col-span-1">
-                <img
-                  src="https://r2a.primal.net/uploads2/a/1d/c3/a1dc3a85d1b6762e05f671388319116c51866e441c66ea3391bc4f3e0f9e3d96.jpg"
-                  alt="Soapbox Sessions Podcast"
-                  className="w-full rounded-lg shadow-lg"
-                />
-              </div>
-              <div className="md:col-span-2 space-y-4">
-                <div>
-                  <Badge className="bg-purple-500 text-white mb-3">
-                    <Mic className="h-3 w-3 mr-1" />
-                    Derek's Podcast
-                  </Badge>
-                  <h3 className="text-3xl font-bold mb-3">Soapbox Sessions</h3>
-                  <p className="text-muted-foreground text-lg">
-                    Soapbox Sessions is your weekly dose of all things Nostr + AI.
-                    It's our Soapbox about what's new, what's cool, and what's coming.
-                    We want to make it easy to understand and keep up with everything
-                    going on in the decentralized world of Nostr and AI as we work to
-                    rebuild the Internet.
-                  </p>
+        <Reveal delay={80}>
+          <Card className={`mt-16 overflow-hidden ${glassCard}`}>
+            <CardContent className="p-8">
+              <div className="grid grid-cols-1 items-center gap-8 md:grid-cols-3">
+                <div className="md:col-span-1">
+                  <div className="overflow-hidden rounded-2xl border border-border/50 bg-gradient-brand p-[2px] shadow-xl shadow-primary/20">
+                    <img
+                      src="https://r2a.primal.net/uploads2/a/1d/c3/a1dc3a85d1b6762e05f671388319116c51866e441c66ea3391bc4f3e0f9e3d96.jpg"
+                      alt="Soapbox Sessions Podcast"
+                      className="w-full rounded-2xl"
+                      loading="lazy"
+                    />
+                  </div>
                 </div>
-                <Button
-                  size="lg"
-                  className="bg-purple-500 hover:bg-purple-600"
-                  onClick={() => window.open('https://fountain.fm/show/aq7IaS6bdQ6kF6NWDzzc', '_blank')}
-                >
-                  <Play className="h-4 w-4 mr-2" />
-                  Listen on Fountain
-                  <ExternalLink className="h-4 w-4 ml-2" />
-                </Button>
+                <div className="space-y-4 md:col-span-2">
+                  <div>
+                    <Badge className="mb-3 bg-gradient-brand text-white">
+                      <Mic className="mr-1 h-3 w-3" />
+                      Derek's Podcast
+                    </Badge>
+                    <h3 className="mb-3 font-display text-3xl font-extrabold tracking-tight">
+                      Soapbox <GradientText>Sessions</GradientText>
+                    </h3>
+                    <p className="text-lg text-muted-foreground">
+                      Your weekly dose of all things Nostr + AI. It's our Soapbox
+                      about what's new, what's cool, and what's coming. We make it
+                      easy to understand and keep up with everything happening in
+                      the decentralized world of Nostr and AI as we rebuild the
+                      Internet.
+                    </p>
+                  </div>
+                  <Button
+                    size="lg"
+                    variant="gradient"
+                    onClick={() =>
+                      window.open(
+                        "https://fountain.fm/show/aq7IaS6bdQ6kF6NWDzzc",
+                        "_blank"
+                      )
+                    }
+                  >
+                    <Play className="mr-2 h-4 w-4" />
+                    Listen on Fountain
+                    <ExternalLink className="ml-2 h-4 w-4" />
+                  </Button>
+                </div>
               </div>
-            </div>
-          </CardContent>
-        </Card>
+            </CardContent>
+          </Card>
+        </Reveal>
 
         {/* Featured Topics */}
-        <Card className="mt-12 bg-gradient-to-r from-green-500/10 to-blue-500/10 border-green-200 dark:border-green-800">
-          <CardContent className="p-8">
-            <h3 className="text-2xl font-bold text-center mb-6">
-              Featured Discussion Topics
-            </h3>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-              {[
-                "Nostr Protocol Fundamentals",
-                "Bitcoin & Lightning Integration",
-                "Decentralized Social Media",
-                "Censorship Resistance",
-                "Digital Identity & Privacy",
-                "Community Building",
-                "Zaps & Micropayments",
-                "Choose Your Own Algorithm",
-                "Future of Social Communication",
-              ].map((topic, index) => (
-                <div
-                  key={index}
-                  className="flex items-center p-3 bg-background rounded-lg"
+        <Reveal delay={80}>
+          <Card className={`mt-12 overflow-hidden ${glassCard}`}>
+            <CardContent className="p-8">
+              <h3 className="mb-2 text-center font-display text-2xl font-extrabold tracking-tight">
+                Featured Discussion <GradientText>Topics</GradientText>
+              </h3>
+              <p className="mx-auto mb-8 max-w-2xl text-center text-muted-foreground">
+                The conversations Derek loves having on air — ready-made angles
+                for your next episode.
+              </p>
+              <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
+                {[
+                  "Nostr Protocol Fundamentals",
+                  "Bitcoin & Lightning Integration",
+                  "Decentralized Social Media",
+                  "Censorship Resistance",
+                  "Digital Identity & Privacy",
+                  "Community Building",
+                  "Zaps & Micropayments",
+                  "Choose Your Own Algorithm",
+                  "Future of Social Communication",
+                ].map((topic, index) => (
+                  <div
+                    key={index}
+                    className="glass flex items-center rounded-full px-4 py-3 transition-colors hover:border-primary/40"
+                  >
+                    <span className="mr-3 h-2 w-2 flex-shrink-0 rounded-full bg-gradient-brand" />
+                    <span className="text-sm font-medium">{topic}</span>
+                  </div>
+                ))}
+              </div>
+              <div className="mt-10 text-center">
+                <Button
+                  size="xl"
+                  variant="gradient"
+                  onClick={() => navigate("/contact")}
                 >
-                  <div className="w-2 h-2 bg-primary rounded-full mr-3" />
-                  <span className="text-sm font-medium">{topic}</span>
-                </div>
-              ))}
-            </div>
-            <div className="text-center mt-8">
-              <Button
-                size="lg"
-                onClick={() => navigate('/contact')}
-              >
-                Invite Derek on Your Show
-              </Button>
-            </div>
-          </CardContent>
-        </Card>
+                  <Mic className="mr-2 h-5 w-5" />
+                  Invite Derek on Your Show
+                </Button>
+              </div>
+            </CardContent>
+          </Card>
+        </Reveal>
       </div>
     </section>
   );

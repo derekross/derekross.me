@@ -15,10 +15,20 @@ import {
   Shield,
   TrendingUp,
   Server,
+  ArrowRight,
+  Sparkles,
+  Palette,
+  Megaphone,
 } from "lucide-react";
 import { useDerekApplications } from "@/hooks/useDerekApplications";
 import { useDerekRepositories } from "@/hooks/useDerekRepositories";
 import { useNavigate } from "react-router-dom";
+import { GradientText } from "@/components/GradientText";
+import { Reveal } from "@/components/Reveal";
+import { AuroraBackground } from "@/components/AuroraBackground";
+
+const glassCard =
+  "border-border/50 bg-card/60 backdrop-blur-xl transition-all duration-300 hover:-translate-y-1 hover:border-primary/30 hover:shadow-xl hover:shadow-primary/10";
 
 export function Services() {
   const navigate = useNavigate();
@@ -67,6 +77,51 @@ export function Services() {
         "Education",
         "Community Building",
         "Protocol Innovation",
+      ],
+    },
+  ];
+
+  const soapboxProducts = [
+    {
+      name: "Shakespeare",
+      description:
+        "Open-source AI website builder for the decentralized web — describe what you want, build it with AI, and deploy it on infrastructure you own.",
+      url: "https://shakespeare.diy",
+      icon: Sparkles,
+      color: "bg-purple-500",
+      features: [
+        "AI App Builder",
+        "No Vendor Lock-in",
+        "Nostr-native",
+        "Deploy Anywhere",
+      ],
+    },
+    {
+      name: "Ditto",
+      description:
+        "Soapbox's flagship Nostr social client — radically customizable, self-hostable, and built to make the internet fun again. Your content, your vibe, your rules.",
+      url: "https://ditto.pub",
+      icon: Palette,
+      color: "bg-pink-500",
+      features: [
+        "Flagship Client",
+        "Theme System",
+        "Self-Hostable",
+        "Cross-Protocol",
+      ],
+    },
+    {
+      name: "Agora",
+      description:
+        "A decentralized activist platform on Nostr and Bitcoin — built with and for human-rights activists to organize freely, communicate safely, and resist censorship.",
+      url: "https://agora.place",
+      icon: Megaphone,
+      color: "bg-orange-500",
+      features: [
+        "Human Rights",
+        "Censorship-Resistant",
+        "Bitcoin Bounties",
+        "Offline Mesh",
       ],
     },
   ];
@@ -172,35 +227,35 @@ export function Services() {
       platforms: { ios?: string; android?: string };
     };
   }) => (
-    <Card className="hover:shadow-lg transition-shadow">
+    <Card className={`h-full ${glassCard}`}>
       <CardContent className="p-6">
-        <div className="flex items-start gap-4 mb-4">
+        <div className="mb-4 flex items-start gap-4">
           {app.picture ? (
             <img
               src={app.picture}
               alt={app.name}
-              className="w-12 h-12 rounded-lg object-cover"
+              className="h-12 w-12 rounded-xl object-cover ring-1 ring-border/60"
             />
           ) : (
-            <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center">
-              <Smartphone className="h-6 w-6 text-primary" />
+            <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10 text-primary">
+              <Smartphone className="h-6 w-6" />
             </div>
           )}
           <div className="flex-1">
-            <div className="flex items-start justify-between mb-2">
-              <h4 className="font-bold text-lg">
+            <div className="mb-2 flex items-start justify-between gap-2">
+              <h4 className="font-display text-lg font-bold">
                 {app.displayName || app.name}
               </h4>
               <Badge variant="outline">App</Badge>
             </div>
             {app.description && (
-              <p className="text-muted-foreground text-sm leading-relaxed mb-3">
+              <p className="mb-3 text-sm leading-relaxed text-muted-foreground">
                 {app.description}
               </p>
             )}
             {app.supportedKinds.length > 0 && (
               <div className="mb-3">
-                <p className="text-xs font-medium text-muted-foreground mb-1">
+                <p className="mb-1 text-xs font-medium text-muted-foreground">
                   Supports:
                 </p>
                 <div className="flex flex-wrap gap-1">
@@ -227,7 +282,7 @@ export function Services() {
               onClick={() => window.open(app.web, "_blank")}
               className="flex-1"
             >
-              <Globe className="h-4 w-4 mr-2" />
+              <Globe className="mr-2 h-4 w-4" />
               Visit App
             </Button>
           )}
@@ -266,15 +321,15 @@ export function Services() {
       tags: string[];
     };
   }) => (
-    <Card className="hover:shadow-lg transition-shadow">
+    <Card className={`h-full ${glassCard}`}>
       <CardContent className="p-6">
-        <div className="flex items-start justify-between mb-4">
+        <div className="mb-4 flex items-start justify-between">
           <div className="flex items-start gap-3">
-            <div className="w-10 h-10 rounded-lg bg-green-500/10 flex items-center justify-center">
-              <GitBranch className="h-5 w-5 text-green-600" />
+            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-primary/10 text-primary">
+              <GitBranch className="h-5 w-5" />
             </div>
             <div>
-              <h4 className="font-bold text-lg">{repo.name}</h4>
+              <h4 className="font-display text-lg font-bold">{repo.name}</h4>
               <Badge variant="outline" className="mt-1">
                 Repository
               </Badge>
@@ -283,7 +338,7 @@ export function Services() {
         </div>
 
         {repo.description && (
-          <p className="text-muted-foreground text-sm leading-relaxed mb-4">
+          <p className="mb-4 text-sm leading-relaxed text-muted-foreground">
             {repo.description}
           </p>
         )}
@@ -313,7 +368,7 @@ export function Services() {
               onClick={() => window.open(repo.webUrls[0], "_blank")}
               className="flex-1"
             >
-              <Globe className="h-4 w-4 mr-2" />
+              <Globe className="mr-2 h-4 w-4" />
               Browse Code
             </Button>
           )}
@@ -348,26 +403,28 @@ export function Services() {
   }) => {
     const IconComponent = solution.icon;
     return (
-      <Card className="hover:shadow-lg transition-shadow h-full">
-        <CardContent className="p-6">
-          <div className="flex items-start gap-4 mb-4">
-            <div className={`p-3 rounded-lg ${solution.color}`}>
-              <IconComponent className="h-6 w-6 text-white" />
+      <Card className={`h-full ${glassCard}`}>
+        <CardContent className="flex h-full flex-col p-6">
+          <div className="mb-4 flex items-start gap-4">
+            <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-gradient-brand text-white shadow-lg shadow-primary/25">
+              <IconComponent className="h-6 w-6" />
             </div>
             <div className="flex-1">
-              <h4 className="font-bold text-lg mb-2">{solution.name}</h4>
-              <p className="text-muted-foreground text-sm leading-relaxed mb-4">
+              <h4 className="mb-2 font-display text-lg font-bold">
+                {solution.name}
+              </h4>
+              <p className="mb-4 text-sm leading-relaxed text-muted-foreground">
                 {solution.description}
               </p>
               <div className="mb-4">
-                <h5 className="font-semibold text-sm mb-2">Key Features:</h5>
+                <h5 className="mb-2 text-sm font-semibold">Key Features:</h5>
                 <div className="grid grid-cols-2 gap-1">
                   {solution.features.map((feature, index) => (
                     <div
                       key={index}
                       className="flex items-center text-xs text-muted-foreground"
                     >
-                      <div className="w-1.5 h-1.5 bg-primary rounded-full mr-2" />
+                      <div className="mr-2 h-1.5 w-1.5 rounded-full bg-primary" />
                       {feature}
                     </div>
                   ))}
@@ -376,11 +433,11 @@ export function Services() {
             </div>
           </div>
           <Button
-            variant="outline"
+            variant="glass"
             onClick={() => window.open(solution.url, "_blank")}
-            className="w-full"
+            className="mt-auto w-full"
           >
-            <Globe className="h-4 w-4 mr-2" />
+            <Globe className="mr-2 h-4 w-4" />
             Visit Solution
           </Button>
         </CardContent>
@@ -389,16 +446,16 @@ export function Services() {
   };
 
   const ProjectSkeleton = () => (
-    <Card>
+    <Card className={glassCard}>
       <CardContent className="p-6">
-        <div className="flex items-start gap-4 mb-4">
-          <Skeleton className="w-12 h-12 rounded-lg" />
+        <div className="mb-4 flex items-start gap-4">
+          <Skeleton className="h-12 w-12 rounded-xl" />
           <div className="flex-1">
-            <div className="flex items-start justify-between mb-2">
+            <div className="mb-2 flex items-start justify-between">
               <Skeleton className="h-6 w-32" />
               <Skeleton className="h-5 w-16" />
             </div>
-            <Skeleton className="h-4 w-full mb-2" />
+            <Skeleton className="mb-2 h-4 w-full" />
             <Skeleton className="h-4 w-3/4" />
           </div>
         </div>
@@ -411,101 +468,144 @@ export function Services() {
   );
 
   return (
-    <section id="services" className="py-20 bg-background">
+    <section id="services" className="relative overflow-hidden py-24">
+      <AuroraBackground subtle />
       <div className="container mx-auto px-4">
-        <div className="text-center mb-16">
-          <h2 className="text-4xl font-bold mb-4">Services & Expertise</h2>
-          <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-            As Developer Relations at{" "}
-            <a href="https://soapbox.pub" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">Soapbox</a>
-            , Derek offers a range of services to help individuals, organizations,
-            and developers understand, implement, and benefit from AI, the nostr
-            protocol, and decentralized technologies.
+        <Reveal className="mx-auto mb-16 max-w-3xl text-center">
+          <p className="mb-3 text-sm font-semibold uppercase tracking-widest text-primary">
+            Services
           </p>
-        </div>
+          <h2 className="font-display text-4xl font-extrabold tracking-tight md:text-5xl">
+            Work With a <GradientText>Nostr Insider</GradientText>
+          </h2>
+          <p className="mt-5 text-lg text-muted-foreground">
+            As Developer Relations at{" "}
+            <a
+              href="https://soapbox.pub"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-primary hover:underline"
+            >
+              Soapbox
+            </a>
+            , Derek helps individuals, organizations, and developers understand,
+            implement, and win with AI, the nostr protocol, and decentralized
+            technologies.
+          </p>
+        </Reveal>
 
         {/* Services Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
+        <div className="mb-20 grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
           {services.map((service, index) => {
             const IconComponent = service.icon;
             return (
-              <Card
-                key={index}
-                className="h-full hover:shadow-lg transition-shadow"
-              >
-                <CardHeader>
-                  <div className="flex items-center justify-between mb-2">
-                    <div className={`p-2 rounded-lg ${service.color}`}>
-                      <IconComponent className="h-5 w-5 text-white" />
+              <Reveal key={index} delay={index * 60}>
+                <Card className={`h-full ${glassCard}`}>
+                  <CardHeader>
+                    <div className="mb-2 flex items-center justify-between">
+                      <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10 text-primary">
+                        <IconComponent className="h-6 w-6" />
+                      </div>
+                      <Badge variant="secondary">{service.category}</Badge>
                     </div>
-                    <Badge variant="secondary">{service.category}</Badge>
-                  </div>
-                  <CardTitle className="text-lg">{service.title}</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-muted-foreground mb-4 leading-relaxed">
-                    {service.description}
-                  </p>
-                  <div className="space-y-2">
-                    <h4 className="font-semibold text-sm">Key Features:</h4>
-                    <ul className="text-sm text-muted-foreground space-y-1">
-                      {service.features.map((feature, featureIndex) => (
-                        <li key={featureIndex} className="flex items-center">
-                          <div className="w-1.5 h-1.5 bg-primary rounded-full mr-2" />
-                          {feature}
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                </CardContent>
-              </Card>
+                    <CardTitle className="font-display text-lg">
+                      {service.title}
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <p className="mb-4 leading-relaxed text-muted-foreground">
+                      {service.description}
+                    </p>
+                    <div className="space-y-2">
+                      <h4 className="text-sm font-semibold">Key Features:</h4>
+                      <ul className="space-y-1 text-sm text-muted-foreground">
+                        {service.features.map((feature, featureIndex) => (
+                          <li key={featureIndex} className="flex items-center">
+                            <div className="mr-2 h-1.5 w-1.5 rounded-full bg-primary" />
+                            {feature}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  </CardContent>
+                </Card>
+              </Reveal>
             );
           })}
         </div>
 
-        {/* Nostr Solutions Section */}
-        <div className="mb-16">
-          <div className="text-center mb-12">
-            <h3 className="text-3xl font-bold mb-4">Nostr Solutions</h3>
-            <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
-              Comprehensive solutions and services Derek has built to strengthen
-              and expand the Nostr ecosystem
+        {/* Soapbox Products Section */}
+        <div className="mb-20">
+          <Reveal className="mx-auto mb-12 max-w-3xl text-center">
+            <h3 className="font-display text-3xl font-extrabold tracking-tight md:text-4xl">
+              Built at <GradientText>Soapbox</GradientText>
+            </h3>
+            <p className="mt-4 text-lg text-muted-foreground">
+              As Developer Relations at Soapbox, Derek champions the freedom-tech
+              products reshaping the decentralized web.
             </p>
-          </div>
+          </Reveal>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
+            {soapboxProducts.map((solution, index) => (
+              <Reveal key={solution.name} delay={index * 60}>
+                <SolutionCard solution={solution} />
+              </Reveal>
+            ))}
+          </div>
+        </div>
+
+        {/* Nostr Solutions Section */}
+        <div className="mb-20">
+          <Reveal className="mx-auto mb-12 max-w-3xl text-center">
+            <h3 className="font-display text-3xl font-extrabold tracking-tight md:text-4xl">
+              Nostr <GradientText>Solutions</GradientText>
+            </h3>
+            <p className="mt-4 text-lg text-muted-foreground">
+              Battle-tested services Derek has built to strengthen and expand
+              the Nostr ecosystem.
+            </p>
+          </Reveal>
+
+          <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
             {solutions.map((solution, index) => (
-              <SolutionCard key={index} solution={solution} />
+              <Reveal key={index} delay={index * 60}>
+                <SolutionCard solution={solution} />
+              </Reveal>
             ))}
           </div>
         </div>
 
         {/* Nostr Applications Section */}
-        <div className="mb-16">
-          <div className="text-center mb-12">
-            <h3 className="text-3xl font-bold mb-4">Nostr Applications</h3>
-            <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
-              Applications built by Derek for the Nostr ecosystem
+        <div className="mb-20">
+          <Reveal className="mx-auto mb-12 max-w-3xl text-center">
+            <h3 className="font-display text-3xl font-extrabold tracking-tight md:text-4xl">
+              Nostr <GradientText>Applications</GradientText>
+            </h3>
+            <p className="mt-4 text-lg text-muted-foreground">
+              Applications built by Derek for the Nostr ecosystem.
             </p>
-          </div>
+          </Reveal>
 
           {appsLoading ? (
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
               {Array.from({ length: 4 }).map((_, index) => (
                 <ProjectSkeleton key={`app-skeleton-${index}`} />
               ))}
             </div>
           ) : applications && applications.length > 0 ? (
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-              {applications.map((app) => (
-                <ApplicationCard key={app.id} app={app} />
+            <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
+              {applications.map((app, index) => (
+                <Reveal key={app.id} delay={index * 60}>
+                  <ApplicationCard app={app} />
+                </Reveal>
               ))}
             </div>
           ) : (
-            <Card className="border-dashed">
-              <CardContent className="py-12 px-8 text-center">
-                <Smartphone className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
-                <h4 className="text-lg font-semibold mb-2">
+            <Card className="border-dashed bg-card/60 backdrop-blur-xl">
+              <CardContent className="px-8 py-12 text-center">
+                <Smartphone className="mx-auto mb-4 h-12 w-12 text-muted-foreground" />
+                <h4 className="mb-2 font-display text-lg font-semibold">
                   No Applications Found
                 </h4>
                 <p className="text-muted-foreground">
@@ -518,31 +618,36 @@ export function Services() {
         </div>
 
         {/* Nostr Repositories Section */}
-        <div className="mb-16">
-          <div className="text-center mb-12">
-            <h3 className="text-3xl font-bold mb-4">Nostr Repositories</h3>
-            <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
-              Open source repositories and contributions to the Nostr ecosystem
+        <div className="mb-20">
+          <Reveal className="mx-auto mb-12 max-w-3xl text-center">
+            <h3 className="font-display text-3xl font-extrabold tracking-tight md:text-4xl">
+              Nostr <GradientText>Repositories</GradientText>
+            </h3>
+            <p className="mt-4 text-lg text-muted-foreground">
+              Open source repositories and contributions to the Nostr
+              ecosystem.
             </p>
-          </div>
+          </Reveal>
 
           {reposLoading ? (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
               {Array.from({ length: 6 }).map((_, index) => (
                 <ProjectSkeleton key={`repo-skeleton-${index}`} />
               ))}
             </div>
           ) : repositories && repositories.length > 0 ? (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {repositories.map((repo) => (
-                <RepositoryCard key={repo.id} repo={repo} />
+            <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
+              {repositories.map((repo, index) => (
+                <Reveal key={repo.id} delay={index * 60}>
+                  <RepositoryCard repo={repo} />
+                </Reveal>
               ))}
             </div>
           ) : (
-            <Card className="border-dashed">
-              <CardContent className="py-12 px-8 text-center">
-                <GitBranch className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
-                <h4 className="text-lg font-semibold mb-2">
+            <Card className="border-dashed bg-card/60 backdrop-blur-xl">
+              <CardContent className="px-8 py-12 text-center">
+                <GitBranch className="mx-auto mb-4 h-12 w-12 text-muted-foreground" />
+                <h4 className="mb-2 font-display text-lg font-semibold">
                   No Repositories Found
                 </h4>
                 <p className="text-muted-foreground">
@@ -555,31 +660,39 @@ export function Services() {
         </div>
 
         {/* Contact CTA */}
-        <Card className="bg-gradient-to-r from-purple-500/10 to-blue-500/10 border-purple-200 dark:border-purple-800">
-          <CardContent className="p-8 text-center">
-            <h3 className="text-2xl font-bold mb-4">Ready to Work Together?</h3>
-            <p className="text-muted-foreground mb-6 max-w-2xl mx-auto">
-              Whether you need a speaker for your conference, want to learn
-              about AI and nostr, or need technical consulting on decentralized
-              technologies, Derek is here to help you navigate the future.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button
-                size="lg"
-                onClick={() => navigate('/contact')}
-              >
-                Get in Touch
-              </Button>
-              <Button
-                variant="outline"
-                size="lg"
-                onClick={() => navigate('/events')}
-              >
-                View Speaking Events
-              </Button>
-            </div>
-          </CardContent>
-        </Card>
+        <Reveal>
+          <Card className="relative overflow-hidden border-primary/20 bg-gradient-brand text-white shadow-2xl shadow-primary/30">
+            <AuroraBackground />
+            <CardContent className="relative p-10 text-center md:p-12">
+              <h3 className="font-display text-3xl font-extrabold tracking-tight md:text-4xl">
+                Ready to Work Together?
+              </h3>
+              <p className="mx-auto mt-4 max-w-2xl text-base leading-relaxed text-white/90 md:text-lg">
+                Need a speaker who can fill a room, a guide to AI and nostr, or
+                technical consulting on decentralized tech? Derek will help you
+                navigate the future — and build it.
+              </p>
+              <div className="mt-8 flex flex-col justify-center gap-4 sm:flex-row">
+                <Button
+                  size="lg"
+                  variant="glass"
+                  onClick={() => navigate("/contact")}
+                >
+                  <Mic className="mr-2 h-5 w-5" />
+                  Book me to speak
+                </Button>
+                <Button
+                  size="lg"
+                  variant="glass"
+                  onClick={() => navigate("/events")}
+                >
+                  View Speaking Events
+                  <ArrowRight className="ml-2 h-5 w-5" />
+                </Button>
+              </div>
+            </CardContent>
+          </Card>
+        </Reveal>
       </div>
     </section>
   );

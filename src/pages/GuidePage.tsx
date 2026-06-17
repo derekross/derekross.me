@@ -306,7 +306,7 @@ export default function GuidePage() {
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button
-                onClick={() => window.open('https://njump.me/derekross@nostrplebs.com', '_blank')}
+                onClick={() => window.open('https://njump.me/derekross@grownostr.org', '_blank')}
               >
                 Follow Derek on Nostr
               </Button>

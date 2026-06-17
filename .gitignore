@@ -23,3 +23,6 @@ dist-ssr
 
 # Vercel
 .vercel
+
+# Local deploy tooling (contains personal server details — not committed)
+/scripts/

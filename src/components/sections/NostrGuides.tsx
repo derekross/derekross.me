@@ -4,6 +4,12 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { ExternalLink, BookOpen, Zap, Radio, BrainCircuit, Orbit } from "lucide-react";
 import { guides } from "@/data/guides";
+import { GradientText } from "@/components/GradientText";
+import { Reveal } from "@/components/Reveal";
+import { AuroraBackground } from "@/components/AuroraBackground";
+
+const glassCard =
+  "border-border/50 bg-card/60 backdrop-blur-xl transition-all duration-300 hover:-translate-y-1 hover:border-primary/30 hover:shadow-xl hover:shadow-primary/10";
 
 export function NostrGuides() {
   // Group guides by category
@@ -11,31 +17,26 @@ export function NostrGuides() {
     {
       title: "AI & Technology",
       icon: BrainCircuit,
-      color: "bg-purple-500",
       guides: guides.filter(g => g.category === 'ai')
     },
     {
       title: "Nostr Basics",
       icon: BookOpen,
-      color: "bg-blue-500",
       guides: guides.filter(g => g.category === 'general')
     },
     {
       title: "Zaps & Lightning",
       icon: Zap,
-      color: "bg-yellow-500",
       guides: guides.filter(g => g.category === 'zaps')
     },
     {
       title: "Relays & Infrastructure",
       icon: Radio,
-      color: "bg-green-500",
       guides: guides.filter(g => g.category === 'relays')
     },
     {
       title: "Nostr Apps & Ecosystem",
       icon: Orbit,
-      color: "bg-indigo-500",
       guides: guides.filter(g => g.category === 'apps')
     },
   ].filter(category => category.guides.length > 0); // Only show categories that have guides
@@ -54,99 +55,123 @@ export function NostrGuides() {
   ];
 
   return (
-    <section id="guides" className="py-20 bg-muted/30">
-      <div className="container mx-auto px-4">
-        <div className="text-center mb-16">
-          <h2 className="text-4xl font-bold mb-4">Guides & Presentations</h2>
-          <p className="text-xl text-muted-foreground max-w-4xl mx-auto leading-relaxed">
-            Explore presentations on AI and technology, navigate the Nostr ecosystem, and find extensive how-to guides.
-            From AI fundamentals to decentralized social media, these resources will help you understand the technologies shaping our future.
-          </p>
-        </div>
+    <section id="guides" className="relative overflow-hidden py-24">
+      <AuroraBackground subtle />
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12">
+      <div className="container mx-auto px-4">
+        <Reveal className="mx-auto mb-16 max-w-3xl text-center">
+          <p className="mb-3 text-sm font-semibold uppercase tracking-widest text-primary">
+            Learn & Build
+          </p>
+          <h2 className="font-display text-4xl font-extrabold tracking-tight md:text-5xl">
+            Guides &amp; <GradientText>Presentations</GradientText>
+          </h2>
+          <p className="mt-5 text-lg leading-relaxed text-muted-foreground">
+            Talks on AI and emerging tech, hands-on walkthroughs of the Nostr
+            ecosystem, and deep-dive how-to guides. From AI fundamentals to
+            decentralized social media, these are the resources that make the
+            technologies shaping our future click.
+          </p>
+        </Reveal>
+
+        <div className="mb-16 grid grid-cols-1 gap-8 lg:grid-cols-2">
           {guideCategories.map((category, categoryIndex) => {
             const IconComponent = category.icon;
             return (
-              <Card key={categoryIndex} className="h-full">
-                <CardHeader>
-                  <CardTitle className="flex items-center">
-                    <div className={`p-2 rounded-lg mr-3 ${category.color}`}>
-                      <IconComponent className="h-5 w-5 text-white" />
-                    </div>
-                    {category.title}
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <div className="space-y-4">
-                    {category.guides.map((guide, guideIndex) => (
-                      <div key={guideIndex} className="border-l-2 border-muted pl-4">
-                        <div className="flex items-start justify-between mb-2">
-                          <Link
-                            to={`/guides/${guide.id}`}
-                            className="font-semibold text-sm hover:text-primary transition-colors"
-                          >
-                            {guide.title}
-                          </Link>
-                          <Badge variant="secondary" className="text-xs ml-2 shrink-0">
-                            {guide.type}
-                          </Badge>
-                        </div>
-                        <p className="text-muted-foreground text-sm leading-relaxed">
-                          {guide.description}
-                        </p>
+              <Reveal key={categoryIndex} delay={(categoryIndex % 2) * 80}>
+                <Card className={`h-full ${glassCard}`}>
+                  <CardHeader>
+                    <CardTitle className="flex items-center font-display text-xl font-bold tracking-tight">
+                      <div className="mr-3 flex h-11 w-11 items-center justify-center rounded-xl bg-gradient-brand text-white">
+                        <IconComponent className="h-5 w-5" />
                       </div>
-                    ))}
-                  </div>
-                </CardContent>
-              </Card>
+                      {category.title}
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="space-y-4">
+                      {category.guides.map((guide, guideIndex) => (
+                        <div
+                          key={guideIndex}
+                          className="border-l-2 border-primary/30 pl-4 transition-colors hover:border-primary"
+                        >
+                          <div className="mb-2 flex items-start justify-between">
+                            <Link
+                              to={`/guides/${guide.id}`}
+                              className="text-sm font-semibold transition-colors hover:text-primary"
+                            >
+                              {guide.title}
+                            </Link>
+                            <Badge variant="secondary" className="ml-2 shrink-0 text-xs">
+                              {guide.type}
+                            </Badge>
+                          </div>
+                          <p className="text-sm leading-relaxed text-muted-foreground">
+                            {guide.description}
+                          </p>
+                        </div>
+                      ))}
+                    </div>
+                  </CardContent>
+                </Card>
+              </Reveal>
             );
           })}
         </div>
 
         {/* External Resources */}
-        <div className="mb-12">
-          <h3 className="text-2xl font-bold text-center mb-8">Additional Resources</h3>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div className="mb-16">
+          <Reveal className="mb-8 text-center">
+            <h3 className="font-display text-2xl font-extrabold tracking-tight md:text-3xl">
+              Keep <GradientText>Exploring</GradientText>
+            </h3>
+          </Reveal>
+          <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
             {externalResources.map((resource, index) => (
-              <Card key={index} className="hover:shadow-lg transition-shadow">
-                <CardContent className="p-6">
-                  <h4 className="font-semibold mb-2 flex items-center">
-                    {resource.title}
-                    <ExternalLink className="ml-2 h-4 w-4 text-muted-foreground" />
-                  </h4>
-                  <p className="text-muted-foreground text-sm mb-4 leading-relaxed">
-                    {resource.description}
-                  </p>
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    onClick={() => window.open(resource.url, '_blank')}
-                  >
-                    Visit Site
-                  </Button>
-                </CardContent>
-              </Card>
+              <Reveal key={index} delay={index * 80}>
+                <Card className={`h-full ${glassCard}`}>
+                  <CardContent className="p-6">
+                    <h4 className="mb-2 flex items-center font-display text-lg font-bold tracking-tight">
+                      {resource.title}
+                      <ExternalLink className="ml-2 h-4 w-4 text-muted-foreground" />
+                    </h4>
+                    <p className="mb-4 text-sm leading-relaxed text-muted-foreground">
+                      {resource.description}
+                    </p>
+                    <Button
+                      variant="glass"
+                      size="sm"
+                      onClick={() => window.open(resource.url, '_blank')}
+                    >
+                      Visit Site
+                    </Button>
+                  </CardContent>
+                </Card>
+              </Reveal>
             ))}
           </div>
         </div>
 
-        <div className="text-center">
-          <img
-            src="/nostrich_1.jpg"
-            alt="Nostrich - Nostr Mascot"
-            className="w-32 h-32 rounded-full mx-auto mb-6 object-cover"
-          />
-          <p className="text-muted-foreground mb-6">
-            Ready to dive deeper into the nostr ecosystem?
+        <Reveal className="text-center">
+          <div className="mx-auto mb-6 w-fit rounded-full bg-gradient-brand p-[3px] shadow-xl shadow-primary/30">
+            <img
+              src="/nostrich_1.jpg"
+              alt="Nostrich, the Nostr mascot"
+              className="h-32 w-32 rounded-full object-cover ring-4 ring-background"
+              loading="lazy"
+            />
+          </div>
+          <p className="mb-6 text-lg text-muted-foreground">
+            Ready to dive deeper into the Nostr ecosystem?
           </p>
           <Button
             size="lg"
-            onClick={() => window.open('https://njump.me/derekross@nostrplebs.com', '_blank')}
+            variant="gradient"
+            onClick={() => window.open('https://njump.me/derekross@grownostr.org', '_blank')}
           >
             Follow Derek on Nostr <ExternalLink className="ml-2 h-5 w-5" />
           </Button>
-        </div>
+        </Reveal>
       </div>
     </section>
   );

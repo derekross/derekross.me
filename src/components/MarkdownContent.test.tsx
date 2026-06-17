@@ -41,61 +41,61 @@ console.log(hello);
 };
 
 describe('MarkdownContent', () => {
-  it('renders markdown headers correctly', () => {
+  it('renders markdown headers correctly', async () => {
     render(
       <TestApp>
         <MarkdownContent event={mockArticleEvent} />
       </TestApp>
     );
 
-    expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent('This is a Header');
+    expect(await screen.findByRole('heading', { level: 1 })).toHaveTextContent('This is a Header');
     expect(screen.getByRole('heading', { level: 2 })).toHaveTextContent('Another Header');
   });
 
-  it('renders bulleted lists correctly', () => {
+  it('renders bulleted lists correctly', async () => {
     render(
       <TestApp>
         <MarkdownContent event={mockArticleEvent} />
       </TestApp>
     );
 
-    const listItems = screen.getAllByRole('listitem');
+    const listItems = await screen.findAllByRole('listitem');
     expect(listItems).toHaveLength(6); // 3 bullet + 3 numbered items
     expect(listItems[0]).toHaveTextContent('First item');
     expect(listItems[1]).toHaveTextContent('Second item');
     expect(listItems[2]).toHaveTextContent('Third item');
   });
 
-  it('renders ordered lists correctly', () => {
+  it('renders ordered lists correctly', async () => {
     render(
       <TestApp>
         <MarkdownContent event={mockArticleEvent} />
       </TestApp>
     );
 
-    const lists = screen.getAllByRole('list');
+    const lists = await screen.findAllByRole('list');
     expect(lists).toHaveLength(2); // 1 unordered + 1 ordered list
   });
 
-  it('renders formatted text correctly', () => {
+  it('renders formatted text correctly', async () => {
     render(
       <TestApp>
         <MarkdownContent event={mockArticleEvent} />
       </TestApp>
     );
 
-    expect(screen.getByText('bold text')).toBeInTheDocument();
+    expect(await screen.findByText('bold text')).toBeInTheDocument();
     expect(screen.getByText('italic text')).toBeInTheDocument();
     expect(screen.getByText('inline code')).toBeInTheDocument();
   });
 
-  it('renders blockquotes correctly', () => {
+  it('renders blockquotes correctly', async () => {
     render(
       <TestApp>
         <MarkdownContent event={mockArticleEvent} />
       </TestApp>
     );
 
-    expect(screen.getByText('This is a blockquote')).toBeInTheDocument();
+    expect(await screen.findByText('This is a blockquote')).toBeInTheDocument();
   });
 });

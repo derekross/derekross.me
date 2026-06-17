@@ -12,17 +12,17 @@ vi.mock('@/hooks/useLightningPayment', () => ({
 }));
 
 describe('ZapButton', () => {
-  it('renders with default text', () => {
+  it('renders with default text', async () => {
     render(
       <TestApp>
         <ZapButton recipient="test@example.com" />
       </TestApp>
     );
 
-    expect(screen.getByText('Zap ⚡')).toBeInTheDocument();
+    expect(await screen.findByText('Zap ⚡')).toBeInTheDocument();
   });
 
-  it('renders with custom children', () => {
+  it('renders with custom children', async () => {
     render(
       <TestApp>
         <ZapButton recipient="test@example.com">
@@ -31,36 +31,36 @@ describe('ZapButton', () => {
       </TestApp>
     );
 
-    expect(screen.getByText('Custom Zap Text')).toBeInTheDocument();
+    expect(await screen.findByText('Custom Zap Text')).toBeInTheDocument();
   });
 
-  it('opens dialog when showDialog is true', () => {
+  it('opens dialog when showDialog is true', async () => {
     render(
       <TestApp>
         <ZapButton recipient="test@example.com" showDialog={true} />
       </TestApp>
     );
 
-    const button = screen.getByText('Zap ⚡');
+    const button = await screen.findByText('Zap ⚡');
     fireEvent.click(button);
 
     expect(screen.getByText('Send Lightning Payment')).toBeInTheDocument();
   });
 
-  it('calls onZap callback when provided', () => {
+  it('calls onZap callback when provided', async () => {
     const onZapMock = vi.fn();
-    
+
     render(
       <TestApp>
-        <ZapButton 
-          recipient="test@example.com" 
+        <ZapButton
+          recipient="test@example.com"
           showDialog={false}
           onZap={onZapMock}
         />
       </TestApp>
     );
 
-    const button = screen.getByText('Zap ⚡');
+    const button = await screen.findByText('Zap ⚡');
     fireEvent.click(button);
 
     expect(onZapMock).toHaveBeenCalled();

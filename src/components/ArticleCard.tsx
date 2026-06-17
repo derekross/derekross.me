@@ -43,11 +43,11 @@ export function ArticleCard({ event }: { event: NostrEvent }) {
 
   return (
     <Card
-      className="hover:shadow-lg transition-shadow h-full cursor-pointer group"
+      className="group h-full cursor-pointer overflow-hidden border-border/50 bg-card/60 backdrop-blur-xl transition-all duration-300 hover:-translate-y-1 hover:border-primary/30 hover:shadow-xl hover:shadow-primary/10"
       onClick={handleReadArticle}
     >
       {heroImage && (
-        <div className="aspect-video w-full overflow-hidden rounded-t-lg">
+        <div className="aspect-video w-full overflow-hidden rounded-t-xl">
           <img
             src={heroImage}
             alt={title}
@@ -66,11 +66,11 @@ export function ArticleCard({ event }: { event: NostrEvent }) {
               <img
                 src={metadata.picture}
                 alt={metadata.name || 'Derek Ross'}
-                className="w-10 h-10 rounded-full object-cover"
+                className="w-10 h-10 rounded-full object-cover ring-2 ring-primary/30"
                 loading="lazy"
               />
             ) : (
-              <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center">
+              <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center ring-2 ring-primary/30">
                 <span className="text-primary font-semibold">DR</span>
               </div>
             )}
@@ -88,7 +88,7 @@ export function ArticleCard({ event }: { event: NostrEvent }) {
               </div>
             </div>
           </div>
-          <Badge className="bg-purple-500 text-white text-xs">
+          <Badge className="bg-gradient-brand text-white text-xs border-transparent">
             Article
           </Badge>
         </div>
@@ -120,8 +120,8 @@ export function ArticleCard({ event }: { event: NostrEvent }) {
 
 export function ArticleSkeleton() {
   return (
-    <Card className="h-full">
-      <Skeleton className="aspect-video w-full rounded-t-lg rounded-b-none" />
+    <Card className="h-full overflow-hidden border-border/50 bg-card/60 backdrop-blur-xl">
+      <Skeleton className="aspect-video w-full rounded-t-xl rounded-b-none" />
       <CardHeader className="pb-3">
         <div className="flex items-start justify-between mb-3">
           <div className="flex items-center space-x-3">

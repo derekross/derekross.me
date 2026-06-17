@@ -22,8 +22,15 @@ export function TestApp({ children }: TestAppProps) {
 
   const defaultConfig: AppConfig = {
     theme: 'light',
-    relayUrl: 'wss://nostr-relay.derekross.me',
-    useAllRelays: false,
+    relayMetadata: {
+      relays: [{ url: 'wss://nostr-relay.derekross.me/', read: true, write: true }],
+      updatedAt: 0,
+    },
+    blossomServerMetadata: {
+      servers: [],
+      updatedAt: 0,
+    },
+    useAppBlossomServers: true,
   };
 
   return (

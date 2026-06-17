@@ -3,9 +3,15 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Calendar, MapPin, ExternalLink, Clock } from "lucide-react";
+import { Calendar, MapPin, ExternalLink, Clock, Mic } from "lucide-react";
 import { useCalendarEvents } from "@/hooks/useCalendarEvents";
 import { useNavigate } from "react-router-dom";
+import { GradientText } from "@/components/GradientText";
+import { Reveal } from "@/components/Reveal";
+import { AuroraBackground } from "@/components/AuroraBackground";
+
+const glassCard =
+  "border-border/50 bg-card/60 backdrop-blur-xl transition-all duration-300 hover:-translate-y-1 hover:border-primary/30 hover:shadow-xl hover:shadow-primary/10";
 
 export function Events() {
   const navigate = useNavigate();
@@ -149,31 +155,31 @@ export function Events() {
     };
     isNostrEvent?: boolean;
   }) => (
-    <Card className="hover:shadow-lg transition-shadow">
+    <Card className={`h-full ${glassCard}`}>
       <CardHeader className="pb-3">
-        <div className="flex items-start justify-between">
-          <div className="flex-1 min-w-0">
-            <CardTitle className="text-lg mb-2 flex items-center">
+        <div className="flex items-start justify-between gap-3">
+          <div className="min-w-0 flex-1">
+            <CardTitle className="mb-2 flex items-center font-display text-lg font-bold">
               {event.name || event.title}
               {event.url && (
                 <ExternalLink
-                  className="ml-2 h-4 w-4 text-muted-foreground cursor-pointer hover:text-foreground"
+                  className="ml-2 h-4 w-4 flex-shrink-0 cursor-pointer text-muted-foreground transition-colors hover:text-primary"
                   onClick={() => window.open(event.url, "_blank")}
                 />
               )}
             </CardTitle>
             {event.location && (
-              <div className="flex items-center text-muted-foreground text-sm mb-1 min-w-0">
-                <MapPin className="h-4 w-4 mr-1 flex-shrink-0" />
+              <div className="mb-1 flex min-w-0 items-center text-sm text-muted-foreground">
+                <MapPin className="mr-1 h-4 w-4 flex-shrink-0 text-primary" />
                 <span className="truncate">{event.location}</span>
               </div>
             )}
-            <div className="flex items-center text-muted-foreground text-sm">
-              <Clock className="h-4 w-4 mr-1" />
+            <div className="flex items-center text-sm text-muted-foreground">
+              <Clock className="mr-1 h-4 w-4 text-primary" />
               {event.date}
             </div>
           </div>
-          <div className="flex flex-col gap-2">
+          <div className="flex flex-col items-end gap-2">
             <Badge className={`${getEventTypeColor(event.type)} text-white`}>
               {event.type}
             </Badge>
@@ -199,7 +205,7 @@ export function Events() {
       </CardHeader>
       {isNostrEvent && event.description && (
         <CardContent className="pt-0">
-          <p className="text-muted-foreground text-sm leading-relaxed line-clamp-6">
+          <p className="line-clamp-6 text-sm leading-relaxed text-muted-foreground">
             {event.description}
           </p>
         </CardContent>
@@ -208,170 +214,203 @@ export function Events() {
   );
 
   return (
-    <section id="events" className="py-20 bg-muted/30">
+    <section id="events" className="relative overflow-hidden py-24">
+      <AuroraBackground subtle />
       <div className="container mx-auto px-4">
-        <div className="text-center mb-16">
-          <h2 className="text-4xl font-bold mb-4">Speaking Events</h2>
-          <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-            Derek has spoken at numerous international conferences, from Bitcoin
-            and Nostr events to chamber of commerce workshops, sharing his expertise
-            on AI, vibe coding, decentralization, and censorship resistance.
+        <Reveal className="mx-auto mb-12 max-w-3xl text-center">
+          <p className="mb-3 text-sm font-semibold uppercase tracking-widest text-primary">
+            On Stage
           </p>
-        </div>
+          <h2 className="font-display text-4xl font-extrabold tracking-tight md:text-5xl">
+            Speaking <GradientText>Engagements</GradientText>
+          </h2>
+          <p className="mt-5 text-lg text-muted-foreground">
+            From Bitcoin and Nostr conferences to chamber-of-commerce workshops,
+            Derek takes the stage worldwide to demystify AI, vibe coding,
+            decentralization, and censorship resistance.
+          </p>
+        </Reveal>
 
-        <div className="mb-8">
-          <img
-            src="/derek_3.jpg"
-            alt="Derek Ross Speaking at Conference"
-            className="w-full max-w-4xl mx-auto rounded-lg shadow-lg object-cover h-64 md:h-96"
-          />
-        </div>
+        <Reveal delay={80} className="mb-12">
+          <div className="mx-auto max-w-4xl overflow-hidden rounded-2xl border border-border/50 bg-gradient-brand p-[2px] shadow-xl shadow-primary/20">
+            <img
+              src="/derek_3.jpg"
+              alt="Derek Ross Speaking at Conference"
+              className="h-64 w-full rounded-2xl object-cover md:h-96"
+              loading="lazy"
+            />
+          </div>
+        </Reveal>
 
         <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-          <TabsList className="grid w-full grid-cols-2 max-w-md mx-auto mb-8">
+          <TabsList className="mx-auto mb-8 grid w-full max-w-md grid-cols-2 border border-border/50 bg-card/60 backdrop-blur-xl">
             <TabsTrigger value="upcoming" className="flex items-center">
-              <Calendar className="h-4 w-4 mr-2" />
+              <Calendar className="mr-2 h-4 w-4" />
               Upcoming
             </TabsTrigger>
             <TabsTrigger value="past">Past Events</TabsTrigger>
           </TabsList>
 
           <TabsContent value="upcoming" className="space-y-6">
-            <div className="text-center mb-8">
-              <h3 className="text-2xl font-bold mb-4">Upcoming Events</h3>
+            <Reveal className="mb-8 text-center">
+              <h3 className="font-display text-2xl font-extrabold tracking-tight">
+                Upcoming Events
+              </h3>
               {isLoading && (
-                <p className="text-muted-foreground">
+                <p className="mt-2 text-muted-foreground">
                   Loading Nostr calendar events...
                 </p>
               )}
-            </div>
+            </Reveal>
 
             {/* Nostr Calendar Events - Future */}
             {nostrEvents && nostrEvents.filter((e) => !e.isPast).length > 0 && (
               <div className="mb-8">
-                <h4 className="text-lg font-semibold mb-4 flex items-center">
-                  Calendar Events
-                </h4>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div className="mb-5 flex items-center gap-3">
+                  <h4 className="font-display text-lg font-bold">
+                    Calendar Events
+                  </h4>
+                  <div className="h-px flex-1 bg-gradient-brand opacity-40" />
+                </div>
+                <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
                   {nostrEvents
                     .filter((e) => !e.isPast)
                     .map((event, index) => (
-                      <EventCard
-                        key={`future-${event.id}-${index}`}
-                        event={event}
-                        isNostrEvent={true}
-                      />
+                      <Reveal key={`future-${event.id}-${index}`} delay={index * 60}>
+                        <EventCard event={event} isNostrEvent={true} />
+                      </Reveal>
                     ))}
                 </div>
               </div>
             )}
 
             {/* Static Upcoming Events */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
               {upcomingEvents.map((event, index) => (
-                <EventCard key={`static-upcoming-${index}`} event={event} />
+                <Reveal key={`static-upcoming-${index}`} delay={index * 60}>
+                  <EventCard event={event} />
+                </Reveal>
               ))}
             </div>
 
             {upcomingEvents.length === 0 &&
               (!nostrEvents ||
                 nostrEvents.filter((e) => !e.isPast).length === 0) && (
-                <Card className="border-dashed">
-                  <CardContent className="py-12 px-8 text-center">
-                    <Calendar className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
-                    <h3 className="text-lg font-semibold mb-2">
-                      No Upcoming Events
-                    </h3>
-                    <p className="text-muted-foreground mb-6">
-                      Check back soon for new speaking engagements and
-                      conference appearances.
-                    </p>
-                    <Button
-                      variant="outline"
-                      onClick={() => navigate('/contact')}
-                    >
-                      Invite Derek to Speak
-                    </Button>
-                  </CardContent>
-                </Card>
+                <Reveal>
+                  <Card className={`border-dashed ${glassCard}`}>
+                    <CardContent className="px-8 py-12 text-center">
+                      <div className="mx-auto mb-5 flex h-14 w-14 items-center justify-center rounded-2xl bg-primary/10">
+                        <Calendar className="h-7 w-7 text-primary" />
+                      </div>
+                      <h3 className="mb-2 font-display text-lg font-bold">
+                        Nothing on the calendar — yet
+                      </h3>
+                      <p className="mb-6 text-muted-foreground">
+                        The next stage is open. Bring Derek to your conference,
+                        meetup, or workshop.
+                      </p>
+                      <Button
+                        size="lg"
+                        variant="gradient"
+                        onClick={() => navigate("/contact")}
+                      >
+                        <Mic className="mr-2 h-5 w-5" />
+                        Invite Derek to Speak
+                      </Button>
+                    </CardContent>
+                  </Card>
+                </Reveal>
               )}
           </TabsContent>
 
           <TabsContent value="past" className="space-y-6">
-            <div className="text-center mb-8">
-              <h3 className="text-2xl font-bold mb-4">Past Speaking Events</h3>
-              <p className="text-muted-foreground">
-                A history of Derek's conference presentations and community
-                engagements.
+            <Reveal className="mb-8 text-center">
+              <h3 className="font-display text-2xl font-extrabold tracking-tight">
+                Past Speaking Events
+              </h3>
+              <p className="mt-2 text-muted-foreground">
+                A track record of conference keynotes, panels, and community
+                stages across the globe.
               </p>
-            </div>
+            </Reveal>
 
             {/* Nostr Calendar Events - Past */}
             {nostrEvents && nostrEvents.filter((e) => e.isPast).length > 0 && (
               <div className="mb-8">
-                <h4 className="text-lg font-semibold mb-4 flex items-center">
-                  Past Calendar Events
-                </h4>
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div className="mb-5 flex items-center gap-3">
+                  <h4 className="font-display text-lg font-bold">
+                    Past Calendar Events
+                  </h4>
+                  <div className="h-px flex-1 bg-gradient-brand opacity-40" />
+                </div>
+                <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
                   {nostrEvents
                     .filter((e) => e.isPast)
                     .map((event, index) => (
-                      <EventCard
-                        key={`past-${event.id}-${index}`}
-                        event={event}
-                        isNostrEvent={true}
-                      />
+                      <Reveal key={`past-${event.id}-${index}`} delay={index * 40}>
+                        <EventCard event={event} isNostrEvent={true} />
+                      </Reveal>
                     ))}
                 </div>
               </div>
             )}
 
             {/* Static Past Events */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
               {pastEvents.map((event, index) => (
-                <EventCard key={`static-past-${index}`} event={event} />
+                <Reveal key={`static-past-${index}`} delay={index * 40}>
+                  <EventCard event={event} />
+                </Reveal>
               ))}
             </div>
           </TabsContent>
         </Tabs>
 
         {/* Speaking Topics */}
-        <Card className="mt-12 bg-gradient-to-r from-blue-500/10 to-purple-500/10 border-blue-200 dark:border-blue-800">
-          <CardContent className="p-8">
-            <h3 className="text-2xl font-bold text-center mb-6">
-              Speaking Topics
-            </h3>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-              {[
-                "Nostr Protocol Education",
-                "Decentralization & Censorship Resistance",
-                "Choose Your Own Algorithm",
-                "Bitcoin & Lightning Integration",
-                "Digital Identity & Privacy",
-                "Community Building on Nostr",
-                "Zaps & Micropayments",
-                "Relay Infrastructure",
-                "Client Development",
-              ].map((topic, index) => (
-                <div
-                  key={index}
-                  className="flex items-center p-3 bg-background rounded-lg"
+        <Reveal delay={80}>
+          <Card className={`mt-12 overflow-hidden ${glassCard}`}>
+            <CardContent className="p-8">
+              <h3 className="mb-2 text-center font-display text-2xl font-extrabold tracking-tight">
+                Speaking <GradientText>Topics</GradientText>
+              </h3>
+              <p className="mx-auto mb-8 max-w-2xl text-center text-muted-foreground">
+                A toolkit of talks tuned for any room — pick a theme or let Derek
+                tailor one to your audience.
+              </p>
+              <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
+                {[
+                  "Nostr Protocol Education",
+                  "Decentralization & Censorship Resistance",
+                  "Choose Your Own Algorithm",
+                  "Bitcoin & Lightning Integration",
+                  "Digital Identity & Privacy",
+                  "Community Building on Nostr",
+                  "Zaps & Micropayments",
+                  "Relay Infrastructure",
+                  "Client Development",
+                ].map((topic, index) => (
+                  <div
+                    key={index}
+                    className="glass flex items-center rounded-full px-4 py-3 transition-colors hover:border-primary/40"
+                  >
+                    <span className="mr-3 h-2 w-2 flex-shrink-0 rounded-full bg-gradient-brand" />
+                    <span className="text-sm font-medium">{topic}</span>
+                  </div>
+                ))}
+              </div>
+              <div className="mt-10 text-center">
+                <Button
+                  size="xl"
+                  variant="gradient"
+                  onClick={() => navigate("/contact")}
                 >
-                  <div className="w-2 h-2 bg-primary rounded-full mr-3" />
-                  <span className="text-sm font-medium">{topic}</span>
-                </div>
-              ))}
-            </div>
-            <div className="text-center mt-8">
-              <Button
-                size="lg"
-                onClick={() => navigate('/contact')}
-              >
-                Book Derek for Your Event
-              </Button>
-            </div>
-          </CardContent>
-        </Card>
+                  <Mic className="mr-2 h-5 w-5" />
+                  Book Derek for Your Event
+                </Button>
+              </div>
+            </CardContent>
+          </Card>
+        </Reveal>
       </div>
     </section>
   );
