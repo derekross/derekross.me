@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { ExternalLink, Heart } from "lucide-react";
+import { GradientText } from "@/components/GradientText";
 import { DEREK_CONTACTS } from "@/lib/derek";
 import { useDerekApplications } from "@/hooks/useDerekApplications";
 import { ZapButton } from "@/components/ZapButton";
@@ -47,6 +48,9 @@ export function Footer() {
         { name: "Why Nostr", href: "/whynostr" },
         { name: "Guides", href: "/guides" },
         { name: "Services", href: "/services" },
+        { name: "Shakespeare", href: "https://shakespeare.diy", external: true },
+        { name: "Ditto", href: "https://ditto.pub", external: true },
+        { name: "Agora", href: "https://agora.place", external: true },
         { name: "NostrApps.com", href: "https://nostrapps.com", external: true }
       ]
     },
@@ -71,13 +75,16 @@ export function Footer() {
   };
 
   return (
-    <footer className="bg-muted/50 border-t">
+    <footer className="relative bg-muted/30 border-t border-border/50">
+      <div aria-hidden="true" className="absolute inset-x-0 top-0 h-px bg-gradient-brand opacity-70" />
       <div className="container mx-auto px-4 py-12">
         {/* Main Footer Content */}
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
           {/* Brand Section */}
           <div className="md:col-span-1">
-            <h3 className="text-xl font-bold mb-4">Derek Ross</h3>
+            <h3 className="font-display text-xl font-extrabold mb-4">
+              <GradientText>Derek Ross</GradientText>
+            </h3>
             <p className="text-muted-foreground text-sm leading-relaxed mb-4">
               Developer Relations at{" "}
               <a href="https://soapbox.pub" target="_blank" rel="noopener noreferrer" className="hover:text-foreground transition-colors underline">Soapbox</a>
@@ -86,9 +93,8 @@ export function Footer() {
             <div className="flex space-x-2">
               <Button
                 size="sm"
-                variant="default"
+                variant="gradient"
                 onClick={() => window.open(`https://njump.me/${DEREK_CONTACTS.nostrAddress}`, '_blank')}
-                className="bg-primary text-primary-foreground hover:bg-primary/90"
               >
                 Follow on Nostr
                 <ExternalLink className="ml-2 h-3 w-3" />
@@ -99,7 +105,7 @@ export function Footer() {
           {/* Footer Links */}
           {footerLinks.map((section, index) => (
             <div key={index}>
-              <h4 className="font-semibold mb-4">{section.title}</h4>
+              <h4 className="font-display font-semibold mb-4">{section.title}</h4>
               <ul className="space-y-2">
                 {section.links.map((link, linkIndex) => (
                   <li key={linkIndex}>

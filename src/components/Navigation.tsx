@@ -10,10 +10,10 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Menu, ChevronDown } from "lucide-react";
 import { LoginArea } from "@/components/auth/LoginArea";
-import { ThemeToggle } from "@/components/ThemeToggle";
 import { DEREK_CONTACTS } from "@/lib/derek";
 import { ZapButton } from "@/components/ZapButton";
 import { cn } from "@/lib/utils";
+import { GradientText } from "@/components/GradientText";
 import {
   Collapsible,
   CollapsibleContent,
@@ -34,15 +34,15 @@ export function Navigation() {
   const navLinkClass = "text-sm font-medium text-muted-foreground hover:text-foreground transition-colors px-3 py-2";
 
   return (
-    <nav aria-label="Main navigation" className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+    <nav aria-label="Main navigation" className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/70 backdrop-blur-xl supports-[backdrop-filter]:bg-background/55">
       <div className="container mx-auto px-4">
         <div className="flex h-16 items-center justify-between">
           <div className="flex items-center space-x-4">
             <button
               onClick={() => navigate('/')}
-              className="text-xl font-bold text-primary hover:text-primary/80 transition-colors"
+              className="font-display text-xl font-extrabold tracking-tight transition-opacity hover:opacity-80"
             >
-              Derek Ross
+              <GradientText>Derek Ross</GradientText>
             </button>
           </div>
 
@@ -122,7 +122,6 @@ export function Navigation() {
           </div>
 
           <div className="flex items-center space-x-4">
-            <ThemeToggle />
             <LoginArea className="max-w-40" />
 
             {/* Zap Button */}

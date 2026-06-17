@@ -6,12 +6,15 @@ import { createHead, UnheadProvider } from '@unhead/react/client';
 import { InferSeoMetaPlugin } from '@unhead/addons';
 import { Suspense } from 'react';
 import NostrProvider from '@/components/NostrProvider';
+import { NostrSync } from '@/components/NostrSync';
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { NostrLoginProvider } from '@nostrify/react/login';
 import { AppProvider } from '@/components/AppProvider';
 import { AppConfig } from '@/contexts/AppContext';
+import { APP_RELAYS } from '@/lib/appRelays';
+import { APP_BLOSSOM_SERVERS } from '@/lib/appBlossom';
 import AppRouter from './AppRouter';
 
 const head = createHead({
@@ -31,27 +34,21 @@ const queryClient = new QueryClient({
 });
 
 const defaultConfig: AppConfig = {
-  theme: "light",
-  relayUrl: "wss://nostr-relay.derekross.me",
-  useAllRelays: true,
+  // Default to dark for the gradient/glow aesthetic; light mode is fully supported.
+  theme: "dark",
+  relayMetadata: APP_RELAYS,
+  blossomServerMetadata: APP_BLOSSOM_SERVERS,
+  useAppBlossomServers: true,
 };
-
-const presetRelays = [
-  { url: 'wss://relay.primal.net', name: 'Primal' },
-  { url: 'wss://nostr-relay.derekross.me', name: 'Derek Ross' },
-  { url: 'wss://nos.lol', name: 'nos.lol' },
-  { url: 'wss://relay.ditto.pub', name: 'Ditto' },
-  { url: 'wss://nostr.wine', name: 'nostr.wine' },
-  { url: 'wss://relay.damus.io', name: 'Damus' },
-];
 
 export function App() {
   return (
     <UnheadProvider head={head}>
-      <AppProvider storageKey="nostr:app-config" defaultConfig={defaultConfig} presetRelays={presetRelays}>
+      <AppProvider storageKey="nostr:app-config" defaultConfig={defaultConfig}>
         <QueryClientProvider client={queryClient}>
           <NostrLoginProvider storageKey='nostr:login'>
             <NostrProvider>
+              <NostrSync />
               <TooltipProvider>
                 <Toaster />
                 <Sonner />

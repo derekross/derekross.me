@@ -1,6 +1,8 @@
 import { useSeoMeta } from '@unhead/react';
 import { Navigation } from "@/components/Navigation";
 import { Footer } from "@/components/Footer";
+import { GradientText } from "@/components/GradientText";
+import { AuroraBackground } from "@/components/AuroraBackground";
 
 const EFFECTIVE_DATE = "March 10, 2026";
 
@@ -13,11 +15,17 @@ const TermsPage = () => {
   return (
     <div className="min-h-screen bg-background">
       <Navigation />
-      <main className="pt-16">
+      <main className="relative overflow-hidden pt-16">
+        <AuroraBackground subtle />
         <div className="max-w-3xl mx-auto px-4 py-16">
           {/* Header */}
           <div className="mb-10 border-b border-border pb-8">
-            <h1 className="text-4xl font-bold text-foreground mb-3">Terms of Service</h1>
+            <p className="mb-3 text-sm font-semibold uppercase tracking-widest text-primary">
+              Legal
+            </p>
+            <h1 className="font-display text-4xl font-extrabold tracking-tight md:text-5xl mb-3">
+              Terms of <GradientText>Service</GradientText>
+            </h1>
             <p className="text-muted-foreground text-sm">
               Effective date: {EFFECTIVE_DATE} &nbsp;·&nbsp; Last updated: {EFFECTIVE_DATE}
             </p>

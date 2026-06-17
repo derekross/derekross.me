@@ -6,15 +6,15 @@ export function useAuthor(pubkey: string | undefined) {
   const { nostr } = useNostr();
 
   return useQuery<{ event?: NostrEvent; metadata?: NostrMetadata }>({
-    queryKey: ['author', pubkey ?? ''],
-    queryFn: async ({ signal }) => {
+    queryKey: ['nostr', 'author', pubkey ?? ''],
+    queryFn: async () => {
       if (!pubkey) {
         return {};
       }
 
       const [event] = await nostr.query(
         [{ kinds: [0], authors: [pubkey!], limit: 1 }],
-        { signal: AbortSignal.any([signal, AbortSignal.timeout(1500)]) },
+        { signal: AbortSignal.timeout(1500) },
       );
 
       if (!event) {
@@ -28,6 +28,7 @@ export function useAuthor(pubkey: string | undefined) {
         return { event };
       }
     },
+    staleTime: 5 * 60 * 1000, // Keep cached data fresh for 5 minutes
     retry: 3,
   });
 }

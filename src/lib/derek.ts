@@ -5,7 +5,7 @@ export const DEREK_PUBKEY_HEX = '3f770d65d3a764a9c5cb503ae123e62ec7598ad035d836e
 // Derek's contact information
 export const DEREK_CONTACTS = {
   npub: DEREK_NPUB,
-  nostrAddress: 'derekross@nostrplebs.com',
+  nostrAddress: 'derekross@grownostr.org',
   email: 'contact@derekross.me',
   lightning: 'pay@derekross.me',
   relays: [

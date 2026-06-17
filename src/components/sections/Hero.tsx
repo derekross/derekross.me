@@ -1,88 +1,133 @@
 import { Button } from "@/components/ui/button";
-import { ArrowDown, ExternalLink } from "lucide-react";
+import { ArrowDown, Mic, Zap } from "lucide-react";
 import { DEREK_CONTACTS } from "@/lib/derek";
+import { GradientText } from "@/components/GradientText";
+import { AuroraBackground } from "@/components/AuroraBackground";
 import { useNavigate } from "react-router-dom";
+
+const STAGES = [
+  "Nostrica",
+  "Nostriga",
+  "Baltic Honeybadger",
+  "BTC Prague",
+  "The Bitcoin Conference",
+];
+
+const STATS = [
+  { value: "20+", label: "Years in tech" },
+  { value: "Global", label: "Keynote speaker" },
+  { value: "∞", label: "Nostr passion" },
+];
 
 export function Hero() {
   const navigate = useNavigate();
-  const goToAbout = () => {
-    navigate('/about');
-  };
 
   return (
-    <section id="hero" className="relative min-h-screen flex items-center justify-center overflow-hidden">
-      {/* Background Image */}
-      <div
-        className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-        style={{
-          backgroundImage: "url('/background_1.jpg')",
-        }}
-      >
-        <div className="absolute inset-0 bg-black/70" />
-      </div>
+    <section
+      id="hero"
+      className="relative flex min-h-screen items-center justify-center overflow-hidden pt-16"
+    >
+      <AuroraBackground />
+      {/* Soft vignette so text stays legible over the glow */}
+      <div className="absolute inset-0 -z-10 bg-gradient-to-b from-background/40 via-background/70 to-background" />
 
-      {/* Content */}
-      <div className="relative z-10 container mx-auto px-4 text-center text-white">
-        <div className="max-w-4xl mx-auto">
-          <h1 className="text-5xl md:text-7xl font-bold mb-6 leading-tight">
-            Derek Ross
+      <div className="container relative z-10 mx-auto px-4 py-20 text-center">
+        <div className="mx-auto max-w-4xl">
+          {/* Eyebrow badge */}
+          <div className="mb-8 inline-flex items-center gap-2 rounded-full glass px-4 py-1.5 text-sm font-medium text-muted-foreground">
+            <span className="relative flex h-2 w-2">
+              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-primary opacity-75" />
+              <span className="relative inline-flex h-2 w-2 rounded-full bg-primary" />
+            </span>
+            Developer Relations @{" "}
+            <a
+              href="https://soapbox.pub"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-foreground hover:text-primary transition-colors"
+            >
+              Soapbox
+            </a>
+          </div>
+
+          {/* Portrait with gradient ring */}
+          <div className="mx-auto mb-8 w-fit rounded-full bg-gradient-brand p-[3px] shadow-xl shadow-primary/30">
+            <img
+              src="/derek-bitcoin-2025.jpg"
+              alt="Derek Ross"
+              className="h-28 w-28 rounded-full object-cover object-[center_25%] ring-4 ring-background md:h-32 md:w-32"
+              loading="eager"
+            />
+          </div>
+
+          <h1 className="font-display text-5xl font-extrabold leading-[1.05] tracking-tight md:text-7xl">
+            <GradientText animate>Derek Ross</GradientText>
           </h1>
-          <p className="text-xl md:text-2xl mb-8 text-gray-200 max-w-3xl mx-auto leading-relaxed">
-            Developer Relations at <a href="https://soapbox.pub" target="_blank" rel="noopener noreferrer" className="text-purple-400 font-semibold hover:text-purple-300 transition-colors">Soapbox</a>, building the future of decentralized social media with{" "}
-            <a href="https://shakespeare.diy" target="_blank" rel="noopener noreferrer" className="text-purple-400 font-semibold hover:text-purple-300 transition-colors">Shakespeare</a> and{" "}
-            <span className="text-purple-400 font-semibold">nostr</span>.
-            Passionate about AI, vibe coding, and empowering communities through open protocols and decentralized technology.
+
+          <p className="mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-muted-foreground md:text-xl">
+            Keynote speaker, builder, and the decentralized web's loudest
+            evangelist. I help people and companies make sense of{" "}
+            <span className="font-semibold text-foreground">AI</span>,{" "}
+            <span className="font-semibold text-foreground">Bitcoin</span>, and{" "}
+            <span className="font-semibold text-foreground">Nostr</span> — and
+            build on the open protocols rewiring the internet.
           </p>
 
-          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-12">
-            <Button
-              size="lg"
-              onClick={goToAbout}
-              className="bg-purple-600 hover:bg-purple-700 text-white px-8 py-3 text-lg"
-            >
-              Learn More About Derek
-              <ArrowDown className="ml-2 h-5 w-5" />
+          {/* CTAs */}
+          <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
+            <Button size="xl" variant="gradient" onClick={() => navigate("/contact")}>
+              <Mic className="mr-2 h-5 w-5" />
+              Book me to speak
             </Button>
-
             <Button
-              variant="outline"
-              size="lg"
-              className="border-2 border-white text-white hover:bg-white hover:text-black px-8 py-3 text-lg font-semibold shadow-lg backdrop-blur-sm bg-black/20"
-              onClick={() => window.open(`https://njump.me/${DEREK_CONTACTS.nostrAddress}`, '_blank')}
+              size="xl"
+              variant="glass"
+              onClick={() => window.open(`https://njump.me/${DEREK_CONTACTS.nostrAddress}`, "_blank")}
             >
+              <Zap className="mr-2 h-5 w-5" />
               Follow on Nostr
-              <ExternalLink className="ml-2 h-5 w-5" />
             </Button>
           </div>
 
-          {/* Quick Stats */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-2xl mx-auto">
-            <div className="text-center">
-              <div className="text-3xl font-bold text-purple-400">20+</div>
-              <div className="text-sm text-gray-300">Years in Tech</div>
-            </div>
-            <div className="text-center">
-              <div className="text-3xl font-bold text-purple-400">DevRel</div>
-              <div className="text-sm text-gray-300">at Soapbox</div>
-            </div>
-            <div className="text-center">
-              <div className="text-3xl font-bold text-purple-400">∞</div>
-              <div className="text-sm text-gray-300">Nostr Passion</div>
-            </div>
+          {/* Stats */}
+          <div className="mx-auto mt-14 grid max-w-2xl grid-cols-3 gap-4">
+            {STATS.map((stat) => (
+              <div key={stat.label} className="rounded-2xl glass px-4 py-5">
+                <div className="font-display text-2xl font-bold md:text-3xl">
+                  <GradientText>{stat.value}</GradientText>
+                </div>
+                <div className="mt-1 text-xs text-muted-foreground md:text-sm">{stat.label}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Spoken-at strip */}
+        <div className="mx-auto mt-16 max-w-4xl">
+          <p className="text-xs font-medium uppercase tracking-widest text-muted-foreground">
+            Trusted on stages worldwide
+          </p>
+          <div className="mt-4 flex flex-wrap items-center justify-center gap-x-6 gap-y-3">
+            {STAGES.map((stage) => (
+              <span
+                key={stage}
+                className="font-display text-sm font-semibold text-muted-foreground/80 transition-colors hover:text-foreground md:text-base"
+              >
+                {stage}
+              </span>
+            ))}
           </div>
         </div>
       </div>
 
-      {/* Scroll Indicator */}
-      <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
-        <button
-          onClick={goToAbout}
-          aria-label="Scroll down"
-          className="text-white/70 hover:text-white transition-colors"
-        >
-          <ArrowDown className="h-6 w-6" />
-        </button>
-      </div>
+      {/* Scroll indicator */}
+      <button
+        onClick={() => navigate("/about")}
+        aria-label="Learn more about Derek"
+        className="absolute bottom-6 left-1/2 -translate-x-1/2 animate-bounce text-muted-foreground/70 transition-colors hover:text-foreground"
+      >
+        <ArrowDown className="h-6 w-6" />
+      </button>
     </section>
   );
 }

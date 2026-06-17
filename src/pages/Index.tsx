@@ -15,8 +15,8 @@ import { Footer } from "@/components/Footer";
 
 const Index = () => {
   useSeoMeta({
-    title: 'Derek Ross - Developer Relations at Soapbox | Nostr & AI Advocate',
-    description: 'Derek Ross is Developer Relations at Soapbox, building the future of decentralized social media with Shakespeare and Nostr. Passionate about AI, vibe coding, and empowering communities through open protocols.',
+    title: 'Derek Ross — Keynote Speaker on AI, Bitcoin & Nostr',
+    description: 'Keynote speaker, builder, and Developer Relations lead at Soapbox. Derek Ross helps people and companies make sense of AI, Bitcoin, and Nostr — and build on the open protocols rewiring the internet. Book Derek to speak.',
   });
 
   return (

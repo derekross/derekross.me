@@ -7,6 +7,12 @@ import { BookOpen, Loader2 } from "lucide-react";
 import { useDerekArticlesInfinite } from "@/hooks/useDerekArticlesInfinite";
 import { ArticleCard, ArticleSkeleton } from "@/components/ArticleCard";
 import { deduplicateEvents } from '@/lib/dedup';
+import { GradientText } from "@/components/GradientText";
+import { Reveal } from "@/components/Reveal";
+import { AuroraBackground } from "@/components/AuroraBackground";
+
+const glassCard =
+  "border-dashed border-border/50 bg-card/60 backdrop-blur-xl";
 
 const BlogPage = () => {
   useSeoMeta({
@@ -65,14 +71,20 @@ const BlogPage = () => {
     <div className="min-h-screen bg-background">
       <Navigation />
       <main className="pt-16">
-        <section className="py-20 bg-background">
+        <section className="relative overflow-hidden py-20">
+          <AuroraBackground subtle />
           <div className="container mx-auto px-4">
-            <div className="text-center mb-16">
-              <h1 className="text-4xl font-bold mb-4">Blog</h1>
-              <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-                In-depth articles and long-form content about Nostr protocol, decentralization, and the future of digital communication.
+            <Reveal className="mb-16 text-center">
+              <p className="mb-3 text-sm font-semibold uppercase tracking-widest text-primary">
+                Writing
               </p>
-            </div>
+              <h1 className="font-display text-4xl font-extrabold tracking-tight md:text-5xl">
+                The <GradientText>Blog</GradientText>
+              </h1>
+              <p className="mx-auto mt-5 max-w-3xl text-lg text-muted-foreground md:text-xl">
+                In-depth articles and long-form content about the Nostr protocol, decentralization, and the future of digital communication.
+              </p>
+            </Reveal>
 
             {isLoading ? (
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -81,7 +93,7 @@ const BlogPage = () => {
                 ))}
               </div>
             ) : error ? (
-              <Card className="border-dashed">
+              <Card className={glassCard}>
                 <CardContent className="py-12 px-8 text-center">
                   <BookOpen className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
                   <h3 className="text-lg font-semibold mb-2">Unable to Load Articles</h3>
@@ -109,7 +121,7 @@ const BlogPage = () => {
                 </div>
               </>
             ) : (
-              <Card className="border-dashed">
+              <Card className={glassCard}>
                 <CardContent className="py-12 px-8 text-center">
                   <BookOpen className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
                   <h3 className="text-lg font-semibold mb-2">No Articles Yet</h3>
