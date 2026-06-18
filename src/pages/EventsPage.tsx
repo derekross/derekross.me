@@ -7,8 +7,8 @@ const EventsPage = () => {
   useSeoMeta({
     title: 'Events - Derek Ross Speaking & Appearances',
     description: 'Where to catch Derek Ross next — keynotes, panels, and workshops on AI, Bitcoin, and Nostr at conferences worldwide.',
-    ogImage: 'https://derekross.me/og/events.png',
-    twitterImage: 'https://derekross.me/og/events.png',
+    ogImage: 'https://derekross.me/og/events.jpg',
+    twitterImage: 'https://derekross.me/og/events.jpg',
   });
 
   return (

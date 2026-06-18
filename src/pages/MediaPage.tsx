@@ -7,8 +7,8 @@ const MediaPage = () => {
   useSeoMeta({
     title: 'Media & Podcasts - Derek Ross',
     description: 'Derek Ross on podcasts, stages, and in print — on AI, Bitcoin, Nostr, and the future of social media.',
-    ogImage: 'https://derekross.me/og/media.png',
-    twitterImage: 'https://derekross.me/og/media.png',
+    ogImage: 'https://derekross.me/og/media.jpg',
+    twitterImage: 'https://derekross.me/og/media.jpg',
   });
 
   return (

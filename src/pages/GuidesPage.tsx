@@ -7,8 +7,8 @@ const GuidesPage = () => {
   useSeoMeta({
     title: 'Guides & Presentations - AI, Nostr & Technology',
     description: 'Guides and slide decks from Derek Ross on Nostr, zaps, relays, AI, and building on the decentralized web.',
-    ogImage: 'https://derekross.me/og/guides.png',
-    twitterImage: 'https://derekross.me/og/guides.png',
+    ogImage: 'https://derekross.me/og/guides.jpg',
+    twitterImage: 'https://derekross.me/og/guides.jpg',
   });
 
   return (

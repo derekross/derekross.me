@@ -7,8 +7,8 @@ const WhyNostrPage = () => {
   useSeoMeta({
     title: 'Why Nostr? - Decentralized Social Communication',
     description: 'Why Nostr? Derek Ross on the open protocol giving people back control of their identity, content, and social graph.',
-    ogImage: 'https://derekross.me/og/whynostr.png',
-    twitterImage: 'https://derekross.me/og/whynostr.png',
+    ogImage: 'https://derekross.me/og/whynostr.jpg',
+    twitterImage: 'https://derekross.me/og/whynostr.jpg',
   });
 
   return (
