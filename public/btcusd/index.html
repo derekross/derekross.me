@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>BTC/USD</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%E2%82%BF%3C/text%3E%3C/svg%3E" />
+  <style>
+    :root {
+      --up: #16c784;
+      --down: #ea3943;
+      --neutral: #f2f2f2;
+      --bg: #0a0a0a;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html, body {
+      height: 100%;
+      background: var(--bg);
+      color: var(--neutral);
+      font-family: ui-monospace, "SF Mono", "Cascadia Code", "Roboto Mono", Menlo, Consolas, monospace;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    body {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100dvh;
+      gap: 0.6rem;
+      user-select: none;
+      overflow: hidden;
+    }
+
+    .label {
+      font-size: clamp(0.8rem, 2.5vw, 1.1rem);
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: #6b6b6b;
+      padding-left: 0.35em; /* optically center the letter-spacing */
+    }
+
+    .price {
+      font-size: clamp(2.75rem, 13vw, 9rem);
+      font-weight: 700;
+      font-variant-numeric: tabular-nums;
+      line-height: 1;
+      color: var(--neutral);
+      transition: color 0.15s ease;
+      white-space: nowrap;
+    }
+
+    .price.up { color: var(--up); }
+    .price.down { color: var(--down); }
+
+    /* Subtle flash on each tick so movement is felt, not just seen. */
+    .price.flash { animation: flash 0.45s ease; }
+    @keyframes flash {
+      0% { transform: scale(1.018); }
+      100% { transform: scale(1); }
+    }
+
+    .status {
+      position: fixed;
+      bottom: 1.1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.7rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: #4a4a4a;
+    }
+
+    .dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #4a4a4a;
+      transition: background 0.3s ease;
+    }
+    .dot.live { background: var(--up); box-shadow: 0 0 8px var(--up); }
+    .dot.stale { background: var(--down); }
+  </style>
+</head>
+<body>
+  <div class="label">BTC / USD</div>
+  <div class="price" id="price" aria-live="polite">$—</div>
+
+  <div class="status">
+    <span class="dot" id="dot"></span>
+    <span id="status-text">connecting</span>
+  </div>
+
+  <script>
+    (function () {
+      "use strict";
+
+      var priceEl = document.getElementById("price");
+      var dotEl = document.getElementById("dot");
+      var statusEl = document.getElementById("status-text");
+
+      var fmt = new Intl.NumberFormat("en-US", {
+        style: "currency",
+        currency: "USD",
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2,
+      });
+
+      var lastPrice = null;
+      var flashTimer = null;
+
+      function render(price) {
+        if (typeof price !== "number" || !isFinite(price)) return;
+
+        var text = fmt.format(price);
+
+        // Color relative to the previous tick. Equal price keeps prior color.
+        if (lastPrice !== null) {
+          if (price > lastPrice) {
+            priceEl.classList.remove("down");
+            priceEl.classList.add("up");
+          } else if (price < lastPrice) {
+            priceEl.classList.remove("up");
+            priceEl.classList.add("down");
+          }
+        }
+
+        priceEl.textContent = text;
+        document.title = text + " · BTC/USD";
+
+        // Re-trigger the flash animation on every update.
+        priceEl.classList.remove("flash");
+        void priceEl.offsetWidth; // force reflow so the animation restarts
+        priceEl.classList.add("flash");
+        clearTimeout(flashTimer);
+        flashTimer = setTimeout(function () {
+          priceEl.classList.remove("flash");
+        }, 500);
+
+        lastPrice = price;
+      }
+
+      function setStatus(state) {
+        if (state === "live") {
+          dotEl.className = "dot live";
+          statusEl.textContent = "live";
+        } else if (state === "stale") {
+          dotEl.className = "dot stale";
+          statusEl.textContent = "reconnecting";
+        } else {
+          dotEl.className = "dot";
+          statusEl.textContent = "connecting";
+        }
+      }
+
+      // --- REST: instant first paint + fallback polling ---------------------
+      function fetchSpot() {
+        return fetch("https://api.coinbase.com/v2/prices/BTC-USD/spot", {
+          cache: "no-store",
+        })
+          .then(function (r) {
+            if (!r.ok) throw new Error("HTTP " + r.status);
+            return r.json();
+          })
+          .then(function (json) {
+            var amount = parseFloat(json && json.data && json.data.amount);
+            if (isFinite(amount)) render(amount);
+          })
+          .catch(function () {
+            /* swallow; the WebSocket or next poll will recover */
+          });
+      }
+
+      // --- WebSocket: real-time tick-by-tick stream -------------------------
+      var ws = null;
+      var reconnectDelay = 1000; // grows on repeated failure, capped below
+      var pollTimer = null;
+
+      function startPolling() {
+        if (pollTimer) return;
+        pollTimer = setInterval(fetchSpot, 4000);
+      }
+
+      function stopPolling() {
+        clearInterval(pollTimer);
+        pollTimer = null;
+      }
+
+      function connect() {
+        try {
+          ws = new WebSocket("wss://ws-feed.exchange.coinbase.com");
+        } catch (e) {
+          scheduleReconnect();
+          return;
+        }
+
+        ws.onopen = function () {
+          reconnectDelay = 1000;
+          stopPolling();
+          setStatus("live");
+          ws.send(
+            JSON.stringify({
+              type: "subscribe",
+              product_ids: ["BTC-USD"],
+              channels: ["ticker"],
+            })
+          );
+        };
+
+        ws.onmessage = function (evt) {
+          var msg;
+          try {
+            msg = JSON.parse(evt.data);
+          } catch (e) {
+            return;
+          }
+          if (msg.type === "ticker" && msg.price) {
+            var p = parseFloat(msg.price);
+            if (isFinite(p)) render(p);
+          }
+        };
+
+        ws.onerror = function () {
+          try { ws.close(); } catch (e) {}
+        };
+
+        ws.onclose = function () {
+          scheduleReconnect();
+        };
+      }
+
+      function scheduleReconnect() {
+        setStatus("stale");
+        startPolling(); // keep the price updating while the socket is down
+        setTimeout(connect, reconnectDelay);
+        reconnectDelay = Math.min(reconnectDelay * 2, 15000);
+      }
+
+      // Kick everything off.
+      fetchSpot();
+      connect();
+
+      // Reconnect promptly when the tab regains focus after sleeping.
+      document.addEventListener("visibilitychange", function () {
+        if (
+          document.visibilityState === "visible" &&
+          (!ws || ws.readyState === WebSocket.CLOSED || ws.readyState === WebSocket.CLOSING)
+        ) {
+          connect();
+        }
+      });
+    })();
+  </script>
+</body>
+</html>

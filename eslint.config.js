@@ -48,6 +48,10 @@ export default tseslint.config(
   },
   {
     files: ["**/*.html"],
+    // The /btcusd ticker is a standalone, intentionally noindex, self-contained
+    // static app — it's not part of the SPA, so the SEO/manifest/no-inline-script
+    // rules below don't apply to it.
+    ignores: ["public/btcusd/**"],
     plugins: {
       "@html-eslint": htmlEslint,
       "custom": customRules,
