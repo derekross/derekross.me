@@ -270,6 +270,38 @@ export function Media() {
       type: "YouTube",
       platform: "Video",
     },
+    {
+      show: "Forbes",
+      title: "UK's Under-16 Social Media Ban Risks Digital ID Expansion",
+      date: "June 17, 2026",
+      url: "https://www.forbes.com/sites/digital-assets/2026/06/17/uks-under-16-social-media-ban-risks-digital-id-expansion/",
+      type: "Forbes",
+      platform: "Article",
+    },
+    {
+      show: "All In Bitcoin With CK",
+      title: "029 They Can't Ban This!",
+      date: "April 1, 2026",
+      url: "https://www.youtube.com/watch?v=CuqakIBDCVM",
+      type: "YouTube",
+      platform: "Video",
+    },
+    {
+      show: "Stackchain Magazine",
+      title: "Why Bitcoiners Should Revisit Decentralized Communication",
+      date: "January 25, 2026",
+      url: "https://www.stackchainmagazine.net/why-bitcoiners-should-revisit-decentralized-communication-by-derek-ross/",
+      type: "Stackchain Magazine",
+      platform: "Article",
+    },
+    {
+      show: "Fractal Bitcoin",
+      title: "What Is Nostr (The New Internet) and Should You Care?",
+      date: "January 11, 2025",
+      url: "https://www.youtube.com/watch?v=2cZtEVikH98",
+      type: "YouTube",
+      platform: "Video",
+    },
   ];
 
   const getPlatformIcon = (platform: string) => {
