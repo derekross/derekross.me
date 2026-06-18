@@ -1,7 +1,7 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Mail, Zap, ExternalLink, MessageCircle, MapPin, Clock } from "lucide-react";
+import { Mail, Zap, ExternalLink, MessageCircle, MapPin, Clock, Linkedin } from "lucide-react";
 import { DEREK_CONTACTS } from "@/lib/derek";
 import { ZapButton } from "@/components/ZapButton";
 import { GradientText } from "@/components/GradientText";
@@ -10,6 +10,20 @@ import { AuroraBackground } from "@/components/AuroraBackground";
 
 const glassCard =
   "border-border/50 bg-card/60 backdrop-blur-xl transition-all duration-300 hover:-translate-y-1 hover:border-primary/30 hover:shadow-xl hover:shadow-primary/10";
+
+/** Official X (formerly Twitter) logo — lucide's `X` is a close icon, not the brand. */
+function XIcon({ className }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" className={className}>
+      <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24h-6.66l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zM17.083 19.77h1.833L7.084 4.126H5.117z" />
+    </svg>
+  );
+}
+
+const socialLinks = [
+  { label: "X (Twitter)", href: DEREK_CONTACTS.x, Icon: XIcon },
+  { label: "LinkedIn", href: DEREK_CONTACTS.linkedin, Icon: Linkedin },
+];
 
 export function Contact() {
   const contactMethods = [
@@ -132,6 +146,27 @@ export function Contact() {
             );
           })}
         </div>
+
+        {/* Social Links */}
+        <Reveal className="mb-20 text-center">
+          <p className="mb-5 text-sm font-semibold uppercase tracking-widest text-muted-foreground">
+            Connect elsewhere
+          </p>
+          <div className="flex items-center justify-center gap-4">
+            {socialLinks.map(({ label, href, Icon }) => (
+              <a
+                key={label}
+                href={href}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={`Derek Ross on ${label}`}
+                className="flex h-12 w-12 items-center justify-center rounded-2xl border border-border/50 bg-card/60 text-foreground backdrop-blur-xl transition-all duration-300 hover:-translate-y-1 hover:border-primary/40 hover:text-primary hover:shadow-lg hover:shadow-primary/20"
+              >
+                <Icon className="h-5 w-5" />
+              </a>
+            ))}
+          </div>
+        </Reveal>
 
         {/* Inquiry Types */}
         <div className="mb-20">

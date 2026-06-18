@@ -6,7 +6,9 @@ import { Footer } from "@/components/Footer";
 const EventsPage = () => {
   useSeoMeta({
     title: 'Events - Derek Ross Speaking & Appearances',
-    description: 'Upcoming and past events featuring Derek Ross of Soapbox. Find speaking engagements, AI workshops, conferences, and community events focused on Nostr, AI, and decentralized technology.',
+    description: 'Where to catch Derek Ross next — keynotes, panels, and workshops on AI, Bitcoin, and Nostr at conferences worldwide.',
+    ogImage: 'https://derekross.me/og/events.png',
+    twitterImage: 'https://derekross.me/og/events.png',
   });
 
   return (

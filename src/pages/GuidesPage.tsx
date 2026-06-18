@@ -6,7 +6,9 @@ import { Footer } from "@/components/Footer";
 const GuidesPage = () => {
   useSeoMeta({
     title: 'Guides & Presentations - AI, Nostr & Technology',
-    description: 'Explore presentations on AI and technology, navigate the Nostr ecosystem, and find extensive how-to guides. From AI fundamentals to decentralized social media.',
+    description: 'Guides and slide decks from Derek Ross on Nostr, zaps, relays, AI, and building on the decentralized web.',
+    ogImage: 'https://derekross.me/og/guides.png',
+    twitterImage: 'https://derekross.me/og/guides.png',
   });
 
   return (

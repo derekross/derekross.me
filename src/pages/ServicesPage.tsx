@@ -6,7 +6,9 @@ import { Footer } from "@/components/Footer";
 const ServicesPage = () => {
   useSeoMeta({
     title: 'Services - Derek Ross | Soapbox Developer Relations',
-    description: 'Professional services offered by Derek Ross including AI workshops, Nostr consulting, Shakespeare demos, speaking engagements, and technology advocacy.',
+    description: 'Book Derek Ross to speak, run an AI/Nostr workshop, or consult on decentralized tech — plus the products he builds at Soapbox.',
+    ogImage: 'https://derekross.me/og/services.png',
+    twitterImage: 'https://derekross.me/og/services.png',
   });
 
   return (
