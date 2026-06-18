@@ -24,8 +24,8 @@ const BackgroundPage = () => {
   useSeoMeta({
     title: 'Background - Derek Ross',
     description: 'The story of Derek Ross — from building 4M-member communities to evangelizing AI, Bitcoin, and Nostr at Soapbox.',
-    ogImage: 'https://derekross.me/og/background.png',
-    twitterImage: 'https://derekross.me/og/background.png',
+    ogImage: 'https://derekross.me/og/background.jpg',
+    twitterImage: 'https://derekross.me/og/background.jpg',
   });
 
   return (

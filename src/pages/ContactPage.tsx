@@ -7,8 +7,8 @@ const ContactPage = () => {
   useSeoMeta({
     title: 'Contact Derek Ross - Get in Touch',
     description: 'Get in touch with Derek Ross — speaking, workshops, consulting, and media. Reach him on Nostr, email, or Lightning.',
-    ogImage: 'https://derekross.me/og/contact.png',
-    twitterImage: 'https://derekross.me/og/contact.png',
+    ogImage: 'https://derekross.me/og/contact.jpg',
+    twitterImage: 'https://derekross.me/og/contact.jpg',
   });
 
   return (

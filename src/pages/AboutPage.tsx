@@ -7,8 +7,8 @@ const AboutPage = () => {
   useSeoMeta({
     title: 'About Derek Ross - Developer Relations at Soapbox',
     description: 'Meet Derek Ross — "The Nostr Evangelist" and Developer Relations at Soapbox, turning AI, Bitcoin, and Nostr into ideas anyone can act on.',
-    ogImage: 'https://derekross.me/og/about.png',
-    twitterImage: 'https://derekross.me/og/about.png',
+    ogImage: 'https://derekross.me/og/about.jpg',
+    twitterImage: 'https://derekross.me/og/about.jpg',
   });
 
   return (
