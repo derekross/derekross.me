@@ -17,6 +17,8 @@ const Index = () => {
   useSeoMeta({
     title: 'Derek Ross — Keynote Speaker on AI, Bitcoin & Nostr',
     description: 'Keynote speaker, builder, and Developer Relations lead at Soapbox. Derek Ross helps people and companies make sense of AI, Bitcoin, and Nostr — and build on the open protocols rewiring the internet. Book Derek to speak.',
+    ogImage: 'https://derekross.me/og/default.png',
+    twitterImage: 'https://derekross.me/og/default.png',
   });
 
   return (

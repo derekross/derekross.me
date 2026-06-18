@@ -8,6 +8,8 @@ export const DEREK_CONTACTS = {
   nostrAddress: 'derekross@grownostr.org',
   email: 'contact@derekross.me',
   lightning: 'pay@derekross.me',
+  x: 'https://x.com/derekmross',
+  linkedin: 'https://linkedin.com/in/derekross',
   relays: [
     'wss://relay.primal.net',
     'wss://nostr-relay.derekross.me',

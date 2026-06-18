@@ -6,7 +6,9 @@ import { Footer } from "@/components/Footer";
 const AboutPage = () => {
   useSeoMeta({
     title: 'About Derek Ross - Developer Relations at Soapbox',
-    description: 'Learn about Derek Ross, Developer Relations at Soapbox. Building the future of decentralized social media with Shakespeare, Nostr, and AI-powered tools.',
+    description: 'Meet Derek Ross — "The Nostr Evangelist" and Developer Relations at Soapbox, turning AI, Bitcoin, and Nostr into ideas anyone can act on.',
+    ogImage: 'https://derekross.me/og/about.png',
+    twitterImage: 'https://derekross.me/og/about.png',
   });
 
   return (

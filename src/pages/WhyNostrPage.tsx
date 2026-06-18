@@ -6,7 +6,9 @@ import { Footer } from "@/components/Footer";
 const WhyNostrPage = () => {
   useSeoMeta({
     title: 'Why Nostr? - Decentralized Social Communication',
-    description: 'Discover why Nostr is the future of social media. Learn about decentralization, censorship resistance, and user ownership in social communication.',
+    description: 'Why Nostr? Derek Ross on the open protocol giving people back control of their identity, content, and social graph.',
+    ogImage: 'https://derekross.me/og/whynostr.png',
+    twitterImage: 'https://derekross.me/og/whynostr.png',
   });
 
   return (
