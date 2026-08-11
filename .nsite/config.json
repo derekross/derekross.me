@@ -1,0 +1,24 @@
+{
+  "id": "",
+  "title": "Derek Ross — Keynote Speaker on AI, Bitcoin & Nostr",
+  "description": "Keynote speaker, builder, and Developer Relations lead at Soapbox. Derek Ross helps people and companies make sense of AI, Bitcoin, and Nostr.",
+  "source": "https://github.com/derekross/derekross.me",
+  "relays": [
+    "wss://relay.ditto.pub",
+    "wss://nostr-relay.derekross.me",
+    "wss://nos.lol",
+    "wss://nostr.wine",
+    "wss://nostrelites.org",
+    "wss://relay.nostrplebs.com"
+  ],
+  "servers": [
+    "https://nostr-relay.derekross.me",
+    "https://blossom.ditto.pub",
+    "https://blossom.dreamith.to"
+  ],
+  "fallback": "/404.html",
+  "publishProfile": false,
+  "publishRelayList": false,
+  "publishServerList": false,
+  "bunkerPubkey": "1f0952a923f0aa1147e763ca7f072c5a5aaa945c742969b6206ae0582ab3d66e"
+}
