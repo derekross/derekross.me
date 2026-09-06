@@ -162,16 +162,18 @@ export function Footer() {
               Zap Derek ⚡️
             </ZapButton>
 
-            {/* MKStack Credit */}
+            {/* Shakespeare Credit */}
             <div className="text-xs text-muted-foreground flex items-center">
               <span>Vibed with</span>
               <Heart className="h-3 w-3 mx-1 text-red-500" />
-              <button
-                onClick={() => window.open('https://soapbox.pub/mkstack', '_blank')}
+              <a
+                href="https://shakespeare.diy"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="hover:text-foreground transition-colors underline"
               >
-                MKStack
-              </button>
+                Shakespeare
+              </a>
             </div>
           </div>
         </div>
