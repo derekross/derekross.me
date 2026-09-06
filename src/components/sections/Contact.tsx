@@ -84,9 +84,11 @@ export function Contact() {
         <Reveal className="mb-12">
           <div className="mx-auto w-fit max-w-4xl rounded-3xl bg-gradient-brand p-[3px] shadow-2xl shadow-primary/30">
             <img
-              src="/derek-workshop.jpg"
-              alt="Derek Ross"
-              className="h-64 w-full rounded-[calc(1.5rem-3px)] object-cover object-[center_calc(25%-40px)] md:h-96"
+              src="/bitcoin2026-6.jpg"
+              srcSet="/bitcoin2026-6-800.webp 800w, /bitcoin2026-6-1600.webp 1600w"
+              sizes="(min-width: 1024px) 896px, 100vw"
+              alt="Derek Ross speaking on stage at Bitcoin 2026 Las Vegas"
+              className="h-64 w-full rounded-[calc(1.5rem-3px)] object-cover object-[center_30%] md:h-96"
             />
           </div>
         </Reveal>

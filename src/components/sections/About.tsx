@@ -87,8 +87,8 @@ export function About() {
               <CardContent className="p-8">
                 <div className="mb-6 flex items-center">
                   <img
-                    src="/derek-workshop.jpg"
-                    alt="Derek Ross Speaking"
+                    src="/derek-avatar-2026.webp"
+                    alt="Derek Ross speaking at Bitcoin 2026"
                     className="mr-4 h-20 w-20 rounded-full object-cover ring-2 ring-primary/30"
                     loading="lazy"
                   />

@@ -382,9 +382,11 @@ export function Media() {
         <Reveal delay={80} className="mb-16">
           <div className="mx-auto max-w-4xl overflow-hidden rounded-2xl border border-border/50 bg-gradient-brand p-[2px] shadow-xl shadow-primary/20">
             <img
-              src="/derek-bitcoin-2025.jpg"
-              alt="Derek Ross in Media"
-              className="h-64 w-full rounded-2xl object-cover object-[center_calc(25%+15px)] md:h-96"
+              src="/bitcoin2026-3.jpg"
+              srcSet="/bitcoin2026-3-800.webp 800w, /bitcoin2026-3-1600.webp 1600w"
+              sizes="(min-width: 1024px) 896px, 100vw"
+              alt="Derek Ross on the Open Source stage at Bitcoin 2026 Las Vegas"
+              className="h-64 w-full rounded-2xl object-cover object-[center_22%] md:h-96"
               loading="lazy"
             />
           </div>

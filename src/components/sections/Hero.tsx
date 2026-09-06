@@ -53,9 +53,9 @@ export function Hero() {
           {/* Portrait with gradient ring */}
           <div className="mx-auto mb-8 w-fit rounded-full bg-gradient-brand p-[3px] shadow-xl shadow-primary/30">
             <img
-              src="/derek-bitcoin-2025.jpg"
+              src="/derek-avatar-2026.webp"
               alt="Derek Ross"
-              className="h-28 w-28 rounded-full object-cover object-[center_25%] ring-4 ring-background md:h-32 md:w-32"
+              className="h-28 w-28 rounded-full object-cover ring-4 ring-background md:h-32 md:w-32"
               loading="eager"
             />
           </div>
