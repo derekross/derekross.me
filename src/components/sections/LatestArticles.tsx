@@ -6,11 +6,18 @@ import { ArticleCard, ArticleSkeleton } from "@/components/ArticleCard";
 import { GradientText } from "@/components/GradientText";
 import { Reveal } from "@/components/Reveal";
 import { AuroraBackground } from "@/components/AuroraBackground";
-import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+import { usePrebuiltArticleIndex } from "@/hooks/usePrebuiltArticles";
 
 export function LatestArticles() {
-  const { data: articles, isLoading, error } = useDerekArticles();
-  const navigate = useNavigate();
+  const live = useDerekArticles();
+  const prebuilt = usePrebuiltArticleIndex();
+
+  // Prefer live relay data; fall back to the build-time snapshot so the section
+  // renders (and prerenders) with real, linkable articles while relays load.
+  const articles = live.data ?? prebuilt.data ?? undefined;
+  const isLoading = !articles && (live.isLoading || prebuilt.isLoading);
+  const error = articles ? null : live.error;
 
   if (error) {
     return null;
@@ -49,13 +56,11 @@ export function LatestArticles() {
               </div>
             </Reveal>
             <div className="text-center">
-              <Button
-                size="lg"
-                variant="gradient"
-                onClick={() => navigate('/blog')}
-              >
-                Read all articles
-                <ArrowRight className="ml-2 h-5 w-5" />
+              <Button size="lg" variant="gradient" asChild>
+                <Link to="/blog">
+                  Read all articles
+                  <ArrowRight className="ml-2 h-5 w-5" />
+                </Link>
               </Button>
             </div>
           </>

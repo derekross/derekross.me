@@ -5,8 +5,8 @@ import { Calendar, Clock } from "lucide-react";
 import { useAuthor } from "@/hooks/useAuthor";
 import { NoteContent } from "@/components/NoteContent";
 import { MarkdownPreview } from "@/components/MarkdownPreview";
-import { nip19 } from 'nostr-tools';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { articlePath } from '@/lib/articles';
 import type { NostrEvent } from '@nostrify/nostrify';
 
 export function ArticleCard({ event }: { event: NostrEvent }) {
@@ -23,23 +23,8 @@ export function ArticleCard({ event }: { event: NostrEvent }) {
   const wordCount = event.content.split(/\s+/).length;
   const readingTime = Math.max(1, Math.round(wordCount / 200));
 
-  const handleReadArticle = () => {
-    const dTag = event.tags.find(([name]) => name === 'd')?.[1];
-    if (dTag && event.kind === 30023) {
-      const naddr = nip19.naddrEncode({
-        identifier: dTag,
-        pubkey: event.pubkey,
-        kind: event.kind,
-      });
-      navigate(`/article/${naddr}`);
-    } else {
-      const nevent = nip19.neventEncode({
-        id: event.id,
-        author: event.pubkey,
-      });
-      navigate(`/article/${nevent}`);
-    }
-  };
+  const href = articlePath(event);
+  const handleReadArticle = () => navigate(href);
 
   return (
     <Card
@@ -92,7 +77,10 @@ export function ArticleCard({ event }: { event: NostrEvent }) {
             Article
           </Badge>
         </div>
-        <h3 className="font-bold text-lg leading-tight mb-2 group-hover:text-primary transition-colors">{title}</h3>
+        <h3 className="font-bold text-lg leading-tight mb-2 group-hover:text-primary transition-colors">
+          {/* Real anchor so crawlers can discover article URLs; the card onClick handles the rest of the surface. */}
+          <Link to={href} onClick={(e) => e.stopPropagation()}>{title}</Link>
+        </h3>
         {summary && (
           <p className="text-muted-foreground text-sm leading-relaxed mb-3">
             {summary}

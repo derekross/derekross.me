@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { useParams, Navigate, useNavigate } from 'react-router-dom';
+import { Link, useParams, Navigate, useNavigate } from 'react-router-dom';
 import { useSeoMeta } from '@unhead/react';
 import { Navigation } from '@/components/Navigation';
 import { Footer } from '@/components/Footer';
@@ -8,6 +8,8 @@ import { Badge } from '@/components/ui/badge';
 import { Card, CardContent } from '@/components/ui/card';
 import { ArrowLeft, BookOpen, Zap, Radio, BrainCircuit, Orbit, Clock, Calendar, Download } from 'lucide-react';
 import { getGuideById, getGuidesByCategory } from '@/data/guides';
+import { useJsonLd } from '@/hooks/useJsonLd';
+import { absoluteUrl, DEREK_PERSON_LD, SITE_URL } from '@/lib/seo';
 import ReactMarkdown from 'react-markdown';
 import {
   Carousel,
@@ -68,10 +70,52 @@ export default function GuidePage() {
     };
   }, [carouselApi]);
 
+  // Decks use their first slide as the social/search preview image.
+  const ogImage = guide?.slides?.images[0]
+    ? absoluteUrl(guide.slides.images[0])
+    : `${SITE_URL}/og/guides.jpg`;
+  const guideUrl = guide ? `${SITE_URL}/guides/${guide.id}` : undefined;
+  const guideLastmod = guide?.lastUpdated ? new Date(`1 ${guide.lastUpdated}`) : undefined;
+  const dateModified = guideLastmod && !Number.isNaN(guideLastmod.getTime())
+    ? guideLastmod.toISOString().slice(0, 10)
+    : undefined;
+
   useSeoMeta({
     title: guide ? `${guide.title} - Derek Ross` : 'Guide Not Found - Derek Ross',
     description: guide?.description || 'Nostr guide not found.',
+    ogType: 'article',
+    ogImage,
+    twitterImage: ogImage,
   });
+
+  useJsonLd(
+    guide
+      ? {
+          '@type': guide.type === 'Slidedeck' ? 'PresentationDigitalDocument' : 'TechArticle',
+          '@id': guideUrl,
+          mainEntityOfPage: guideUrl,
+          url: guideUrl,
+          headline: guide.title,
+          name: guide.title,
+          description: guide.description,
+          image: [ogImage],
+          inLanguage: 'en',
+          about: categoryNames[guide.category],
+          author: DEREK_PERSON_LD,
+          publisher: DEREK_PERSON_LD,
+          ...(dateModified ? { dateModified } : {}),
+          ...(guide.slides
+            ? {
+                encoding: {
+                  '@type': 'MediaObject',
+                  contentUrl: absoluteUrl(guide.slides.downloadUrl),
+                  encodingFormat: 'application/pdf',
+                },
+              }
+            : {}),
+        }
+      : null,
+  );
 
   if (!guide) {
     return <Navigate to="/guides" replace />;
@@ -164,7 +208,7 @@ export default function GuidePage() {
                           <CardContent className="p-0">
                             <img
                               src={image}
-                              alt={`Slide ${index + 1}`}
+                              alt={`${guide.title} — slide ${index + 1} of ${guide.slides!.images.length}`}
                               className="w-full h-auto object-contain"
                               loading={index === 0 ? 'eager' : 'lazy'}
                               decoding="async"
@@ -198,7 +242,7 @@ export default function GuidePage() {
                   >
                     <img
                       src={image}
-                      alt={`Thumbnail ${index + 1}`}
+                      alt={`${guide.title} — slide ${index + 1} thumbnail`}
                       className="w-full h-full object-cover"
                       loading="lazy"
                       decoding="async"
@@ -276,12 +320,8 @@ export default function GuidePage() {
                             <p className="text-muted-foreground text-sm leading-relaxed mb-4">
                               {relatedGuide.description}
                             </p>
-                            <Button
-                              variant="outline"
-                              size="sm"
-                              onClick={() => navigate(`/guides/${relatedGuide.id}`)}
-                            >
-                              Read Guide
+                            <Button variant="outline" size="sm" asChild>
+                              <Link to={`/guides/${relatedGuide.id}`}>Read Guide</Link>
                             </Button>
                           </div>
                         </div>
@@ -310,11 +350,8 @@ export default function GuidePage() {
               >
                 Follow Derek on Nostr
               </Button>
-              <Button
-                variant="outline"
-            onClick={() => navigate('/guides')}
-              >
-                Browse All Guides
+              <Button variant="outline" asChild>
+                <Link to="/guides">Browse All Guides</Link>
               </Button>
             </div>
           </section>

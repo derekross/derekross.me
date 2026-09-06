@@ -1,6 +1,7 @@
 import { useParams, Navigate, useNavigate } from 'react-router-dom';
 import { useNostr } from '@nostrify/react';
 import { useQuery } from '@tanstack/react-query';
+import { useSeoMeta } from '@unhead/react';
 import { nip19 } from 'nostr-tools';
 
 import { Badge } from '@/components/ui/badge';
@@ -12,6 +13,10 @@ import { NoteContent } from '@/components/NoteContent';
 import { MarkdownContent } from '@/components/MarkdownContent';
 import { Navigation } from '@/components/Navigation';
 import { Footer } from '@/components/Footer';
+import { usePrebuiltArticle } from '@/hooks/usePrebuiltArticles';
+import { useJsonLd } from '@/hooks/useJsonLd';
+import { articlePath, articlePublishedAt } from '@/lib/articles';
+import { absoluteUrl, DEFAULT_OG_IMAGE, DEREK_PERSON_LD } from '@/lib/seo';
 import type { NostrEvent } from '@nostrify/nostrify';
 
 function ArticlePageContent({ event }: { event: NostrEvent }) {
@@ -28,6 +33,35 @@ function ArticlePageContent({ event }: { event: NostrEvent }) {
   // Estimate reading time (average 200 words per minute)
   const wordCount = event.content.split(/\s+/).length;
   const readingTime = Math.max(1, Math.round(wordCount / 200));
+
+  const canonicalUrl = absoluteUrl(articlePath(event));
+  const publishedIso = new Date(articlePublishedAt(event) * 1000).toISOString();
+  const modifiedIso = new Date(event.created_at * 1000).toISOString();
+  const description = summary || event.content.replace(/[#*_`>[\]()!]/g, ' ').replace(/\s+/g, ' ').trim().slice(0, 160);
+
+  useSeoMeta({
+    title: `${title} - Derek Ross`,
+    description,
+    ogType: 'article',
+    ogImage: heroImage || DEFAULT_OG_IMAGE,
+    twitterImage: heroImage || DEFAULT_OG_IMAGE,
+    articlePublishedTime: publishedIso,
+    articleModifiedTime: modifiedIso,
+    articleAuthor: ['Derek Ross'],
+  });
+
+  useJsonLd({
+    '@type': 'Article',
+    mainEntityOfPage: canonicalUrl,
+    headline: title,
+    description,
+    image: heroImage ? [heroImage] : [DEFAULT_OG_IMAGE],
+    datePublished: publishedIso,
+    dateModified: modifiedIso,
+    author: DEREK_PERSON_LD,
+    publisher: DEREK_PERSON_LD,
+    wordCount,
+  });
 
   const formatDate = (date: Date) => {
     return date.toLocaleDateString('en-US', {
@@ -191,7 +225,11 @@ export default function ArticlePage() {
   const { nostr } = useNostr();
   const navigate = useNavigate();
 
-  const { data: event, isLoading, error } = useQuery({
+  // Static snapshot emitted at build time (instant render + prerendered content);
+  // the live relay query below still runs and wins once it resolves.
+  const prebuilt = usePrebuiltArticle(nip19Param);
+
+  const { data: liveEvent, isLoading: liveLoading, error: liveError } = useQuery({
     queryKey: ['article', nip19Param],
     queryFn: async (c) => {
       if (!nip19Param) throw new Error('No article identifier provided');
@@ -245,6 +283,10 @@ export default function ArticlePage() {
     staleTime: 10 * 60 * 1000, // 10 minutes
     gcTime: 60 * 60 * 1000, // 1 hour
   });
+
+  const event = liveEvent ?? prebuilt.data ?? null;
+  const isLoading = (liveLoading || prebuilt.isLoading) && !event;
+  const error = event ? null : liveError;
 
   if (!nip19Param) {
     return <Navigate to="/404" replace />;

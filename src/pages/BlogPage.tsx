@@ -5,6 +5,7 @@ import { Footer } from "@/components/Footer";
 import { Card, CardContent } from "@/components/ui/card";
 import { BookOpen, Loader2 } from "lucide-react";
 import { useDerekArticlesInfinite } from "@/hooks/useDerekArticlesInfinite";
+import { usePrebuiltArticleIndex } from "@/hooks/usePrebuiltArticles";
 import { ArticleCard, ArticleSkeleton } from "@/components/ArticleCard";
 import { deduplicateEvents } from '@/lib/dedup';
 import { GradientText } from "@/components/GradientText";
@@ -28,6 +29,7 @@ const BlogPage = () => {
     hasNextPage,
     isFetchingNextPage,
   } = useDerekArticlesInfinite();
+  const prebuilt = usePrebuiltArticleIndex();
 
   const loadMoreRef = useRef<HTMLDivElement>(null);
 
@@ -58,7 +60,11 @@ const BlogPage = () => {
 
   // Flatten all pages, deduplicate across pages (updated articles may appear in multiple pages),
   // and re-sort by published_at
-  const allArticles = data?.pages.flatMap((page) => page.articles) ?? [];
+  // Until the relay pages arrive, show the build-time snapshot so the list is
+  // usable immediately and prerenders with real links.
+  const allArticles = data ? data.pages.flatMap((page) => page.articles) : (prebuilt.data ?? []);
+  const showSkeleton = isLoading && allArticles.length === 0;
+  const showError = !!error && allArticles.length === 0;
   const articles = deduplicateEvents(allArticles).sort((a, b) => {
     const aPublished = a.tags.find(([name]) => name === 'published_at')?.[1];
     const bPublished = b.tags.find(([name]) => name === 'published_at')?.[1];
@@ -86,13 +92,13 @@ const BlogPage = () => {
               </p>
             </Reveal>
 
-            {isLoading ? (
+            {showSkeleton ? (
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 {Array.from({ length: 6 }).map((_, index) => (
                   <ArticleSkeleton key={index} />
                 ))}
               </div>
-            ) : error ? (
+            ) : showError ? (
               <Card className={glassCard}>
                 <CardContent className="py-12 px-8 text-center">
                   <BookOpen className="h-12 w-12 text-muted-foreground mx-auto mb-4" />

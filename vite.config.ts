@@ -6,64 +6,63 @@ import react from "@vitejs/plugin-react-swc";
 import tailwindcss from "@tailwindcss/vite";
 import { defineConfig } from "vitest/config";
 
-// https://vitejs.dev/config/
-export default defineConfig(() => ({
-  base: '/',
-  server: {
-    host: "::",
-    port: 8080,
-  },
-  plugins: [
-    react(),
-    tailwindcss(),
-    process.env.PRERENDER ? prerender({
-      routes: [
-        // Main pages
-        "/",
-        "/about",
-        "/whynostr",
-        "/guides",
-        "/services",
-        "/events",
-        "/media",
-        "/contact",
-        "/background",
+import { fetchDerekArticles } from "./tools/seo/articles";
+import { STATIC_ROUTES, articleRoutes, guideRoutes, seoPlugin } from "./tools/seo/plugin";
 
-        // Guide pages
-        "/guides/ai-smb-shakespeare",
-        "/guides/what-are-zaps",
-        "/guides/how-do-i-use-nostr",
-        "/guides/what-are-relays",
-        "/guides/what-is-a-nostr-address",
-        "/guides/what-is-zapvertising",
-        "/guides/what-are-zapathons",
-        "/guides/what-is-the-outbox-model",
-        "/guides/nostr-101",
-        "/guides/ditto-make-internet-weird-again",
-        "/guides/bitchat-wlc-workshop",
-      ],
-      // Sub-pages are lazy-loaded, so wait until the page has actually rendered
-      // (every page renders a <footer>) before snapshotting the HTML.
-      renderer: "@prerenderer/renderer-puppeteer",
-      rendererOptions: {
-        // Wait for the lazy-loaded route chunk to mount + render before snapshot.
-        renderAfterTime: 2000,
-        maxConcurrentRoutes: 4,
-        launchOptions: { args: ["--no-sandbox", "--disable-setuid-sandbox"] },
+// https://vitejs.dev/config/
+export default defineConfig(async () => {
+  // Only reach out to relays for the prerendered production build. Dev, test and
+  // plain builds get an empty article set (pages fall back to live relay data).
+  let articles: Awaited<ReturnType<typeof fetchDerekArticles>> = [];
+  if (process.env.PRERENDER) {
+    try {
+      articles = await fetchDerekArticles();
+      console.log(`[seo] fetched ${articles.length} articles for prerender + sitemap`);
+    } catch (err) {
+      console.warn('[seo] failed to fetch articles; article pages will not be prerendered', err);
+    }
+    if (articles.length === 0 && process.env.SEO_STRICT) {
+      throw new Error('[seo] no articles fetched and SEO_STRICT is set');
+    }
+  }
+
+  return {
+    base: '/',
+    server: {
+      host: "::",
+      port: 8080,
+    },
+    plugins: [
+      react(),
+      tailwindcss(),
+      process.env.PRERENDER ? prerender({
+        // Every static page, every guide/deck (derived from src/data/guides.ts so new
+        // entries are picked up automatically) and every long-form article.
+        routes: [...STATIC_ROUTES, ...guideRoutes(), ...articleRoutes(articles)],
+        // Sub-pages are lazy-loaded, so wait until the page has actually rendered
+        // (every page renders a <footer>) before snapshotting the HTML.
+        renderer: "@prerenderer/renderer-puppeteer",
+        rendererOptions: {
+          // Wait for the lazy-loaded route chunk to mount + render before snapshot.
+          renderAfterTime: 2000,
+          maxConcurrentRoutes: 4,
+          launchOptions: { args: ["--no-sandbox", "--disable-setuid-sandbox"] },
+        },
+      }) : null,
+      seoPlugin(articles),
+    ],
+    test: {
+      globals: true,
+      environment: 'jsdom',
+      setupFiles: './src/test/setup.ts',
+      onConsoleLog(log) {
+        return !log.includes("React Router Future Flag Warning");
       },
-    }) : null,
-  ],
-  test: {
-    globals: true,
-    environment: 'jsdom',
-    setupFiles: './src/test/setup.ts',
-    onConsoleLog(log) {
-      return !log.includes("React Router Future Flag Warning");
     },
-  },
-  resolve: {
-    alias: {
-      "@": path.resolve(__dirname, "./src"),
+    resolve: {
+      alias: {
+        "@": path.resolve(__dirname, "./src"),
+      },
     },
-  },
-}));
+  };
+});
