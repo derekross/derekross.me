@@ -1,6 +1,7 @@
 import { lazy } from "react";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Navigate, Route, Routes, useParams } from "react-router-dom";
 import { ScrollToTop } from "./components/ScrollToTop";
+import { CanonicalLink } from "./components/CanonicalLink";
 
 // Eagerly load the homepage since it's the most common entry point
 import Index from "./pages/Index";
@@ -21,10 +22,17 @@ const PrivacyPage = lazy(() => import("./pages/PrivacyPage"));
 const TermsPage = lazy(() => import("./pages/TermsPage"));
 const NotFound = lazy(() => import("./pages/NotFound"));
 
+/** Old /guide/:id URLs redirect to the canonical /guides/:id so there is one indexable URL per guide. */
+function LegacyGuideRedirect() {
+  const { guideId } = useParams<{ guideId: string }>();
+  return <Navigate to={`/guides/${guideId ?? ''}`} replace />;
+}
+
 export function AppRouter() {
   return (
     <BrowserRouter>
       <ScrollToTop />
+      <CanonicalLink />
       <Routes>
         <Route path="/" element={<Index />} />
         <Route path="/about" element={<AboutPage />} />
@@ -40,7 +48,7 @@ export function AppRouter() {
         <Route path="/article/:nip19" element={<ArticlePage />} />
 
         {/* Legacy redirect for old guide URLs */}
-        <Route path="/guide/:guideId" element={<GuidePage />} />
+        <Route path="/guide/:guideId" element={<LegacyGuideRedirect />} />
 
         <Route path="/privacy" element={<PrivacyPage />} />
         <Route path="/terms" element={<TermsPage />} />
