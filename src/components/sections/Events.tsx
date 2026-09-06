@@ -234,9 +234,11 @@ export function Events() {
         <Reveal delay={80} className="mb-12">
           <div className="mx-auto max-w-4xl overflow-hidden rounded-2xl border border-border/50 bg-gradient-brand p-[2px] shadow-xl shadow-primary/20">
             <img
-              src="/derek_3.jpg"
-              alt="Derek Ross Speaking at Conference"
-              className="h-64 w-full rounded-2xl object-cover md:h-96"
+              src="/bitcoin2026-4.jpg"
+              srcSet="/bitcoin2026-4-800.webp 800w, /bitcoin2026-4-1600.webp 1600w"
+              sizes="(min-width: 1024px) 896px, 100vw"
+              alt="Derek Ross on the main stage at Bitcoin 2026 Las Vegas for the AI + Bitcoin + Nostr = Freedom Tech Stack panel"
+              className="h-64 w-full rounded-2xl object-cover object-[center_80%] md:h-96"
               loading="lazy"
             />
           </div>

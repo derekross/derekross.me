@@ -169,13 +169,12 @@ export function PhotoGallery() {
                 { src: '/derek_3.jpg', alt: 'Derek at Conference', caption: 'Conference Presentation' },
                 { src: '/derek_5.jpg', alt: 'Derek Ross', caption: 'Nostr Advocacy', position: 'object-top' },
                 { src: '/derek_2.jpg', alt: 'Derek in Media', caption: 'Media Interview' },
-                { src: '/bitcoin2026-1.jpg', alt: 'Derek Ross at The Bitcoin Conference 2026', caption: 'Bitcoin 2026' },
-                { src: '/bitcoin2026-2.jpg', alt: 'Derek Ross at The Bitcoin Conference 2026', caption: 'Bitcoin 2026' },
-                { src: '/bitcoin2026-3.jpg', alt: 'Derek Ross at The Bitcoin Conference 2026', caption: 'Bitcoin 2026' },
-                { src: '/bitcoin2026-4.jpg', alt: 'Derek Ross at The Bitcoin Conference 2026', caption: 'Bitcoin 2026' },
-                { src: '/bitcoin2026-5.jpg', alt: 'Derek Ross at The Bitcoin Conference 2026', caption: 'Bitcoin 2026' },
-                { src: '/bitcoin2026-6.jpg', alt: 'Derek Ross at The Bitcoin Conference 2026', caption: 'Bitcoin 2026' },
-                { src: '/bitcoin2026-7.jpg', alt: 'Derek Ross at The Bitcoin Conference 2026', caption: 'Bitcoin 2026' }
+                { src: '/bitcoin2026-4.jpg', webp: 4, alt: 'Derek Ross on the main stage at Bitcoin 2026 Las Vegas for the AI + Bitcoin + Nostr = Freedom Tech Stack panel', caption: 'Main stage: AI + Bitcoin + Nostr panel, Bitcoin 2026' },
+                { src: '/bitcoin2026-3.jpg', webp: 3, alt: 'Derek Ross smiling on stage at Bitcoin 2026 Las Vegas', caption: 'Open Source stage, Bitcoin 2026', position: 'object-[58%_center]' },
+                { src: '/bitcoin2026-2.jpg', webp: 2, alt: 'Derek Ross with his hand raised on the Open Source stage at Bitcoin 2026 Las Vegas', caption: 'Making a point, Bitcoin 2026', position: 'object-top' },
+                { src: '/bitcoin2026-6.jpg', webp: 6, alt: 'Derek Ross speaking during a panel at Bitcoin 2026 Las Vegas', caption: 'Panel discussion, Bitcoin 2026' },
+                { src: '/bitcoin2026-1.jpg', webp: 1, alt: 'Four-person panel on the Open Source stage at Bitcoin 2026 Las Vegas, Derek Ross at right', caption: 'Open Source stage panel, Bitcoin 2026' },
+                { src: '/bitcoin2026-5.jpg', webp: 5, alt: 'Wide view of the Open Source stage at Bitcoin 2026 Las Vegas with Derek Ross on the panel', caption: 'Open Source stage, Bitcoin 2026' }
               ].map((image, index) => (
                 <Dialog key={index}>
                   <DialogTrigger asChild>
@@ -183,6 +182,8 @@ export function PhotoGallery() {
                       <div className="aspect-square overflow-hidden">
                         <img
                           src={image.src}
+                          srcSet={image.webp ? `/bitcoin2026-${image.webp}-800.webp 800w, /bitcoin2026-${image.webp}-1600.webp 1600w` : undefined}
+                          sizes={image.webp ? '(min-width: 1024px) 25vw, (min-width: 768px) 33vw, (min-width: 640px) 50vw, 100vw' : undefined}
                           alt={image.alt}
                           className={`h-full w-full object-cover transition-transform duration-300 group-hover:scale-105 ${image.position || ''}`}
                           loading="lazy"
