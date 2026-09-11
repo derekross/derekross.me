@@ -9,6 +9,7 @@ import { NostrGuides } from "@/components/sections/NostrGuides";
 import { Services } from "@/components/sections/Services";
 import { Events } from "@/components/sections/Events";
 import { Media } from "@/components/sections/Media";
+import { Support } from "@/components/sections/Support";
 import { Contact } from "@/components/sections/Contact";
 import { Navigation } from "@/components/Navigation";
 import { Footer } from "@/components/Footer";
@@ -54,6 +55,7 @@ const Index = () => {
         <Services />
         <Events />
         <Media />
+        <Support />
         <Contact />
       </main>
       <Footer />
