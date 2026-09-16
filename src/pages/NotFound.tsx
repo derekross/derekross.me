@@ -13,6 +13,9 @@ const NotFound = () => {
   useSeoMeta({
     title: "404 - Page Not Found",
     description: "The page you are looking for could not be found. Return to the home page to continue browsing.",
+    // The server answers unknown SPA routes with a 200, so tell crawlers explicitly
+    // not to index this page (otherwise Search Console reports it as a "Soft 404").
+    robots: "noindex, nofollow",
   });
 
   useEffect(() => {
