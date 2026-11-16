@@ -1,6 +1,6 @@
 // Derek's npub and hex pubkey
-export const DEREK_NPUB = 'npub18ams6ewn5aj2n3wt2qawzglx9mr4nzksxhvrdc4gzrecw7n5tvjqctp424';
-export const DEREK_PUBKEY_HEX = '3f770d65d3a764a9c5cb503ae123e62ec7598ad035d836e2a810f3877a745b24';
+export const DEREK_NPUB = 'npub1derek7jkw86c57jaqnkwmvqvzdzm3yv2378zwrwgqlwm9qvdhg5qama4zl';
+export const DEREK_PUBKEY_HEX = '6e479b7a5671f58a7a5d04ecedb00c1345b8918a8f8e270dc807ddb2818dba28';
 
 // Derek's contact information
 export const DEREK_CONTACTS = {
