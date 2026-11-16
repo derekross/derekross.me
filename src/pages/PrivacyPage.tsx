@@ -135,7 +135,7 @@ const PrivacyPage = () => {
               <p className="text-muted-foreground mb-3">Questions about this Privacy Policy? Reach me at:</p>
               <ul className="space-y-2 text-muted-foreground">
                 <Li>Email: <a href="mailto:derek@derekross.me" className="text-primary hover:underline">derek@derekross.me</a></Li>
-                <Li>Nostr: <a href="https://njump.me/npub18ams6ewn5aj2n3wt2qawzglx9mr4nzksxhvrdc4gzrecw7n5tvjqctp424" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline break-all">npub18ams6ewn5aj2n3wt2qawzglx9mr4nzksxhvrdc4gzrecw7n5tvjqctp424</a></Li>
+                <Li>Nostr: <a href="https://njump.me/npub1derek7jkw86c57jaqnkwmvqvzdzm3yv2378zwrwgqlwm9qvdhg5qama4zl" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline break-all">npub1derek7jkw86c57jaqnkwmvqvzdzm3yv2378zwrwgqlwm9qvdhg5qama4zl</a></Li>
                 <Li>Website: <a href="https://derekross.me" className="text-primary hover:underline">derekross.me</a></Li>
               </ul>
             </Section>

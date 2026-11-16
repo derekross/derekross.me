@@ -393,10 +393,10 @@ Example \`.well-known/nostr.json\` file:
 \`\`\`json
 {
   "names": {
-    "derek": "npub18ams6ewn5aj2n3wt2qawzglx9mr4nzksxhvrdc4gzrecw7n5tvjqctp424"
+    "derek": "npub1derek7jkw86c57jaqnkwmvqvzdzm3yv2378zwrwgqlwm9qvdhg5qama4zl"
   },
   "relays": {
-    "npub18ams6ewn5aj2n3wt2qawzglx9mr4nzksxhvrdc4gzrecw7n5tvjqctp424": [
+    "npub1derek7jkw86c57jaqnkwmvqvzdzm3yv2378zwrwgqlwm9qvdhg5qama4zl": [
       "wss://relay.damus.io",
       "wss://relay.snort.social"
     ]
