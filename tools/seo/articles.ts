@@ -9,10 +9,11 @@ import { deduplicateEvents, filterDeletedEvents } from '../../src/lib/dedup';
 import { sortArticles } from '../../src/lib/articles';
 
 const RELAYS = [
-  'wss://nostr-relay.derekross.me',
   'wss://relay.primal.net',
   'wss://nos.lol',
   'wss://relay.ditto.pub',
+  'wss://canoe.derekross.me',
+  'wss://relay.dreamith.to',
 ];
 
 export async function fetchDerekArticles(): Promise<NostrEvent[]> {

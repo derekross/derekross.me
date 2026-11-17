@@ -12,7 +12,8 @@ export const DEREK_CONTACTS = {
   linkedin: 'https://linkedin.com/in/derekross',
   relays: [
     'wss://relay.primal.net',
-    'wss://nostr-relay.derekross.me',
+    'wss://canoe.derekross.me',
+    'wss://relay.dreamith.to',
     'wss://nos.lol',
     'wss://relay.ditto.pub',
     'wss://nostr.wine',
