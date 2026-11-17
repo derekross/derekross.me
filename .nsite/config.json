@@ -5,7 +5,6 @@
   "source": "https://github.com/derekross/derekross.me",
   "relays": [
     "wss://relay.ditto.pub",
-    "wss://nostr-relay.derekross.me",
     "wss://nos.lol",
     "wss://nostr.wine",
     "wss://nostrelites.org",

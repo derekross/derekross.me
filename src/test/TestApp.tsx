@@ -23,7 +23,7 @@ export function TestApp({ children }: TestAppProps) {
   const defaultConfig: AppConfig = {
     theme: 'light',
     relayMetadata: {
-      relays: [{ url: 'wss://nostr-relay.derekross.me/', read: true, write: true }],
+      relays: [{ url: 'wss://relay.primal.net/', read: true, write: true }],
       updatedAt: 0,
     },
     blossomServerMetadata: {

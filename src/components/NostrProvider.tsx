@@ -77,7 +77,11 @@ const NostrProvider: React.FC<NostrProviderProps> = (props) => {
 
       return [...allRelays];
     },
-    eoseTimeout: 200,
+    // How long to wait for the other relays once the first one has sent EOSE.
+    // At 200 ms a fast relay with none of Derek's events (nostr.wine) often
+    // answered first and cut off the relays that have them, so queries came
+    // back empty.
+    eoseTimeout: 1000,
   }));
 
   // Derive the current signer from the active login. This mirrors the

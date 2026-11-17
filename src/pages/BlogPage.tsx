@@ -7,7 +7,8 @@ import { BookOpen, Loader2 } from "lucide-react";
 import { useDerekArticlesInfinite } from "@/hooks/useDerekArticlesInfinite";
 import { usePrebuiltArticleIndex } from "@/hooks/usePrebuiltArticles";
 import { ArticleCard, ArticleSkeleton } from "@/components/ArticleCard";
-import { deduplicateEvents } from '@/lib/dedup';
+import { deduplicateEvents, filterDeletedEvents } from '@/lib/dedup';
+import { useDerekDeletions } from '@/hooks/useDerekDeletions';
 import { GradientText } from "@/components/GradientText";
 import { Reveal } from "@/components/Reveal";
 import { AuroraBackground } from "@/components/AuroraBackground";
@@ -30,6 +31,7 @@ const BlogPage = () => {
     isFetchingNextPage,
   } = useDerekArticlesInfinite();
   const prebuilt = usePrebuiltArticleIndex();
+  const { data: deletions } = useDerekDeletions();
 
   const loadMoreRef = useRef<HTMLDivElement>(null);
 
@@ -60,12 +62,18 @@ const BlogPage = () => {
 
   // Flatten all pages, deduplicate across pages (updated articles may appear in multiple pages),
   // and re-sort by published_at
-  // Until the relay pages arrive, show the build-time snapshot so the list is
-  // usable immediately and prerenders with real links.
-  const allArticles = data ? data.pages.flatMap((page) => page.articles) : (prebuilt.data ?? []);
-  const showSkeleton = isLoading && allArticles.length === 0;
+  // The relay pages are merged with the build-time snapshot, never swapped for it:
+  // the pool resolves shortly after the first relay's EOSE, so a fast relay that
+  // has none of the articles can make a page come back empty or short, and that
+  // must not hide the snapshot. Live events come first so they win ties.
+  const livePages = data ? data.pages.flatMap((page) => page.articles) : [];
+  const allArticles = filterDeletedEvents(
+    deduplicateEvents([...livePages, ...(prebuilt.data ?? [])]),
+    deletions ?? [],
+  );
+  const showSkeleton = (isLoading || prebuilt.isLoading) && allArticles.length === 0;
   const showError = !!error && allArticles.length === 0;
-  const articles = deduplicateEvents(allArticles).sort((a, b) => {
+  const articles = allArticles.sort((a, b) => {
     const aPublished = a.tags.find(([name]) => name === 'published_at')?.[1];
     const bPublished = b.tags.find(([name]) => name === 'published_at')?.[1];
     const aTime = aPublished ? parseInt(aPublished) : a.created_at;

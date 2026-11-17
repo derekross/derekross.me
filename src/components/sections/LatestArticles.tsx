@@ -8,14 +8,26 @@ import { Reveal } from "@/components/Reveal";
 import { AuroraBackground } from "@/components/AuroraBackground";
 import { Link } from 'react-router-dom';
 import { usePrebuiltArticleIndex } from "@/hooks/usePrebuiltArticles";
+import { useDerekDeletions } from "@/hooks/useDerekDeletions";
+import { deduplicateEvents, filterDeletedEvents } from "@/lib/dedup";
+import { sortArticles } from "@/lib/articles";
 
 export function LatestArticles() {
   const live = useDerekArticles();
   const prebuilt = usePrebuiltArticleIndex();
+  const { data: deletions } = useDerekDeletions();
 
-  // Prefer live relay data; fall back to the build-time snapshot so the section
-  // renders (and prerenders) with real, linkable articles while relays load.
-  const articles = live.data ?? prebuilt.data ?? undefined;
+  // Merge live relay data with the build-time snapshot rather than letting one
+  // replace the other: a relay answer that comes back empty (the pool stops
+  // waiting shortly after the first relay's EOSE) must not hide the snapshot.
+  // Live events come first so they win ties.
+  const merged = sortArticles(
+    filterDeletedEvents(
+      deduplicateEvents([...(live.data ?? []), ...(prebuilt.data ?? [])]),
+      deletions ?? [],
+    ),
+  );
+  const articles = merged.length > 0 ? merged : undefined;
   const isLoading = !articles && (live.isLoading || prebuilt.isLoading);
   const error = articles ? null : live.error;
 
